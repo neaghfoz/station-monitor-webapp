@@ -78,8 +78,8 @@ module.exports = Object.assign(settings, {
     withoutAnimation: false
   },
 
-  defaultTheme: '#1890FF',
-  defaultLayout: 'top', // top-顶部菜单， left-左侧菜单， topOnly-只有顶部菜单
+  defaultTheme: '#304156',
+  defaultLayout: 'left', // top-顶部菜单， left-左侧菜单， topOnly-只有顶部菜单
   // 导航条, 布局皮肤
   navbarLayoutType: 'primary',
   // 侧边栏, 布局皮肤

@@ -149,6 +149,7 @@ export default {
     changeHw(val) {
       console.log(val)
       // 为了避免频繁触发resize函数导致页面卡顿，使用定时器
+      return
       if (!this.timer) {
         if (val < 734) {
           val = 734

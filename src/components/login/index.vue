@@ -1,7 +1,7 @@
 <template>
   <div
     id="login"
-    class="container"
+    class="container" :style="'background-image:url('+ Background +');background-size: cover;'"
   >
     <theme-picker v-show="false"/>
     <div class="login-self-weaper">
@@ -84,7 +84,9 @@ export default {
       showDialog: false,
       selectList:['早班','晚班'],
       selectflag:false,
-      sFlag:null
+      sFlag:null,
+      Background: '/img/tu1.webp'
+      
     }
   },
   computed: {

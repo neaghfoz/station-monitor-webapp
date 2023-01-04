@@ -1,7 +1,7 @@
 module.exports = {
   //山西
   clearVersion: '2023.1.1001',
-  logIndexTitle: '山西站级业务管理系统',
+  logIndexTitle: '联网收费集中监控系统',
   title: '联网收费集中监控系统',
   logo: {type: 'img', /* img*/ src: '/img/logo_sx.png'},
   company: '山西交控',

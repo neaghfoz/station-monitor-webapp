@@ -2,7 +2,7 @@
   <div id="app">
     <router-view @select-x='selectX'/>
     <div id="tibms-foot">
-      <p>版本：1401.2208.1</p>
+      <!-- <p>版本：1401.2208.1</p> -->
       <div :class="{sGener:sxFlag}">{{select}}</div>
     </div>
     <!-- <selectDialog v-if="showDialog"/> -->

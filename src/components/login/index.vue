@@ -6,35 +6,34 @@
     <theme-picker v-show="false"/>
     <div class="login-self-weaper">
       <div class="login-self-left">
-
         <div>
-          <div style="top: 5%;position:absolute" class="login-self-left-header">
+          <div style="top: 5%;" class="login-self-left-header">
             <img
               :src="logoUrl"
               alt=""
               style="height: 40px;vertical-align: middle;"
             >
             <span class="login-title">{{ logIndexTitle }}</span>
-           <span class="login-desc">综合集中管理,&nbsp;让路段数字化运营更高效</span>
+           <!-- <span class="login-desc">综合集中管理,&nbsp;让路段数字化运营更高效</span> -->
           </div>
           <div>
-            <img
-              src="/img/tu1.png"
+            <!-- <img
+              src="/img/tu1.webp"
               alt=""
               :style="{ height: loginImgHeight + 'px' , width: loginImgWidth + 'px'}"
-            >
+            > -->
           </div>
-          <pre class="login-left-company">{{ company }}</pre>
+          <!-- <pre class="login-left-company">{{ company }}</pre> -->
           <br/>
           <pre class="login-left-company" style="bottom: 2%">{{ hgCompany }}</pre>
         </div>
       </div>
       <div class="login-self-border">
-        <img
+        <!-- <img
           src="img/bj.png"
           alt=""
           :style="{width: '100%',height: '100%', position: 'absolute', right: '0px'}"
-        >
+        > -->
         <div class="login-self-main" :style="{ height: loginMainHeight + 'px' , width: loginMainWidth + 'px'}">
           <el-tabs v-model="activeTab">
             <el-tab-pane label="账号登录" name="userLogin">

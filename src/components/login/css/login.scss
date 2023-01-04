@@ -21,9 +21,11 @@
 
   .login-self-left,
   .login-self-border {
-    position: relative;
-    min-height: 500px;
+    // position: relative;
+    min-height: 150px;
+    // width: 100%;
     align-items: center;
+    justify-content: center;
     display: flex;
   }
 
@@ -32,9 +34,6 @@
     border-bottom-left-radius: 0px;
     justify-content: center;
     flex-direction: column;
-    float: left;
-    width: 60%;
-    height: 100%;
     position: relative;
   }
 
@@ -64,17 +63,14 @@
     border-left: none;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    width: 40%;
-    float: left;
     box-sizing: border-box;
     height: 100%;
     background-color: rgb(231,236,242);
     background-size: 100% 100%;
-    position: relative;
   }
 
   .login-self-main {
-    margin-left: 5%;
+    // margin-left: 5%;
     width: 327px;
     height: 380px;
     box-sizing: border-box;
@@ -230,9 +226,8 @@
     .login-self-border {
       border-radius: 5px;
       padding: 40px;
-      margin: 0 auto;
-      float: none !important;
-      width: 100% !important;
+      // margin: 0 auto;
+      // width: 100% !important;
     }
     .login-self-main {
       width: 100% !important;

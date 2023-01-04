@@ -53,7 +53,7 @@ const mutations = {
   SET_APP_URL_MAP: (state, appUrlMap) => {
     window.sessionStorage.setItem('appUrlMap',appUrlMap)
     state.appUrlMap = appUrlMap
-    
+
 
   }
 }
@@ -93,11 +93,25 @@ const actions = {
           const allIframeList = []
           console.log(appId,'appId');
           console.log(allApp,'allApp');
-          
+
           console.log(res.data,'89');
-          
+
+
+          const whiteList = ['传输监视', '车道监控', '节点连通性监视', '数据上传完整性监视', '参数版本监控', '车道监视', '特情登记查询', '监控机构', '监控机构配置', '系统管理', '用户管理', '组织机构', '角色管理']
           let route = res.data
-          let menu = res.data
+
+          let menu = res.data.filter(item => {
+            let children = []
+            if (item.children && item.children.length !== 0) {
+              children = item.children.filter(c => {
+                if (whiteList.includes(c.meta.title)) return c
+              })
+            }
+            item.children = children
+            console.log("ITEMCHILDREN: " + JSON.stringify(children))
+            if (whiteList.includes(item.meta.title)) return item
+          })
+          console.log("MENU: " + JSON.stringify(menu))
           // console.log(men,'menu');
           // console.log(allApp,'allApp');
           if (allApp) {
@@ -108,7 +122,7 @@ const actions = {
           const accessedRoutes = backendMenusToRouters(route, allIframeList)
           accessedRoutes.push({ path: '*', redirect: '/404', hidden: true })
           console.log(accessedRoutes,'accrouters');
-          
+
           commit('SET_ROUTES', accessedRoutes)
           sessionStorage.setItem('allMenuList', JSON.stringify(menu || '[]'))
           sessionStorage.setItem('allIframeList', JSON.stringify(allIframeList || '[]'))

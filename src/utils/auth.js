@@ -32,7 +32,6 @@ export const backendMenusToRouters = (menus, allIframeList) => {
   const routers = []
   menus.forEach((menu) => {
     // console.log(menu,'menu');
-    
     // 将后端数据转换成路由数据
     const route = backendMenuToRoute(menu)
     // 如果后端数据有下级，则递归处理下级
@@ -72,7 +71,7 @@ const backendMenuToRoute = (menu) => {
 
   const route = Object.assign({}, menu)
   console.log(route,'route');
-  
+
   if (menu.topParentId) {
     route.meta.topParentId = menu.topParentId
   }

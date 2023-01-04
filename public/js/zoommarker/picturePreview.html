@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/zoom-marker.css">
+</head>
+<body style="background-color: #2D2D2D;color: #5F5F5F;">
+<div id="picview" class="picview">
+	<img src="" alt="..." name="viewArea" id="viewArea" draggable="false" style="cursor:move;"/>
+</div>
+
+<script src='../jquery-1.11.3.min.js'></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+<script src="js/zoom-marker.js"></script>
+<script>
+	    $(document).ready(function () {
+			var url = window.location.href;
+			var param = url.substring(url.lastIndexOf('=')+1);
+
+	        $('#viewArea').zoomMarker({
+	            src: param,
+	            rate: 0.2/*,
+	            markers:[
+	                {src:"img/marker.png", x:500, y:500},
+	                {src:"img/marker.png", x:0, y:0},
+	                {src:"img/marker.png", x:800, y:600, size:20},
+	                ]*/
+	        });
+
+			//禁止浏览器图片默认的拖拽
+            document.getElementsByTagName('img')[0].onmousedown = function(e){
+                e.preventDefault()
+            };
+	    })
+	</script>
+</body>
+</html>

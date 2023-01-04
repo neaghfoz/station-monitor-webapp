@@ -1,0 +1,17 @@
+.picview {
+    line-height: calc(95vh);
+    text-align: center
+}
+
+.picview img {
+    max-width: calc(65vw);
+    max-height: calc(90vh);
+    vertical-align: middle;
+}
+
+.zoom-marker {
+    cursor: pointer;
+    z-index: 2;
+}
+
+

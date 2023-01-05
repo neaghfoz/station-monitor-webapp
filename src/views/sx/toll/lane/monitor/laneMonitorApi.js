@@ -8,7 +8,7 @@ export const findLaneList = (data) => {
   return request({
     url: '/api/v1/toll/lane/laneMonitor/list',
     method: 'get',
-    data: data
+    params: data
   })
 }
 

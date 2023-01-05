@@ -1,7 +1,18 @@
-<!--r527-->
 <template style="'background-color': '#e7e7e8'">
   <div id="laneMonitor" class="app-container" >
-    <div id = 'devDiv' ></div>
+    <!--<div id = 'devDiv' ></div>-->
+    <!--<div class="search-form">-->
+
+      <!--<el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">-->
+        <!--<el-form-item label="机构" prop="sysOrgIdStr">-->
+          <!--<ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>-->
+        <!--</el-form-item>-->
+
+        <!--<el-button type="primary" @click="searchData">查询</el-button>-->
+        <!--<el-button type="default" @click="handleReset">重置</el-button>-->
+
+      <!--</el-form>-->
+    <!--</div>-->
     <div id="box" class="box">
       <vxe-grid
         ref="laneMonitorXTable"
@@ -197,12 +208,27 @@
         </template>
         <!--          </vxe-table-column>-->
 
-        <!-- 下拉扩展行 -->
+        <!-- wangning--下拉扩展行 -->
         <template v-slot:toolbar_buttons>
-          <el-button @click="expandRow()">{{ expandTitle }}</el-button>
-          <el-button @click="colSettingFn" v-permission="['laneMonitor:colSetting']" >列配置</el-button>
-          <el-button @click="toggleStation()">{{ stationStatus }}</el-button>
-          <span  style="color: red;font-size: 1.3em;margin-block-start: 0.83em;margin-block-end: 0.83em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold; margin-left: 20px;" v-show="stationStatusNo == 1">监控离岗中</span>
+          <el-form ref="searchForm" :model="queryParams" inline :label-width="'50px'">
+
+            <el-button @click="expandRow()">{{ expandTitle }}</el-button>
+            <el-button @click="colSettingFn" v-permission="['laneMonitor:colSetting']" >列配置</el-button>
+            <el-button @click="toggleStation()">{{ stationStatus }}</el-button>
+            <span  style="color: red;font-size: 1.3em;margin-block-start: 0.83em;margin-block-end: 0.83em;margin-inline-start: 0px;margin-inline-end: 0px;font-weight: bold; margin-left: 20px;" v-show="stationStatusNo == 1">监控离岗中</span>
+
+            <el-form-item label="机构" prop="sysOrgIdStr">
+              <!--default-first-value-->
+              <!--<ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" />-->
+              <ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
+            </el-form-item>
+
+            <el-button type="primary" @click="searchData">查询</el-button>
+            <el-button type="default" @click="handleReset">重置</el-button>
+
+          </el-form>
+
+
         </template>
 
         <!-- 特情列表图标 -->
@@ -328,6 +354,7 @@ import tip from './tip'
 import stationStatus from './stationStatus'
 import {findUseList} from "@/views/pro/common/colSetting/colSettingApi"
 import moment from 'moment-timezone'
+import tiSysOrg from "@/views/pro/common/tiElement/tiSysOrg/tiSysOrg";
 
 moment.tz.setDefault("Asia/Shanghai");
 moment.tz.guess()
@@ -503,7 +530,7 @@ var serverParamUseCols = []
 
 export default {
   name: 'laneMonitorView',
-  components: { spMonitorReg, TiDetailCell, tip, stationStatus,addDialog },
+  components: { spMonitorReg, TiDetailCell, tip, stationStatus,addDialog ,tiSysOrg},
   mixins: [mixin],
   data() {
     return {
@@ -661,7 +688,8 @@ export default {
         {title: '限重', field: 'MaximumAllowWeight', width: 115, showOverflow: true},
         {title: '轴数', field: 'VehAxleCnt', width: 113, showOverflow: true},
         /*{title: '操作', width: 150, fixed: 'right', align: 'center', slots: {default: 'operation'}},*/
-      ]
+      ],
+      popTotal:0,
     }
   },
   // 进入页面初始化前执行
@@ -776,7 +804,17 @@ export default {
     }
   },
   methods: {
-
+    searchData() {
+      // Object.assign(this.$data.page, this.$options.data().page);
+      // this.$data.page.currentPage = 1
+      this.getData();
+      window.reConnect ;
+    },
+    handleReset() {
+      this.$refs.searchForm.resetFields();
+      this.queryParams.sysOrgIdStr = this.$refs.sysOrg.getDefaultFirstValue();
+      // this.getData();
+    },
     colSettingFn() {
       this.$router.push({
         path: '/laneMonitor/colSetting',
@@ -879,7 +917,8 @@ export default {
       this.tableData.loading = true
 
       // 加载数据
-      const { data } = await findLaneList({})
+console.log(this.queryParams)
+      const { data } = await findLaneList(this.queryParams)
 
       // 隐藏部分设备图标
       for (const index in data) {
@@ -1089,15 +1128,9 @@ export default {
       // 每次查询初始化checkbox selections
       this.addWeightformItem.VehicleId = this.weightInfo[0].vehiclePlate
       this.selectedWeight = []
-      this.weightTitle = "选择货车重量:" + this.weightInfo[0].title
-      if(!this.weightInfo[0].weightData) {
-        this.tableWeightData = []
-        this.pageWeight.total = 0
-      }
-      else {
-        this.tableWeightData = this.weightInfo[0].weightData
-        this.pageWeight.total = getJsonLength(this.tableWeightData)
-      }
+      this.tableWeightData = this.weightInfo[0].weightData
+      this.weightTitle =  "选择货车重量:" + this.weightInfo[0].title
+      this.pageWeight.total = getJsonLength(this.tableWeightData)
       this.loading = false
       this.soundPlay("修改计重")
     },
@@ -1110,6 +1143,14 @@ export default {
     devOperWindow(index) {
       // 判断车道连接状态
       const connetInfo = connetIPMap[index]
+
+//需要删除开始 20220623
+       const DevDialogVue = this.openDevDialog(connetInfo)
+          if (DevDialogVue) {
+            window.DevDialogVue = DevDialogVue
+          }
+        return;
+//需要删除结束 20220623
       if (window.webStatusMap[index]) {
         if (window.webStatusMap[index].status) {
           const DevDialogVue = this.openDevDialog(connetInfo)
@@ -1250,10 +1291,7 @@ export default {
          // window.dealLaneData(index, JSON.parse(event.data))
          //let dataStr='{"SMData":{"CmdCode":"LU_ShowLog","CmdSerialNo":"110249","Data_VerNo":"1","LaneNo":"1","LogText":"15:46:12.087 请输入车型","OnlyWatchLog":"0"},"SMName":"IF_LaneGuiRsp","SMType":"1"}'
            let dataStr=event.data
-          //console.log(dataStr)
          dataStr=dataStr.replace("请进行注册，尊重创作","")
-         console.log('xia*************')
-         // console.log(dataStr)
           window.dealLaneData(index, JSON.parse(dataStr))
         }
 
@@ -1728,8 +1766,10 @@ export default {
       }
 
     },
-    // xia-modify***************************
+
     robotCtrlDeal(index, data) {
+      //console.log('robotCtrlDeal')
+      //console.log(data)
       var monitorInfo = data.SMData
       if (monitorInfo.CtrlType == 6) {
         // 关闭前置事件请求
@@ -1763,10 +1803,8 @@ export default {
           return
         }
 
-
         var monitorDialog
         if (monitorInfo.popDlgText.search("选择货车重量") !== -1)
-        
         {
           console.log(monitorInfo)
           monitorInfo.ACMReq = JSON.parse(monitorInfo.ACMReq)
@@ -1789,8 +1827,8 @@ export default {
               vehiclePlate:monitorInfo.vehiclePlate})
           }
           if(!this.showWeightDlg) {
-           this.getWeightData()
-           this.showWeightDlg = true
+            this.getWeightData()
+            this.showWeightDlg = true
           }
           // this.getWeightData()
           // monitorDialog = this.openWeightDialog(monitorInfo, this.close)
@@ -1798,10 +1836,13 @@ export default {
         }
         else
         {
-        // xia-modify***************************
           console.log(monitorInfo)
           if(monitorInfo.ACMReq) {
             monitorInfo.ACMReq = JSON.parse(monitorInfo.ACMReq)
+            if(monitorInfo.ACMReq.EnEntryInfo)
+            {
+              monitorInfo.ACMReq.EnEntryInfo = JSON.parse(monitorInfo.ACMReq.EnEntryInfo)
+            }
           }
           if(monitorInfo.ACMReq && monitorInfo.ACMReq.ReqType)
           {
@@ -1809,7 +1850,6 @@ export default {
             if(monitorInfo.ACMReq.ReqType>=1 && monitorInfo.ACMReq.ReqType<=11)
             {
               console.log(monitorInfo)
-              console.log('xia######')
               monitorDialog = this.openErrorDialog(monitorInfo, this.close)
             }
 
@@ -1817,7 +1857,6 @@ export default {
           else{
             monitorDialog = this.openDialog(monitorInfo, this.close)
           }
-
         }
 
 
@@ -2160,6 +2199,9 @@ export default {
             else if (ctrlType == 2) {
               obj.SMData = getRemoteCtrl(ctrlCode)
             }
+            else if (ctrlType == 8) {
+              obj.SMData = getPaperCtrl()
+            }
 
             // 发送控制指令
             connetIPMap[index].websocket.send(JSON.stringify(obj))
@@ -2219,8 +2261,24 @@ export default {
       var title = ''
       var entryExitTypeText = ''
       if (connetIPMap[param.index]) {
+        if(this.popTotal==8){
+          this.$notify.warning('待处理特情太多，请增加工位')
+        }
+        this.popTotal ++
+        // 打开弹框
+        console.log(111,this.popTotal,param.index)
         var index = param.index
         var data = this.tableData.columnsDataList[index]
+        console.log(this.$refs.laneMonitorXTable)
+        this.$refs.laneMonitorXTable.clearRowExpand()
+        setTimeout(()=>{
+          this.$refs.laneMonitorXTable.toggleRowExpand(data,true)
+          this.$refs.laneMonitorXTable.scrollTo(0, 48 * Number(index))
+          this.$refs.laneMonitorXTable.setCurrentRow(data)
+        },300)
+
+
+
         entryExitTypeText = data.entryExitTypeText
 
         title = data.stationText + '-' + data.entryExitTypeText + '-' + data.laneNo
@@ -2243,6 +2301,7 @@ export default {
         },
         methods: {
           confirmEvent(index) {
+            this.popTotal--
             // 返回特殊事件同意信号
             try {
               const websocket = connetIPMap[index].websocket
@@ -2257,6 +2316,7 @@ export default {
             }
           },
           cancel(index) {
+            this.popTotal--
             // 返回特殊事件拒绝信号
             try {
               var websocket = connetIPMap[index].websocket
@@ -2446,6 +2506,11 @@ export default {
 
               }
         }
+            if(param.ACMReq.EnEntryInfo)
+            {
+              //3  入口信息
+              var EnInfor=param.ACMReq.EnEntryInfo
+            }
          // 车牌错误 7 车牌
         if(param.ACMReq.VehiclePlate)
         {
@@ -2456,8 +2521,32 @@ export default {
         {
            var ExVehicleColor = param.ACMReq.VehiclePlateColor
         }
-
-
+        //入口轴数
+        if(param.ACMReq.EnAxisCount)
+        {
+           var EnAxisCount=param.ACMReq.EnAxisCount
+        }
+        //出口轴数
+        if(param.ACMReq.ExAxisCount)
+        {
+           var ExAxisCount=param.ACMReq.ExAxisCount
+        }
+        if(param.ACMReq.EtcVehiclePlate)
+        {
+           var EnVehiclePlate = param.ACMReq.EtcVehiclePlate
+        }
+        if(param.ACMReq.VehiclePlate)
+        {
+           var ExVehiclePlate = param.ACMReq.VehiclePlate
+        }
+        if(param.ACMReq.LastLaneNo)
+        {
+           var EnVehiclePlate = param.ACMReq.LastLaneNo
+        }
+        if(param.ACMReq.LastPasstime)
+        {
+           var ExVehiclePlate = param.ACMReq.LastPasstime
+        }
       // 初始化组件参数
       const options = {
         data: {
@@ -2482,7 +2571,7 @@ export default {
               var tableData = window.tableDataList[index]
 
               var ms = getDealErrStatus(tableData, monitorInfo, '1',innerID,errInfo)
-              console.log('ms')
+              console.log('ms 1')
               console.log(ms)
               websocket.send(JSON.stringify(ms)) // 将消息发送到服务端
             } catch (err) {
@@ -2497,7 +2586,7 @@ export default {
               var monitorInfo = connetIPMap[index].monitorInfo
               var tableData = window.tableDataList[index]
               var ms = getDealErrStatus(tableData, monitorInfo, '0','',errInfo)
-              console.log('ms')
+              console.log('ms 2')
               console.log(ms)
               websocket.send(JSON.stringify(ms)) // 将消息发送到服务端
             } catch (err) {
@@ -2520,7 +2609,10 @@ export default {
         EnVehiclePlate,
         EnVehicleColor,
         ExVehiclePlate,
-        ExVehicleColor
+        ExVehicleColor,
+        EnAxisCount,
+        ExAxisCount,
+        EnInfor
       }
       // 初始化组件返回模板
       let tpl = generateErrDialogTemplate(options)
@@ -2551,8 +2643,10 @@ var getDealStatus = function(tableData, monitorInfo, status) {
 
   var data = new Object()
   data.genTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
-  data.popDlgCode = monitorInfo.popDlgCode
-  data.popDlgName = monitorInfo.popDlgName
+  if(monitorInfo.popDlgCode)
+    data.popDlgCode = monitorInfo.popDlgCode
+  if(monitorInfo.popDlgName)
+    data.popDlgName = monitorInfo.popDlgName
   data.confirm = status
   data.msgType = 107
   data.terminalType = 2 //监控室回控
@@ -2599,7 +2693,55 @@ var getDealErrStatus = function(tableData, monitorInfo, status,innerID,param) {
       {
         acmData.ExVehicleType ='';
       }
-     }
+    }
+  else if(monitorInfo.ACMReq.ReqType==2)
+    {
+      if(status==1)
+      {
+       if(innerID=='0')
+       {
+           acmData.ExVehiclePlate =monitorInfo.ACMReq.EnVehiclePlate;
+           acmData.ExVehiclePlateColor =monitorInfo.ACMReq.EnVehiclePlateColor;
+       }
+       else  if(innerID=='1')
+       {
+           acmData.ExVehiclePlate =monitorInfo.ACMReq.ExVehiclePlate;
+           acmData.ExVehiclePlateColor =monitorInfo.ACMReq.ExVehiclePlateColor;
+       }
+       else
+       {
+         acmData.ExVehiclePlate = param.split("_")[0]
+         acmData.ExVehiclePlateColor = param.split("_")[1]
+       }
+      }
+      else
+      {
+        acmData.ExVehiclePlate ='';
+        acmData.ExVehiclePlateColor ='';
+      }
+    }
+    else if(monitorInfo.ACMReq.ReqType==3)
+    {
+      if(status==1)
+      {
+          acmData.EnEntryInfo = monitorInfo.ACMReq.EnEntryInfo[param];
+      }
+      else
+      {
+        acmData.EnEntryInfo = "{}";
+      }
+    }
+    else if(monitorInfo.ACMReq.ReqType==4)
+    {
+      if(status==1)
+      {
+          acmData.EnTollStationHex = param;
+      }
+      else
+      {
+          acmData.EnTollStationHex ='';
+      }
+    }
   else if(monitorInfo.ACMReq.ReqType==6)
     {
        acmData.VehicleType = param
@@ -2618,10 +2760,43 @@ var getDealErrStatus = function(tableData, monitorInfo, status,innerID,param) {
       }
 
      }
+    else if(monitorInfo.ACMReq.ReqType==8)
+    {
+      if(status==1)
+      {
+       if(innerID=='0')
+       {
+           acmData.ExAxisCount =monitorInfo.ACMReq.EnAxisCount;
+       }
+       else  if(innerID=='1')
+       {
+           acmData.ExAxisCount =monitorInfo.ACMReq.ExAxisCount;
+       }
+       else
+       {
+        acmData.ExAxisCount =param;
+       }
+      }
+      else
+      {
+        acmData.ExAxisCount ='';
+      }
+    }
+    else if(monitorInfo.ACMReq.ReqType==9)
+    {
+      if(status==1)
+      {
+          acmData.TrailerCarClass = param;
+      }
+      else
+      {
+          acmData.TrailerCarClass =null;
+      }
+    }
      else
      {
 
-     }
+    }
 
   data.acmResult = acmData
   obj.SMData = data
@@ -2803,7 +2978,7 @@ function generateErrDialogTemplate(options) {
               <h2>车辆信息</h2>
               <div>
                 <table style="font-size: 18px;">
-                  <tr v-if="['1','6'].includes(reqType)">
+                  <tr v-if="['1','6','8','9'].includes(reqType)">
                     <td align="right" width="130px">车辆全身图：</td><td style="min-width:100px"><img width="300" :src="'data:img/jpg;base64,'+img_base64" alt="图片加载失败" /></td>
                    </tr>
                   <tr v-if="reqType == '1'">
@@ -2823,6 +2998,21 @@ function generateErrDialogTemplate(options) {
                                  <input v-model='selectStatus' type="radio" name="selectStatus" value="2" checked >
                         </td>
                    </tr>
+                   <tr v-if="reqType == '3'">
+                      <td align="right" width="100px">入口信息：</td>
+                      <td align="left">
+                             <select v-model='curVehicleColor' style =" font-size:5px; width:600px "  >
+                                 <Option v-for="(item, index) in EnInfor" :value="index" :key="index">{{ item }}</Option>
+                             </select>
+
+                        </td>
+                   </tr>
+                   <tr v-if="reqType == '4'">
+                      <td align="right" width="100px">收费站HEX码：</td>
+                      <td align="left">
+                          <input style =" width:182px "  type="text"  v-model = 'OtherVehiclePlate' />
+                        </td>
+                   </tr>
                    <tr v-if="reqType == '6'">
                      <td align="right" width="130px">车型：</td>
                      <td>
@@ -2832,14 +3022,23 @@ function generateErrDialogTemplate(options) {
                      </td>
                    </tr>
 
-                   <tr v-if="['2','7'].includes(reqType)">
+                   <tr v-if="['2','5','7'].includes(reqType)">
                      <td align="right" width="130px">出口车牌图：</td><td style="min-width:100px"><img width="300" :src="'data:img/jpg;base64,'+VehiclePlatePic" alt="图片加载失败" /></td>
+                   </tr>
+
+                   <tr v-if="reqType == '5'">
+                      <td align="right" width="130px">ETC卡内车牌：</td>
+                      <td align="left" width="130px"> <input  width="130px" type="text" readonly="readonly" v-model = 'EnVehiclePlate'/> </td>
+                   </tr>
+                   <tr v-if="reqType == '5'">
+                      <td align="right" width="130px">出口车牌：</td>
+                     <td align="left" width="130px">  <input  type="text" readonly="readonly" v-model = 'ExVehiclePlate'/>  </td>
                    </tr>
 
                    <tr v-if="reqType == '7'">
                       <td align="right" width="130px">车牌：</td>
                       <td style="min-width:200px">
-                        <input type="text" v-model = 'ExVehiclePlate' @blur="blur"/>
+                        <input type="text" v-model = 'ExVehiclePlate' />
                         <span v-show="isFormat" style="color:red" >输入错误</span>
                     </td>
                    </tr>
@@ -2852,6 +3051,40 @@ function generateErrDialogTemplate(options) {
                     </td>
                    </tr>
 
+                   <tr v-if="reqType == '8'">
+                      <td align="right" width="130px">入口轴数：</td>
+                      <td align="left" width="230px"> <input  width="130px" type="text" readonly="readonly" v-model = 'EnAxisCount'/>  <input v-model='selectStatus' type="radio" name="selectStatus"  value="0" checked ></td>
+                   </tr>
+                   <tr v-if="reqType == '8'">
+                      <td align="right" width="130px">出口轴数：</td>
+                     <td align="left" width="230px">  <input  type="text" readonly="readonly" v-model = 'ExAxisCount'/>   <input v-model='selectStatus' type="radio" name="selectStatus" value="1"  checked > </td>
+                   </tr>
+                   <tr v-if="reqType == '8'">
+                      <td align="right" width="130px">输入轴数：</td>
+                      <td align="left">
+                             <select style =" width:208px "  v-model='OtherVehicleType'>
+                                 <Option v-for="item in AxisCount" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                             </select>
+                                 <input v-model='selectStatus' type="radio" name="selectStatus" value="2" checked >
+                        </td>
+                   </tr>
+                  <tr v-if="reqType == '9'">
+                      <td align="right" width="100px">车种：</td>
+                      <td align="left">
+                             <select v-model='OtherVehicleType' style =" width:230px "  >
+                                  <Option v-for="item in TractorVehTypes" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                             </select>
+
+                        </td>
+                   </tr>
+                   <tr v-if="reqType == '10'">
+                      <td align="right" width="130px">最后交易车道：</td>
+                      <td align="left" width="130px"> <input  width="130px" type="text" readonly="readonly" v-model = 'EnVehiclePlate'/> </td>
+                   </tr>
+                   <tr v-if="reqType == '10'">
+                      <td align="right" width="130px">最后交易时间：</td>
+                     <td align="left" width="130px">  <input  type="text" readonly="readonly" v-model = 'ExVehiclePlate'/>  </td>
+                   </tr>
                 </table>
               </div>
              <div style="padding-left: 0px;">
@@ -2882,7 +3115,7 @@ function generateErrDialogTemplate(options) {
                   <tr>
                      <td align="right" width="130px">输入车牌：</td>
                      <td align="left" >
-                       <input style =" width:182px "  type="text" readonly="readonly" v-model = 'ExVehiclePlate' @blur="blur"/>
+                       <input style =" width:182px "  type="text"  v-model = 'OtherVehiclePlate' @blur="blur(1)"/>
                         <span v-show="isFormat" style="color:red" >输入错误</span>
                      </td>
                      <td align="right" width="130px">车牌颜色：</td>
@@ -2894,24 +3127,28 @@ function generateErrDialogTemplate(options) {
                      <td align="right" width="30px"> <input v-model='selectStatus' type="radio" name="selectStatus"  value="2" checked >
                      </td>
                   </tr>
-                  <tr>
-                    <td align="right" width="130px"> </td>
-                     <td align="left" >
-                        <span v-show="isFormat" style="color:red" >输入错误</span>
-                     </td>
-                  </tr>
+
                 </table>
               </div>
               <div style="padding-top: 20px;">
-                   <div v-if="reqType == '1'" slot="footer" class="dialog-footer" style = "text-align: center;">
+                   <div  v-if="['1','8'].includes(reqType)"  slot="footer" class="dialog-footer" style = "text-align: center;">
                            <el-button type="primary" @click="confirmEvent('${options.data.index}',selectStatus,OtherVehicleType)">同意</el-button>
                            <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
                    </div>
                    <div v-if="reqType == '2'" slot="footer" class="dialog-footer" style = "text-align: center;">
-                           <el-button type="primary" @click="confirmEvent('${options.data.index}',selectStatus,OtherVehicleType)">同意</el-button>
+                           <el-button type="primary" @click="confirmEvent('${options.data.index}',selectStatus,OtherVehiclePlate +'_'+ curVehicleColor)">同意</el-button>
                            <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
                    </div>
-                   <div v-if="reqType == '6'" slot="footer" class="dialog-footer" style = "text-align: center;">
+
+                    <div v-if="reqType == '3'"  slot="footer" class="dialog-footer" style = "text-align: center;">
+                          <el-button type="primary" @click="confirmEvent('${options.data.index}','',curVehicleColor)">同意</el-button>
+                          <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
+                   </div>
+                   <div v-if="reqType == '4'" slot="footer" class="dialog-footer" style = "text-align: center;">
+                           <el-button type="primary" @click="confirmEvent('${options.data.index}','',OtherVehiclePlate )">同意</el-button>
+                           <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
+                   </div>
+                   <div   v-if="['6','9'].includes(reqType)" slot="footer" class="dialog-footer" style = "text-align: center;">
                           <el-button type="primary" @click="confirmEvent('${options.data.index}','',OtherVehicleType)">同意</el-button>
                           <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
                    </div>
@@ -2919,11 +3156,61 @@ function generateErrDialogTemplate(options) {
                           <el-button type="primary" @click="!isFormat&&confirmEvent('${options.data.index}','',ExVehiclePlate +'_'+ curVehicleColor)">同意</el-button>
                           <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
                    </div>
+                   <div   v-if="['5','10'].includes(reqType)" slot="footer" class="dialog-footer" style = "text-align: center;">
+                          <el-button type="primary" @click="confirmEvent('${options.data.index}','','')">同意</el-button>
+                          <el-button @click="cancel('${options.data.index}','')" >取消</el-button>
+                   </div>
               </div>
             </div>
         </el-dialog>
         `,
     data: {
+      //牵引拖挂车车种
+       TractorVehTypes:[
+                       {
+                        value: '1',
+                        label: '1-普通车'
+                       },
+                       {
+                        value: '2',
+                        label: '2-J1集装箱车辆'
+                       },
+                       {
+                        value: '3',
+                        label: '3-大件运输车辆'
+                       },
+                       {
+                        value: '4',
+                        label: '4-货车列车或半挂汽车列车'
+                       }
+       ],
+      //  轴数
+      AxisCount:[
+                {
+                  value: '1',
+                  label: '1'
+                },
+                {
+                  value: '2',
+                  label: '2'
+                },
+                {
+                  value: '3',
+                  label: '3'
+                },
+                {
+                  value: '4',
+                  label: '4'
+                },
+                {
+                  value: '5',
+                  label: '5'
+                },
+                {
+                  value: '6',
+                  label: '6'
+                },
+      ],
       //  车型
       ExVehicleTypes:[
                      {
@@ -2998,6 +3285,8 @@ function generateErrDialogTemplate(options) {
       selectStatus: '1',
       //其他车型
       OtherVehicleType:'1',
+        //其他车牌
+      OtherVehiclePlate:'',
       // 车牌颜色
       ExPlateColorTypes:[
                      {
@@ -3072,7 +3361,13 @@ function generateErrDialogTemplate(options) {
       //入口车牌
       EnVehiclePlate: String,
       //入口车牌颜色
-      EnVehicleColor: String
+      EnVehicleColor: String,
+      //入口轴数
+      EnAxisCount: String,
+      //出口轴数
+      ExAxisCount: String,
+      //入口信息
+      EnInfor:Array
     },
     computed: {
 
@@ -3084,11 +3379,19 @@ function generateErrDialogTemplate(options) {
 
     },
     methods: {
-      blur(){
-       var wholePlate = this.ExVehiclePlate + '_' + this.ExVehicleColor
+      blur(num){
+         var wholePlate =''
+        if(num=1)
+        {
+          wholePlate = this.OtherVehiclePlate + '_' + this.curVehicleColor
+        }
+        else
+        {
+         wholePlate = this.ExVehiclePlate + '_' + this.ExVehicleColor
+        }
         console.log(wholePlate)
        var xreg = /^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z挂学警港澳领试超外0-9.]{3,9}_(0|1|2|3|4|5|6|7|9|11|12)$|^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼][A-Z0-9][A-Z0-9]{4}应急_(0|1|2|3|4|5|6|7|9|11|12)$|^闯关车$|^闯关$|^(闯关车|闯关)_(0|1|2|3|4|5|6|7|9|11|12)$/;
-      console.log(xreg.test(wholePlate))
+       console.log(xreg.test(wholePlate))
        if(wholePlate.match(xreg))
         {
          this.isFormat=false
@@ -3164,6 +3467,9 @@ function generateDevOperDialog(options) {
                   <el-button v-if="!param.imgAutoBarryDown" style="width:100px" type="info">降下栏杆</el-button>
                   <el-button v-if="param.imgAutoBarryDown" style="width:100px" type="info">抬起栏杆</el-button>
                   <el-button v-if="param.imgAutoBarryDown" style="width:100px" type="warning" @click="devOper(index, 2, 2)">降下栏杆</el-button>
+                </div>
+                 <div style="text-align:center;padding-top:10px">
+                  <el-button v-if="!param.imgAutoBarryDown" style="width:100px" type="warning" @click="devOper(index, 8, 8)">发起纸卷</el-button>
                 </div>
             </div>
         </el-dialog>
@@ -3457,6 +3763,17 @@ var getRemoteCtrl = function(ctrlCode) {
   return obj
 }
 
+// 发起纸卷请求
+var getPaperCtrl = function() {
+  var obj = new Object()
+  obj.genTime = moment(new Date()).format('YYYY-MM-DD HH:mm:ss')
+  obj.terminalType = 2
+  obj.msgType = 107
+  var objAcmResult = new Object()
+  objAcmResult.ResultType=11
+  obj.acmResult=objAcmResult
+  return obj
+}
 
 </script>
 <style>

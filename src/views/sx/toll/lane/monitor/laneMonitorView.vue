@@ -355,6 +355,7 @@ import stationStatus from './stationStatus'
 import {findUseList} from "@/views/pro/common/colSetting/colSettingApi"
 import moment from 'moment-timezone'
 import tiSysOrg from "@/views/pro/common/tiElement/tiSysOrg/tiSysOrg";
+import {deepClone} from '@ecip/ecip-web/src/utils'
 
 moment.tz.setDefault("Asia/Shanghai");
 moment.tz.guess()
@@ -994,7 +995,14 @@ console.log(this.queryParams)
                 }
       */
       //        this.tableData.columnsDataList = data1;
-
+      for(var i = 0; i < 98; i ++) {
+        data.push(deepClone(data[0]))
+      }
+      for(var i = 0; i < data.length; i++)
+      {
+        data[i].wsID = (i+1);
+        data[i].laneNo = (i+1);
+      }
       this.tableData.columnsDataList = data
       this.tableData.SpecialEvents = new Array(this.tableData.columnsDataList.lenght)
       window.tableDataList = this.tableData.columnsDataList
@@ -1057,7 +1065,9 @@ console.log(this.queryParams)
        // debugger
         var hh=this.tableData.columnsDataList[index].serverIp
         console.log(hh)
-        this.connetWs(index, this.tableData.columnsDataList[index].serverIp, 9696)
+        console.log(this.tableData.columnsDataList[index])
+        //this.connetWs(index, this.tableData.columnsDataList[index].serverIp, 9696)
+        this.connectWs(index, '1.14.191.144', 8000, this.tableData.columnsDataList[index].wsID)
       }
     },
     // 展开控制
@@ -1217,6 +1227,86 @@ console.log(this.queryParams)
       monitorData[0].VehClass = window.vehClassMap[monitorData[0].VehClass]
       this.updateLaneRow(index, 'list', monitorData)
     },
+    async connectWs(index, IP, port, laneId) {
+
+      // if (connetIPMap[index]) {
+      //   return
+      // }
+      // 判断当前浏览器是否支持WebSocket, 主要此处要更换为自己的地址
+      var websocket = new WebSocket('ws://' + IP + ':' + port + '/webSocket/' + laneId)
+      websocket.IP = IP
+      websocket.index = index
+
+      // 设置车道连接状态
+      connetIPMap[index] = { websocket: websocket, index: index, status: true, IP: IP }
+
+      // 连接发生错误的回调方法
+      websocket.onerror = function(event) {
+        // 设置车道连接状态
+        const index = event.currentTarget.index
+        if(!index) {
+          return
+        }
+        connetIPMap[index].status = false
+        if (window.webStatusMap[index]) {
+          window.webStatusMap[index].status = false
+        }
+        const imgParaRh = document.getElementById('imgParaRh' + index)
+        if (imgParaRh) {
+          imgParaRh.src = 'lane/monitor/webClose.bmp'
+        }
+
+        console.log('连接发生错误！')
+      }
+
+      // 连接成功建立的回调方法
+      websocket.onopen = function(event) {
+        const index = event.currentTarget.index
+        connetIPMap[index].status = true
+        if (window.webStatusMap[index]) {
+          window.webStatusMap[index].status = true
+        }
+        console.log('成功建立连接！')
+      }
+
+      // 连接发生错误的回调方法
+      websocket.onclose = function(event) {
+        // 设置车道连接状态
+        const IP = event.currentTarget.IP
+        const index = event.currentTarget.index
+        if(!connetIPMap[index]) {
+          return
+        }
+        connetIPMap[index].status = false
+        if (window.webStatusMap[index]) {
+          window.webStatusMap[index].status = false
+        }
+        const imgParaRh = document.getElementById('imgParaRh' + index)
+        if (imgParaRh) {
+          imgParaRh.src = 'lane/monitor/webClose.bmp'
+        }
+        console.log('连接发生关闭！')
+        setTimeout(function() {
+          window.reConnect(index)
+        }, 2000)
+      }
+      // 接收到消息的回调方法
+      websocket.onmessage = function(event) {
+        //debugger
+        const index = event.currentTarget.index
+
+        if('stationServer' === index) {
+          window.dealStationData(index, JSON.parse(event.data))
+        } else {
+        // window.dealLaneData(index, JSON.parse(event.data))
+        //let dataStr='{"SMData":{"CmdCode":"LU_ShowLog","CmdSerialNo":"110249","Data_VerNo":"1","LaneNo":"1","LogText":"15:46:12.087 请输入车型","OnlyWatchLog":"0"},"SMName":"IF_LaneGuiRsp","SMType":"1"}'
+          let dataStr=event.data
+        dataStr=dataStr.replace("请进行注册，尊重创作","")
+          window.dealLaneData(index, JSON.parse(dataStr))
+        }
+
+      }
+      },
     async connetWs(index, IP, port) {
 
       if (connetIPMap[index]) {

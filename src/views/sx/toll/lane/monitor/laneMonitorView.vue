@@ -808,6 +808,8 @@ export default {
     searchData() {
       // Object.assign(this.$data.page, this.$options.data().page);
       // this.$data.page.currentPage = 1
+      connetIPMap = {}
+      laneMap = {}
       this.getData();
       window.reConnect ;
     },
@@ -995,14 +997,14 @@ console.log(this.queryParams)
                 }
       */
       //        this.tableData.columnsDataList = data1;
-      for(var i = 0; i < 98; i ++) {
-        data.push(deepClone(data[0]))
-      }
-      for(var i = 0; i < data.length; i++)
-      {
-        data[i].wsID = (i+1);
-        data[i].laneNo = (i+1);
-      }
+      // for(var i = 0; i < 98; i ++) {
+      //   data.push(deepClone(data[0]))
+      // }
+      // for(var i = 0; i < data.length; i++)
+      // {
+      //   data[i].wsID = (i+1);
+      //   data[i].laneNo = (i+1);
+      // }
       this.tableData.columnsDataList = data
       this.tableData.SpecialEvents = new Array(this.tableData.columnsDataList.lenght)
       window.tableDataList = this.tableData.columnsDataList
@@ -1066,8 +1068,8 @@ console.log(this.queryParams)
         var hh=this.tableData.columnsDataList[index].serverIp
         console.log(hh)
         console.log(this.tableData.columnsDataList[index])
-        //this.connetWs(index, this.tableData.columnsDataList[index].serverIp, 9696)
-        this.connectWs(index, '1.14.191.144', 8000, this.tableData.columnsDataList[index].wsID)
+        this.connetWs(index, this.tableData.columnsDataList[index].serverIp, 9696)
+        // this.connectWs(index, '1.14.191.144', 8000, this.tableData.columnsDataList[index].wsID)
       }
     },
     // 展开控制
@@ -1155,11 +1157,11 @@ console.log(this.queryParams)
       const connetInfo = connetIPMap[index]
 
 //需要删除开始 20220623
-       const DevDialogVue = this.openDevDialog(connetInfo)
-          if (DevDialogVue) {
-            window.DevDialogVue = DevDialogVue
-          }
-        return;
+//        const DevDialogVue = this.openDevDialog(connetInfo)
+//           if (DevDialogVue) {
+//             window.DevDialogVue = DevDialogVue
+//           }
+//         return;
 //需要删除结束 20220623
       if (window.webStatusMap[index]) {
         if (window.webStatusMap[index].status) {
@@ -1256,7 +1258,7 @@ console.log(this.queryParams)
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
 
-        console.log('连接发生错误！')
+        console.log('连接发生错误！11111')
       }
 
       // 连接成功建立的回调方法
@@ -1285,10 +1287,10 @@ console.log(this.queryParams)
         if (imgParaRh) {
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
-        console.log('连接发生关闭！')
-        setTimeout(function() {
-          window.reConnect(index)
-        }, 2000)
+        console.log('连接发生关闭！11111')
+        // setTimeout(function() {
+        //   window.reConnect(index)
+        // }, 2000)
       }
       // 接收到消息的回调方法
       websocket.onmessage = function(event) {
@@ -1336,7 +1338,7 @@ console.log(this.queryParams)
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
 
-        console.log('连接发生错误！')
+        console.log('连接发生错误！22222')
       }
 
       // 连接成功建立的回调方法
@@ -1365,10 +1367,10 @@ console.log(this.queryParams)
         if (imgParaRh) {
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
-        console.log('连接发生关闭！')
-        setTimeout(function() {
-          window.reConnect(index)
-        }, 2000)
+        console.log('连接发生关闭！22222')
+        // setTimeout(function() {
+        //   window.reConnect(index)
+        // }, 2000)
       }
       // 接收到消息的回调方法
       websocket.onmessage = function(event) {
@@ -1849,7 +1851,7 @@ console.log(this.queryParams)
     // 回控信息
     robotDeal(index, data) {
       if (data.SMName == 'IF_LaneGuiRsp') { // 日志信息
-        this.laneGuiRspDeal(index, data)
+        // this.laneGuiRspDeal(index, data)
       }else if (data.SMName == 'IF_RobotCtrl') {
         //alert(index)
         this.robotCtrlDeal(index, data)
@@ -2211,8 +2213,8 @@ console.log(this.queryParams)
         if (data.SMData.CmdCode == 'LU_ShowLog' && data.SMData.LogText) {
           logList.push(data.SMData)
 
-          if (logList.length > 50) {
-            logList = logList.slice(logList.length - 50, logList.length)
+          if (logList.length > 25) {
+            logList = logList.slice(logList.length - 25, logList.length)
           }
           //jq(logId).append('<div style="height: 30px"  class="logDiv" >' + data.SMData.LogText + '</div>')
         }

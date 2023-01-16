@@ -203,7 +203,7 @@
         <!--          <vxe-table-column align="center" width="165px" field="operation"  title="操作" :visible="false" >-->
         <!-- 操作行 -->
         <template v-slot:operationSlot="{row, rowIndex}" >
-          <el-button v-if="row.serverIp != null" type="warning" @click="devOperWindow(rowIndex)" style="min-width:70px;padding-left: 2px;  padding-right: 2px;padding-top: 9px;padding-bottom: 9px;margin-bottom:2px;" >设备控制</el-button>
+          <el-button v-if="row.serverIp != null" type="warning" @click="devOperWindow(rowIndex)" style="min-width:70px;padding-left: 2px;  padding-right: 2px;padding-top: 9px;padding-bottom: 9px;margin-bottom:2px;" >设备控制1</el-button>
           <el-button type="warning" @click="spMonitorRegShow(rowIndex, row)" v-permission="['spMonitorRecord:registerMark']" style="min-width:70px;margin-left: 3px;padding-left: 2px;  padding-right: 2px;padding-top: 9px;padding-bottom: 9px;" >特情登记<span style="color:blue">({{row.spEventCount || 0}})</span></el-button>
         </template>
         <!--          </vxe-table-column>-->
@@ -220,7 +220,7 @@
             <el-form-item label="机构" prop="sysOrgIdStr">
               <!--default-first-value-->
               <!--<ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" />-->
-              <ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
+              <ti-s :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
             </el-form-item>
 
             <el-button type="primary" @click="searchData">查询</el-button>
@@ -603,6 +603,8 @@ export default {
         ,'无卡,在线计费成功':'/sound/无卡,在线计费成功.mp3'
       },
       colSettings: [],
+
+      logData: [],
       tableData: {
         loading: false,
         SpecialEvents: [],
@@ -718,7 +720,7 @@ export default {
           }
         } catch (err) {
           // 处理错误
-          console.log(err)
+          console.error(err)
         }
       })
     }
@@ -808,6 +810,8 @@ export default {
     searchData() {
       // Object.assign(this.$data.page, this.$options.data().page);
       // this.$data.page.currentPage = 1
+      connetIPMap = {}
+      laneMap = {}
       this.getData();
       window.reConnect ;
     },
@@ -995,16 +999,21 @@ console.log(this.queryParams)
                 }
       */
       //        this.tableData.columnsDataList = data1;
-      for(var i = 0; i < 98; i ++) {
-        data.push(deepClone(data[0]))
-      }
+      // for(var i = 0; i < 98; i ++) {
+      //   data.push(deepClone(data[0]))
+      // }
       for(var i = 0; i < data.length; i++)
       {
         data[i].wsID = (i+1);
-        data[i].laneNo = (i+1);
+        // data[i].laneNo = (i+1);
+      }
+      this.logData = []
+      for(var i = 0; i < data.length; i++)
+      {
+        this.logData.push([]);
       }
       this.tableData.columnsDataList = data
-      this.tableData.SpecialEvents = new Array(this.tableData.columnsDataList.lenght)
+      this.tableData.SpecialEvents = new Array(this.tableData.columnsDataList.length)
       window.tableDataList = this.tableData.columnsDataList
 
       // 取消加载遮挡
@@ -1075,9 +1084,12 @@ console.log(this.queryParams)
       if (this.expandTitle == '展开全部') {
         // 展开所有行
         this.$refs.laneMonitorXTable.setAllRowExpand(true)
+        for (const item in this.tableData.columnsDataList) {
+          item.expanded = true
+        }
         this.expandTitle = '收起全部'
         var that = this
-        for (const index in that.tableData.columnsDataList) {
+        for (const index in this.tableData.columnsDataList) {
           this.$nextTick(() => {
             var logId = '#log_'+ index
             if (jq(logId + ' div:last-child').length > 0) {
@@ -1092,6 +1104,9 @@ console.log(this.queryParams)
         // 收起所有行
         this.$refs.laneMonitorXTable.setAllRowExpand(false)
         this.expandTitle = '展开全部'
+        for (const item in this.tableData.columnsDataList) {
+          item.expanded = false
+        }
       }
     },
     // 离岗控制
@@ -1110,6 +1125,7 @@ console.log(this.queryParams)
      * 打开特情监控登记
      */
     async spMonitorRegShow(index, row) {
+      console.log("spMonitorRegShow")
       if (this.$refs.spMonitorRegDialog.spShow) {
         this.$refs.spMonitorRegDialog.spShow = false
       } else {
@@ -1153,13 +1169,13 @@ console.log(this.queryParams)
     devOperWindow(index) {
       // 判断车道连接状态
       const connetInfo = connetIPMap[index]
-
+      console.log("devOperWindow")
 //需要删除开始 20220623
-       const DevDialogVue = this.openDevDialog(connetInfo)
-          if (DevDialogVue) {
-            window.DevDialogVue = DevDialogVue
-          }
-        return;
+      //  const DevDialogVue = this.openDevDialog(connetInfo)
+      //     if (DevDialogVue) {
+      //       window.DevDialogVue = DevDialogVue
+      //     }
+      //   return;
 //需要删除结束 20220623
       if (window.webStatusMap[index]) {
         if (window.webStatusMap[index].status) {
@@ -2171,6 +2187,7 @@ console.log(this.queryParams)
 
     },
     globalInfoDeal(index, data) {
+      console.log("globalInfoDeal")
       const obj = data.SMData
       var operatorName = '[0]未登录'
       var shiftDate = ''
@@ -2204,29 +2221,31 @@ console.log(this.queryParams)
 
     },
     laneGuiRspDeal(index, data) {
-
-
-      var logList = this.tableData.columnsDataList[index].logList
+      // var logList = this.tableData.columnsDataList[index].logList
+      var logList = this.logData[index]
       if (logList) {
         if (data.SMData.CmdCode == 'LU_ShowLog' && data.SMData.LogText) {
           logList.push(data.SMData)
 
-          if (logList.length > 50) {
-            logList = logList.slice(logList.length - 50, logList.length)
+          if (logList.length > 10) {
+            logList = logList.slice(logList.length - 10, logList.length)
           }
           //jq(logId).append('<div style="height: 30px"  class="logDiv" >' + data.SMData.LogText + '</div>')
         }
-        this.updateLaneRow(index, 'logList', logList)
-
-        this.$nextTick(() => {
-          var logId = '#log_'+ index
-          if (jq(logId + ' div:last-child').length > 0) {
-            //动画效果
-            jq(logId).animate({
-              scrollTop: jq(logId + ' div:last-child')[0].offsetTop * 1
-            }, 0);
-          }
-        })
+        //20230116 修复logList刷新问题
+        if(this.tableData.columnsDataList[index].expanded) {
+          this.updateLaneRow(index, 'logList', logList)
+          //如果展开，就播放动画
+          this.$nextTick(() => {
+            var logId = '#log_'+ index
+            if (jq(logId + ' div:last-child').length > 0) {
+              //动画效果
+              jq(logId).animate({
+                scrollTop: jq(logId + ' div:last-child')[0].offsetTop * 1
+              }, 0);
+            }
+          })
+        }
       }
 
 
@@ -2235,6 +2254,8 @@ console.log(this.queryParams)
     toggleRowExpand(row, expanded, d) {
       if(row.expanded) {
         this.$refs.laneMonitorXTable.toggleRowExpand(row)
+        //20230116
+        this.tableData.columnsDataList[row.rowIndex].expanded = true
         this.$nextTick(() => {
           var logId = '#log_'+ row.rowIndex
           if (jq(logId + ' div:last-child').length > 0) {
@@ -2359,10 +2380,15 @@ console.log(this.queryParams)
         console.log(111,this.popTotal,param.index)
         var index = param.index
         var data = this.tableData.columnsDataList[index]
+        var that = this
         console.log(this.$refs.laneMonitorXTable)
         this.$refs.laneMonitorXTable.clearRowExpand()
+        for (const item in this.tableData.columnsDataList) {
+          item.expanded = false
+        }
         setTimeout(()=>{
           this.$refs.laneMonitorXTable.toggleRowExpand(data,true)
+          that.tableData.columnsDataList[index].expanded = true
           this.$refs.laneMonitorXTable.scrollTo(0, 48 * Number(index))
           this.$refs.laneMonitorXTable.setCurrentRow(data)
         },300)
@@ -2391,6 +2417,7 @@ console.log(this.queryParams)
         },
         methods: {
           confirmEvent(index) {
+            console.log('-----confirmEvent')
             this.popTotal--
             // 返回特殊事件同意信号
             try {

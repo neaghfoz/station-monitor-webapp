@@ -1002,15 +1002,20 @@ console.log(this.queryParams)
       // for(var i = 0; i < 98; i ++) {
       //   data.push(deepClone(data[0]))
       // }
-      // for(var i = 0; i < data.length; i++)
-      // {
-      //   data[i].wsID = (i+1);
-      //   // data[i].laneNo = (i+1);
-      // }
+      for(var i = 0; i < data.length; i++)
+      {
+        data[i].wsID = (i+1);
+        // data[i].laneNo = (i+1);
+      }
       this.logData = []
       for(var i = 0; i < data.length; i++)
       {
-        this.logData.push([]);
+        var item = {
+          'index': i,
+          'expanded': false,
+          'logList': []
+        }
+        this.logData.push(item);
       }
       // for(var i = 0; i < data.length; i++)
       // {
@@ -1089,8 +1094,12 @@ console.log(this.queryParams)
       if (this.expandTitle == '展开全部') {
         // 展开所有行
         this.$refs.laneMonitorXTable.setAllRowExpand(true)
-        for (const item in this.tableData.columnsDataList) {
-          item.expanded = true
+        // for (const item in this.logData) {
+        //   item.expanded = true
+        // }
+        for (let i = 0; i < this.logData.length; i++) {
+          const item = this.logData[i]
+          this.updateLaneRow(i, 'logList', item.logList)
         }
         this.expandTitle = '收起全部'
         var that = this
@@ -1109,7 +1118,11 @@ console.log(this.queryParams)
         // 收起所有行
         this.$refs.laneMonitorXTable.setAllRowExpand(false)
         this.expandTitle = '展开全部'
-        for (const item in this.tableData.columnsDataList) {
+        // for (const item in this.logData) {
+        //   item.expanded = false
+        // }
+        for (let i = 0; i < this.logData.length; i++) {
+          const item = this.logData[i]
           item.expanded = false
         }
       }
@@ -2227,18 +2240,18 @@ console.log(this.queryParams)
     },
     laneGuiRspDeal(index, data) {
       // var logList = this.tableData.columnsDataList[index].logList
-      var logList = this.logData[index]
+      var logList = this.logData[index].logList
       if (logList) {
         if (data.SMData.CmdCode == 'LU_ShowLog' && data.SMData.LogText) {
           logList.push(data.SMData)
-          
+
           if (logList.length > 25) {
             logList = logList.slice(logList.length - 25, logList.length)
           }
           //jq(logId).append('<div style="height: 30px"  class="logDiv" >' + data.SMData.LogText + '</div>')
         }
         //20230116 修复logList刷新问题
-        if(this.tableData.columnsDataList[index].expanded) {
+        if(this.logData[index].expanded) {
           this.updateLaneRow(index, 'logList', logList)
           //如果展开，就播放动画
           this.$nextTick(() => {
@@ -2260,7 +2273,7 @@ console.log(this.queryParams)
       if(row.expanded) {
         this.$refs.laneMonitorXTable.toggleRowExpand(row)
         //20230116
-        this.tableData.columnsDataList[row.rowIndex].expanded = true
+        this.logData[row.rowIndex].expanded = true
         this.$nextTick(() => {
           var logId = '#log_'+ row.rowIndex
           if (jq(logId + ' div:last-child').length > 0) {
@@ -2388,12 +2401,17 @@ console.log(this.queryParams)
         var that = this
         console.log(this.$refs.laneMonitorXTable)
         this.$refs.laneMonitorXTable.clearRowExpand()
-        for (const item in this.tableData.columnsDataList) {
-          item.expanded = false
+        // for (var item in this.logData) {
+        //   console.log(item)
+        //   item.expanded = false
+        // }
+        for(var i = 0; i < this.logData.length; i++)
+        {
+          this.logData[i].expanded = false
         }
         setTimeout(()=>{
           this.$refs.laneMonitorXTable.toggleRowExpand(data,true)
-          that.tableData.columnsDataList[index].expanded = true
+          that.logData[index].expanded = true
           this.$refs.laneMonitorXTable.scrollTo(0, 48 * Number(index))
           this.$refs.laneMonitorXTable.setCurrentRow(data)
         },300)

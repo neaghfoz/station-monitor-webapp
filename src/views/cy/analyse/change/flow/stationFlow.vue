@@ -66,7 +66,7 @@
       </el-form>
     </div>
     <div class="container-fluid el-col-md-24">
-      <p style="color: #606266;font-size: 14px;vertical-align: middle;    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;" v-show="queryParams.showDefault=='table'">单位（辆）</p>
+      <p style="color: #606266;font-size: 14px;vertical-align: middle;    font-family: 'Open Sans';" v-show="queryParams.showDefault=='table'">单位（辆）</p>
       <vxe-grid v-show="queryParams.showDefault=='table'"
                 ref="appTable"
                 highlight-hover-row

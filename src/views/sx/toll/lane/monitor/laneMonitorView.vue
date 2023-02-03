@@ -220,7 +220,7 @@
             <el-form-item label="机构" prop="sysOrgIdStr">
               <!--default-first-value-->
               <!--<ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" />-->
-              <ti-s :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
+              <ti-sys-org :multiple="true" ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
             </el-form-item>
 
             <el-button type="primary" @click="searchData">查询</el-button>

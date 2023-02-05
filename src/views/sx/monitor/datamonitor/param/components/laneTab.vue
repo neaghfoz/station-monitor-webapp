@@ -1,11 +1,12 @@
 <template>
-  <div class="app-container">
-
-
+  <div>
     <vxe-grid
       ref="vxe"
       highlight-hover-row
       border
+      stripe
+      round
+      size="small"
       resizable
       sync-resize
       :auto-resize="true"

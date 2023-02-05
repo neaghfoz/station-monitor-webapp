@@ -90,4 +90,8 @@ export default {
     color: #2d2f33;
   }
 
+  #app {
+    font-family: "Noto Sans";
+  }
+
 </style>

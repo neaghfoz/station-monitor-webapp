@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
+      <el-card>
+      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
         <el-form-item label="机构" prop="sysOrgIdStr_lane" v-show="queryParams.model=='lane'">
           <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_lane" />
         </el-form-item>
@@ -63,10 +64,11 @@
         <el-button type="default" @click="handleReset">重置</el-button>
 
       </el-form>
+      </el-card>
     </div>
 
 
-    <el-tabs v-model="activeTab" @tab-click="tabClick">
+    <el-tabs v-model="activeTab" @tab-click="tabClick" type="border-card" style="margin-top: 10px">
       <el-tab-pane label="车道相关数据" name="lane">
         <lane-tab
           ref="laneTab"

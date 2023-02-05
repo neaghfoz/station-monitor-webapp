@@ -1,11 +1,14 @@
 <template>
   <div class="app-container">
-
+    <el-card>
     <el-row v-show="showConfig.lane=='true'">
       <vxe-grid
         ref="lane"
         highlight-hover-row
         border
+        stripe
+        round
+        size="small"
         resizable
         sync-resize
         auto-resize
@@ -22,18 +25,23 @@
         @checkbox-change="({ selection }) => { laneData.selections = selection }"
       >
         <template v-slot:toolbar_buttons>
-          <span style="font-weight: bold;font-size: 18px">车道——连通性监视 <span :class="laneData.normalData==0?'green':'red'">{{laneData.normalData}}</span>/{{laneData.page.total}}</span>
-          <el-button style="margin-left: 20px" @click="lane_search">刷新</el-button>
+          <span style="font-weight: bold;font-size: 16px">车道——连通性监视 <span :class="laneData.normalData==0?'green':'red'">{{laneData.normalData}}</span>/{{laneData.page.total}}</span>
+          <el-button style="margin-left: 20px" @click="lane_search" size="small">刷新</el-button>
         </template>
 
       </vxe-grid>
     </el-row>
+    </el-card>
 
+    <el-card style="margin-top: 20px">
     <el-row v-show="showConfig.station=='true'">
       <vxe-grid
         ref="station"
         highlight-hover-row
         border
+        stripe
+        round
+        size="small"
         resizable
         sync-resize
         auto-resize
@@ -51,12 +59,13 @@
       >
 
         <template v-slot:toolbar_buttons>
-          <span style="font-weight: bold;font-size: 18px">收费站——连通性监视 <span :class="stationData.normalData==0?'green':'red'">{{stationData.normalData}}</span>/{{stationData.page.total}}</span>
-          <el-button style="margin-left: 20px" @click="station_search">刷新</el-button>
+          <span style="font-weight: bold;font-size: 16px">收费站——连通性监视 <span :class="stationData.normalData==0?'green':'red'">{{stationData.normalData}}</span>/{{stationData.page.total}}</span>
+          <el-button style="margin-left: 20px" @click="station_search" size="small">刷新</el-button>
         </template>
 
       </vxe-grid>
     </el-row>
+    </el-card>
 
     <el-row v-show="showConfig.road=='true'">
       <vxe-grid
@@ -196,9 +205,10 @@
               slots: {
                 default: ({row}, h) => {
                   if (row.status == 'abnormal') {
-                    return [h('span', {style: {color: 'white', background: 'red'}}, row.statusText)]
+                    return [h('el-tag', {style: {color: '#f56c6c', background: '#fef0f0', borderColor: '#fde2e2'}}, row.statusText)]
                   } else {
-                    return row.statusText;
+                    //return row.statusText;
+                    return [h('el-tag', {style: {color: '#67c23a', background: '#f0f9eb', borderColor: '#e1f3d8'}}, row.statusText)]
                   }
                 }
               }
@@ -281,9 +291,10 @@
               slots: {
                 default: ({row}, h) => {
                   if (row.status == 'abnormal') {
-                    return [h('span', {style: {color: 'white', background: 'red'}}, row.statusText)]
+                    return [h('el-tag', {style: {color: '#f56c6c', background: '#fef0f0', borderColor: '#fde2e2'}}, row.statusText)]
                   } else {
-                    return row.statusText;
+                    //return row.statusText;
+                    return [h('el-tag', {style: {color: '#67c23a', background: '#f0f9eb', borderColor: '#e1f3d8'}}, row.statusText)]
                   }
                 }
               }

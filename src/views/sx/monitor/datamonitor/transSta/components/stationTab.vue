@@ -4,6 +4,9 @@
       ref="stationVex"
       highlight-hover-row
       border
+      stripe
+      round
+      size="small"
       resizable
       sync-resize
       auto-resize

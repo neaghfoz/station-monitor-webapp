@@ -1,47 +1,49 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-        <el-form-item label="机构" prop="sysOrgIdStr_lane" v-show="queryParams.model=='lane'">
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_lane" v-show="queryParams.model=='lane'"/>
-        </el-form-item>
-        <el-form-item label="机构" prop="sysOrgIdStr_station" v-show="queryParams.model=='station'">
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_station" v-show="queryParams.model=='station'"/>
-        </el-form-item>
-        <el-form-item label="机构" prop="sysOrgIdStr_road" v-show="queryParams.model=='road'">
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_road" show-level="2" v-show="queryParams.model=='road'"/>
-        </el-form-item>
-        <el-form-item label="机构" prop="sysOrgIdStr_gantry" v-show="queryParams.model=='gantry'">
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_gantry" show-level="2" v-show="queryParams.model=='gantry'"/>
-        </el-form-item>
-        <el-form-item label="门架编码" prop="gantryId" v-show="this.queryParams.model=='gantry'">
-          <el-input v-model="queryParams.gantryId" type="text" placeholder="门架编码" maxlength="19" style="width: 199px"/>
-        </el-form-item>
-        <el-form-item label="出入口类型" prop="inOutTypeStr" v-show="this.queryParams.model=='lane'">
-          <ti-select v-model="queryParams.inOutTypeStr" dict-type="tibms_com_inOutType" :multiple="true"/>
-        </el-form-item>
-        <el-form-item label="车道类型" prop="laneTypeStr" v-show="this.queryParams.model=='lane'">
-          <ti-select v-model="queryParams.laneTypeStr" dict-type="tibms_com_laneType" :multiple="true"/>
-        </el-form-item>
-        <el-form-item label="车道号" prop="laneNo" v-show="this.queryParams.model=='lane'">
-          <el-input v-model="queryParams.laneNo" type="text" placeholder="车道号" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>
-        </el-form-item>
-        <el-form-item label="传输监视启用" prop="monitorUse">
-          <ti-select
-            v-model="queryParams.monitorUse"
-            :data-list="[{value:'1',name:'是'},{value:'0',name:'否'}]"
-            :props="{key:'value',value:'value',label:'name'}"/>
-        </el-form-item>
-        <el-form-item label="车道监控启用" prop="laneMonitorUse" v-show="laneMonitorUseShow">
-          <ti-select
-            v-model="queryParams.laneMonitorUse"
-            :data-list="[{value:'1',name:'是'},{value:'0',name:'否'}]"
-            :props="{key:'value',value:'value',label:'name'}"/>
-        </el-form-item>
-        <el-button type="primary" @click="getData">查询</el-button>
-        <el-button type="default" @click="handleReset">重置</el-button>
+      <el-card>
+        <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+          <el-form-item label="机构" prop="sysOrgIdStr_lane" v-show="queryParams.model=='lane'">
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_lane" v-show="queryParams.model=='lane'"/>
+          </el-form-item>
+          <el-form-item label="机构" prop="sysOrgIdStr_station" v-show="queryParams.model=='station'">
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_station" v-show="queryParams.model=='station'"/>
+          </el-form-item>
+          <el-form-item label="机构" prop="sysOrgIdStr_road" v-show="queryParams.model=='road'">
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_road" show-level="2" v-show="queryParams.model=='road'"/>
+          </el-form-item>
+          <el-form-item label="机构" prop="sysOrgIdStr_gantry" v-show="queryParams.model=='gantry'">
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr_gantry" show-level="2" v-show="queryParams.model=='gantry'"/>
+          </el-form-item>
+          <el-form-item label="门架编码" prop="gantryId" v-show="this.queryParams.model=='gantry'">
+            <el-input v-model="queryParams.gantryId" type="text" placeholder="门架编码" maxlength="19" style="width: 199px"/>
+          </el-form-item>
+          <el-form-item label="出入口类型" prop="inOutTypeStr" v-show="this.queryParams.model=='lane'">
+            <ti-select v-model="queryParams.inOutTypeStr" dict-type="tibms_com_inOutType" :multiple="true"/>
+          </el-form-item>
+          <el-form-item label="车道类型" prop="laneTypeStr" v-show="this.queryParams.model=='lane'">
+            <ti-select v-model="queryParams.laneTypeStr" dict-type="tibms_com_laneType" :multiple="true"/>
+          </el-form-item>
+          <el-form-item label="车道号" prop="laneNo" v-show="this.queryParams.model=='lane'">
+            <el-input v-model="queryParams.laneNo" type="text" placeholder="车道号" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>
+          </el-form-item>
+          <el-form-item label="传输监视启用" prop="monitorUse">
+            <ti-select
+              v-model="queryParams.monitorUse"
+              :data-list="[{value:'1',name:'是'},{value:'0',name:'否'}]"
+              :props="{key:'value',value:'value',label:'name'}"/>
+          </el-form-item>
+          <el-form-item label="车道监控启用" prop="laneMonitorUse" v-show="laneMonitorUseShow">
+            <ti-select
+              v-model="queryParams.laneMonitorUse"
+              :data-list="[{value:'1',name:'是'},{value:'0',name:'否'}]"
+              :props="{key:'value',value:'value',label:'name'}"/>
+          </el-form-item>
+          <el-button type="primary" @click="getData">查询</el-button>
+          <el-button type="default" @click="handleReset">重置</el-button>
 
-      </el-form>
+        </el-form>
+      </el-card>
     </div>
 
 

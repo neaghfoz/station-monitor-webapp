@@ -15,6 +15,9 @@
     <!--</div>-->
     <div id="box" class="box">
       <vxe-grid
+        stripe
+        round
+        size="small"
         ref="laneMonitorXTable"
         keep-source
         highlight-hover-row

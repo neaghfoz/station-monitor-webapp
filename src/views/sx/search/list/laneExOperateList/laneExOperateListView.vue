@@ -1,64 +1,66 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams"  :rules="checkTimeRules"  inline :label-width="'100px'">
-        <div>
-          <el-form-item label="出口机构" prop="sysOrgIdStr">
-            <!--<ti-select-tree-->
-              <!--v-model="queryParams.sysOrgIdStr"-->
-              <!--check-strictly-->
-              <!--url="api/v1/common/sysOrg/orgList"-->
-              <!--:props="{value:'id',label:'fullName',children:'children'}"-->
-              <!--@change="change"-->
-            <!--/>-->
-            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" @change="orgChange" show-level="4" default-first-value/>
-          </el-form-item>
+      <el-card>
+        <el-form ref="searchForm" :model="queryParams"  :rules="checkTimeRules"  inline :label-width="'100px'" size="small">
+          <div>
+            <el-form-item label="出口机构" prop="sysOrgIdStr">
+              <!--<ti-select-tree-->
+                <!--v-model="queryParams.sysOrgIdStr"-->
+                <!--check-strictly-->
+                <!--url="api/v1/common/sysOrg/orgList"-->
+                <!--:props="{value:'id',label:'fullName',children:'children'}"-->
+                <!--@change="change"-->
+              <!--/>-->
+              <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" @change="orgChange" show-level="4" default-first-value/>
+            </el-form-item>
 
-          <el-form-item label="出口车道号" prop="laneNoStr">
-            <ti-sys-lane clearable  v-model="queryParams.laneNoStr"  :cache="true" :station-id="appForm.stationId" :multiple="true" :entryExitType="2"/>
-          </el-form-item>
+            <el-form-item label="出口车道号" prop="laneNoStr">
+              <ti-sys-lane clearable  v-model="queryParams.laneNoStr"  :cache="true" :station-id="appForm.stationId" :multiple="true" :entryExitType="2"/>
+            </el-form-item>
 
-          <el-form-item label="工班日期" >
-            <ti-date-range
-              v-model="queryParams"
-              date-type="daterange"
-              begin-key="beginSquadDateStr"
-              end-key="endSquadDateStr"
-              :clearable="true"
-              start-placeholder="起始日期"
-              end-placeholder="结束日期"
-              date-rule="oneMonth"
-            />
-          </el-form-item>
-          <el-form-item label="工班" prop="shiftIdStr" >
-            <ti-select v-model="queryParams.shiftIdStr" url="api/v1/common/squad/list"
-                       :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" multiple />
-          </el-form-item>
-          <el-form-item label="操作员" prop="operatorStr">
-            <ti-select
-              v-model="queryParams.operatorStr"
-              url="/api/v1/common/sysUser/list"
-              :props="{key:'id',value:'username',label:'fullName'}"
-              :multiple="true"
-              clearable
-            />
-          </el-form-item>
-          <el-form-item label="按键类型" prop="exceptionalTypeStr" >
-            <ti-select v-model="queryParams.exceptionalTypeStr" dict-type="tibms_com_exceptionalType" :multiple="true" clearable/>
-          </el-form-item>
+            <el-form-item label="工班日期" >
+              <ti-date-range
+                v-model="queryParams"
+                date-type="daterange"
+                begin-key="beginSquadDateStr"
+                end-key="endSquadDateStr"
+                :clearable="true"
+                start-placeholder="起始日期"
+                end-placeholder="结束日期"
+                date-rule="oneMonth"
+              />
+            </el-form-item>
+            <el-form-item label="工班" prop="shiftIdStr" >
+              <ti-select v-model="queryParams.shiftIdStr" url="api/v1/common/squad/list"
+                        :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" multiple />
+            </el-form-item>
+            <el-form-item label="操作员" prop="operatorStr">
+              <ti-select
+                v-model="queryParams.operatorStr"
+                url="/api/v1/common/sysUser/list"
+                :props="{key:'id',value:'username',label:'fullName'}"
+                :multiple="true"
+                clearable
+              />
+            </el-form-item>
+            <el-form-item label="按键类型" prop="exceptionalTypeStr" >
+              <ti-select v-model="queryParams.exceptionalTypeStr" dict-type="tibms_com_exceptionalType" :multiple="true" clearable/>
+            </el-form-item>
 
-          <el-form-item label="车牌号码" prop="vehiclePlate">
-            <!--              oninput="value=value.replace(/[^\d]/g, '')"-->
-            <el-input v-model="queryParams.vehiclePlate" type="text" placeholder="车牌号码"
-                      maxlength="10" style="width: 199px"/>
-          </el-form-item>
+            <el-form-item label="车牌号码" prop="vehiclePlate">
+              <!--              oninput="value=value.replace(/[^\d]/g, '')"-->
+              <el-input v-model="queryParams.vehiclePlate" type="text" placeholder="车牌号码"
+                        maxlength="10" style="width: 199px"/>
+            </el-form-item>
 
-          <el-form-item class="searchItem" :label-width="'50px'">
-            <el-button type="primary" @click="submit">查询</el-button>
-            <el-button type="default" @click="handleReset">重置</el-button>
-          </el-form-item>
-        </div>
-      </el-form>
+            <el-form-item class="searchItem" :label-width="'50px'">
+              <el-button type="primary" @click="submit">查询</el-button>
+              <el-button type="default" @click="handleReset">重置</el-button>
+            </el-form-item>
+          </div>
+        </el-form>
+      </el-card>
     </div>
 
     <vxe-grid

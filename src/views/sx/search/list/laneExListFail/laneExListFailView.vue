@@ -1,114 +1,116 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-        <div>
-          <el-form-item label="机构" prop="sysOrgIdStr">
-            <!--<ti-select-tree-->
-            <!--v-model="queryParams.sysOrgIdStr"-->
-            <!--check-strictly-->
-            <!--url="api/v1/common/sysOrg/orgList"-->
-            <!--:props="{value:'id',label:'fullName',children:'children'}"-->
-            <!--@change="change"-->
-            <!--/>-->
-            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" :default-first-value="defaultFirstOrg"/>
-          </el-form-item>
-          <el-form-item label="出口车道号" prop="exTollLaneNo">
-            <el-input v-model="queryParams.exTollLaneNo" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>
-          </el-form-item>
-          <el-form-item label="出口车道类型" prop="exTollLaneTypeStr">
-            <ti-select v-model="queryParams.exTollLaneTypeStr" dict-type="tibms_com_laneType" multiple/>
-          </el-form-item>
-          <el-form-item label="操作员" prop="exOperatorIdStr">
-            <ti-select v-model="queryParams.exOperatorIdStr" url="/api/v1/common/sysUser/list" :props="{key:'id',value:'username',label:'fullName'}" multiple/>
-          </el-form-item>
-          <el-form-item label="时间类型" prop="timeType">
-            <ti-select v-model="queryParams.timeType" dict-type="tibms_search_list_timeType" :clearable="false"/>
-          </el-form-item>
-          <el-form-item prop="beginSquadDateStr" v-show="false"/>
-          <el-form-item prop="endSquadDateStr" v-show="false"/>
-          <el-form-item label="工班日" v-if="queryParams.timeType=='squadDate'">
-            <ti-date-range
-              v-model="queryParams"
-              date-type="daterange"
-              begin-key="beginSquadDateStr"
-              end-key="endSquadDateStr"
-              :clearable="false" date-rule="oneMonth"/>
-          </el-form-item>
-          <el-form-item label="自然日" v-else-if="queryParams.timeType=='naturalDate'">
-            <ti-date-range
-              v-model="queryParams"
-              date-type="datetimerange"
-              format="yyyy-MM-dd HH:mm:ss.SSS"
-              begin-key="beginNaturalDateStr"
-              end-key="endNaturalDateStr"
-              :clearable="false" date-rule="oneMonth"/>
-          </el-form-item>
-          <el-form-item label="工班" prop="exShiftIdStr">
-            <ti-select v-model="queryParams.exShiftIdStr" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" multiple/>
-          </el-form-item>
-          <el-form-item label="车型" prop="exVehicleTypeStr">
-            <ti-select v-model="queryParams.exVehicleTypeStr" dict-type="tibms_com_vehicleType" multiple/>
-          </el-form-item>
-          <el-form-item label="车种" prop="exVehicleClassStr">
-            <ti-select v-model="queryParams.exVehicleClassStr" dict-type="tibms_com_vehicleClass" multiple/>
-          </el-form-item>
-          <el-form-item label="车牌号码" prop="exVehiclePlate">
-            <el-input v-model="queryParams.exVehiclePlate" type="text" maxlength="16" style="width: 199px"/>
-          </el-form-item>
+      <el-card>
+        <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+          <div>
+            <el-form-item label="机构" prop="sysOrgIdStr">
+              <!--<ti-select-tree-->
+              <!--v-model="queryParams.sysOrgIdStr"-->
+              <!--check-strictly-->
+              <!--url="api/v1/common/sysOrg/orgList"-->
+              <!--:props="{value:'id',label:'fullName',children:'children'}"-->
+              <!--@change="change"-->
+              <!--/>-->
+              <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" :default-first-value="defaultFirstOrg"/>
+            </el-form-item>
+            <el-form-item label="出口车道号" prop="exTollLaneNo">
+              <el-input v-model="queryParams.exTollLaneNo" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>
+            </el-form-item>
+            <el-form-item label="出口车道类型" prop="exTollLaneTypeStr">
+              <ti-select v-model="queryParams.exTollLaneTypeStr" dict-type="tibms_com_laneType" multiple/>
+            </el-form-item>
+            <el-form-item label="操作员" prop="exOperatorIdStr">
+              <ti-select v-model="queryParams.exOperatorIdStr" url="/api/v1/common/sysUser/list" :props="{key:'id',value:'username',label:'fullName'}" multiple/>
+            </el-form-item>
+            <el-form-item label="时间类型" prop="timeType">
+              <ti-select v-model="queryParams.timeType" dict-type="tibms_search_list_timeType" :clearable="false"/>
+            </el-form-item>
+            <el-form-item prop="beginSquadDateStr" v-show="false"/>
+            <el-form-item prop="endSquadDateStr" v-show="false"/>
+            <el-form-item label="工班日" v-if="queryParams.timeType=='squadDate'">
+              <ti-date-range
+                v-model="queryParams"
+                date-type="daterange"
+                begin-key="beginSquadDateStr"
+                end-key="endSquadDateStr"
+                :clearable="false" date-rule="oneMonth"/>
+            </el-form-item>
+            <el-form-item label="自然日" v-else-if="queryParams.timeType=='naturalDate'">
+              <ti-date-range
+                v-model="queryParams"
+                date-type="datetimerange"
+                format="yyyy-MM-dd HH:mm:ss.SSS"
+                begin-key="beginNaturalDateStr"
+                end-key="endNaturalDateStr"
+                :clearable="false" date-rule="oneMonth"/>
+            </el-form-item>
+            <el-form-item label="工班" prop="exShiftIdStr">
+              <ti-select v-model="queryParams.exShiftIdStr" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" multiple/>
+            </el-form-item>
+            <el-form-item label="车型" prop="exVehicleTypeStr">
+              <ti-select v-model="queryParams.exVehicleTypeStr" dict-type="tibms_com_vehicleType" multiple/>
+            </el-form-item>
+            <el-form-item label="车种" prop="exVehicleClassStr">
+              <ti-select v-model="queryParams.exVehicleClassStr" dict-type="tibms_com_vehicleClass" multiple/>
+            </el-form-item>
+            <el-form-item label="车牌号码" prop="exVehiclePlate">
+              <el-input v-model="queryParams.exVehiclePlate" type="text" maxlength="16" style="width: 199px"/>
+            </el-form-item>
 
-          <el-form-item label="车辆状态标识" prop="vehicleSignStr">
-            <ti-select v-model="queryParams.vehicleSignStr" dict-type="tibms_com_vehicleSign" multiple/>
-          </el-form-item>
-          <el-button type="primary" @click="submit">查询</el-button>
-          <el-button type="default" @click="handleReset">重置</el-button>
-          <el-button type="primary" @click="showSearch = !showSearch">{{ showSearch ? '隐藏' : '展开' }}</el-button>
-        </div>
+            <el-form-item label="车辆状态标识" prop="vehicleSignStr">
+              <ti-select v-model="queryParams.vehicleSignStr" dict-type="tibms_com_vehicleSign" multiple/>
+            </el-form-item>
+            <el-button type="primary" @click="submit">查询</el-button>
+            <el-button type="default" @click="handleReset">重置</el-button>
+            <el-button type="primary" @click="showSearch = !showSearch">{{ showSearch ? '隐藏' : '展开' }}</el-button>
+          </div>
 
-        <div v-show="showSearch">
-          <el-form-item label="出口流水号" prop="id">
-            <el-input v-model="queryParams.id" type="text" maxlength="37" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="通行标识ID" prop="passId">
-            <el-input v-model="queryParams.passId" type="text" maxlength="40" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="通行介质类型" prop="mediaTypeStr">
-            <ti-select v-model="queryParams.mediaTypeStr" dict-type="tibms_com_mediaType" multiple/>
-          </el-form-item>
-          <el-form-item label="通行介质编码" prop="mediaNo">
-            <el-input v-model="queryParams.mediaNo" maxlength="20" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="etc卡号" prop="cardId">
-            <el-input v-model="queryParams.cardId" maxlength="20" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="入口站名称" prop="enTollStationName">
-            <el-input v-model="queryParams.enTollStationName" type="text" maxlength="16" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="本地特情类型" prop="roadSpecialTypeStr">
-            <ti-select v-model="queryParams.roadSpecialTypeStr" dict-type="tibms_com_specialType_local" multiple/>
-          </el-form-item>
-          <el-form-item label="收费特情类型" prop="specialTypeStr">
-            <ti-select v-model="queryParams.specialTypeStr" dict-type="tibms_com_specialType_lane" multiple/>
-          </el-form-item>
-          <el-form-item label="计费方式" prop="exitFeeTypeStr">
-            <ti-select v-model="queryParams.exitFeeTypeStr" dict-type="tibms_com_exitFeeType" multiple/>
-          </el-form-item>
-          <el-form-item label="流水范围" prop="ownProvinceFlagStr">
-            <ti-select v-model="queryParams.ownProvinceFlagStr" dict-type="tibms_search_list_ownProvinceFlag"/>
-          </el-form-item>
-          <el-form-item label="是否冲减" prop="otherTransvoidFlagStr">
-            <ti-select v-model="queryParams.otherTransvoidFlagStr" dict-type="tibms_search_list_otherTransvoidFlag"/>
-          </el-form-item>
-          <el-form-item label="发票号" prop="invStartID">
-            <el-input v-model="queryParams.beginInvoiceId" maxlength="10" style="width: 89px" oninput="value=value.replace(/[^\d]/g, '')"/>
-            至
-            <el-input v-model="queryParams.endInvoiceId" maxlength="10" style="width: 89px" oninput="value=value.replace(/[^\d]/g, '')"/>
-          </el-form-item>
+          <div v-show="showSearch">
+            <el-form-item label="出口流水号" prop="id">
+              <el-input v-model="queryParams.id" type="text" maxlength="37" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="通行标识ID" prop="passId">
+              <el-input v-model="queryParams.passId" type="text" maxlength="40" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="通行介质类型" prop="mediaTypeStr">
+              <ti-select v-model="queryParams.mediaTypeStr" dict-type="tibms_com_mediaType" multiple/>
+            </el-form-item>
+            <el-form-item label="通行介质编码" prop="mediaNo">
+              <el-input v-model="queryParams.mediaNo" maxlength="20" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="etc卡号" prop="cardId">
+              <el-input v-model="queryParams.cardId" maxlength="20" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="入口站名称" prop="enTollStationName">
+              <el-input v-model="queryParams.enTollStationName" type="text" maxlength="16" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="本地特情类型" prop="roadSpecialTypeStr">
+              <ti-select v-model="queryParams.roadSpecialTypeStr" dict-type="tibms_com_specialType_local" multiple/>
+            </el-form-item>
+            <el-form-item label="收费特情类型" prop="specialTypeStr">
+              <ti-select v-model="queryParams.specialTypeStr" dict-type="tibms_com_specialType_lane" multiple/>
+            </el-form-item>
+            <el-form-item label="计费方式" prop="exitFeeTypeStr">
+              <ti-select v-model="queryParams.exitFeeTypeStr" dict-type="tibms_com_exitFeeType" multiple/>
+            </el-form-item>
+            <el-form-item label="流水范围" prop="ownProvinceFlagStr">
+              <ti-select v-model="queryParams.ownProvinceFlagStr" dict-type="tibms_search_list_ownProvinceFlag"/>
+            </el-form-item>
+            <el-form-item label="是否冲减" prop="otherTransvoidFlagStr">
+              <ti-select v-model="queryParams.otherTransvoidFlagStr" dict-type="tibms_search_list_otherTransvoidFlag"/>
+            </el-form-item>
+            <el-form-item label="发票号" prop="invStartID">
+              <el-input v-model="queryParams.beginInvoiceId" maxlength="10" style="width: 89px" oninput="value=value.replace(/[^\d]/g, '')"/>
+              至
+              <el-input v-model="queryParams.endInvoiceId" maxlength="10" style="width: 89px" oninput="value=value.replace(/[^\d]/g, '')"/>
+            </el-form-item>
 
 
-        </div>
+          </div>
 
-      </el-form>
+        </el-form>
+      </el-card>
     </div>
 
     <vxe-grid

@@ -1,46 +1,48 @@
 <template>
   <div class="app-container">
     <div v-show="showSearch" class="search-form">
-      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-        <!--<el-form-item label="路段" prop="roadNoStr">
-          <ti-select
-            v-model="queryParams.roadNoStr"
-            url="api/v1/monitor/common/road/use"
-            :props="{key:'roadId',value:'roadNo',label:'roadText'}"
-            multiple
-          />
-        </el-form-item>
-        <el-form-item label="收费站" prop="stationNoStr">
-          <ti-select
-            v-model="queryParams.stationNoStr"
-            url="api/v1/monitor/common/station/use"
-            :props="{key:'stationId',value:'stationNo',label:'stationText'}"
-            :watch-attr="queryParams.roadNoStr"
-            :watch-attr-fn="watchAttrFn"
-            multiple
-          />
-        </el-form-item>-->
-        <el-form-item label="机构" prop="sysOrgIdStr">
-          <!--<ti-select-tree
-            v-model="queryParams.sysOrgIdStr"
-            check-strictly
-            url="api/v1/common/sysOrg/orgList"
-            :props="{value:'id',label:'fullName',children:'children'}"
-          />-->
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
-        </el-form-item>
-        <el-form-item prop="beginCollectDate" v-show="false"/>
-        <el-form-item prop="endCollectDate" v-show="false"/>
-        <el-form-item label="通行交易日期">
-          <ti-date-range v-model="queryParams" date-type="daterange" begin-key="beginCollectDate" end-key="endCollectDate"/>
-        </el-form-item>
-        <el-form-item label="传输链路" prop="collectType">
-          <ti-select v-model="queryParams.collectType" dict-type="tibms_mo_collectType" :clearable="false"/>
-        </el-form-item>
-        <el-button type="primary" @click="searchData">查询</el-button>
-        <el-button type="default" @click="handleReset">重置</el-button>
+      <el-card>
+        <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+          <!--<el-form-item label="路段" prop="roadNoStr">
+            <ti-select
+              v-model="queryParams.roadNoStr"
+              url="api/v1/monitor/common/road/use"
+              :props="{key:'roadId',value:'roadNo',label:'roadText'}"
+              multiple
+            />
+          </el-form-item>
+          <el-form-item label="收费站" prop="stationNoStr">
+            <ti-select
+              v-model="queryParams.stationNoStr"
+              url="api/v1/monitor/common/station/use"
+              :props="{key:'stationId',value:'stationNo',label:'stationText'}"
+              :watch-attr="queryParams.roadNoStr"
+              :watch-attr-fn="watchAttrFn"
+              multiple
+            />
+          </el-form-item>-->
+          <el-form-item label="机构" prop="sysOrgIdStr">
+            <!--<ti-select-tree
+              v-model="queryParams.sysOrgIdStr"
+              check-strictly
+              url="api/v1/common/sysOrg/orgList"
+              :props="{value:'id',label:'fullName',children:'children'}"
+            />-->
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
+          </el-form-item>
+          <el-form-item prop="beginCollectDate" v-show="false"/>
+          <el-form-item prop="endCollectDate" v-show="false"/>
+          <el-form-item label="通行交易日期">
+            <ti-date-range v-model="queryParams" date-type="daterange" begin-key="beginCollectDate" end-key="endCollectDate"/>
+          </el-form-item>
+          <el-form-item label="传输链路" prop="collectType">
+            <ti-select v-model="queryParams.collectType" dict-type="tibms_mo_collectType" :clearable="false"/>
+          </el-form-item>
+          <el-button type="primary" @click="searchData">查询</el-button>
+          <el-button type="default" @click="handleReset">重置</el-button>
 
-      </el-form>
+        </el-form>
+      </el-card>
     </div>
 
     <vxe-grid

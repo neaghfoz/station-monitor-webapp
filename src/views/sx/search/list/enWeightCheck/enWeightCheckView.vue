@@ -1,7 +1,8 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams"  :rules="searchFormRules"  inline :label-width="'100px'">
+      <el-card>
+      <el-form ref="searchForm" :model="queryParams"  :rules="searchFormRules"  inline :label-width="'100px'" size="small">
         <div>
           <el-form-item label="机构" prop="sysOrgIdStr">
             <!--<ti-select-tree-->
@@ -53,6 +54,7 @@
 
         </div>
       </el-form>
+    </el-card>
     </div>
 
     <vxe-grid

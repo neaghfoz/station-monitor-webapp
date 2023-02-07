@@ -1,57 +1,62 @@
 <template>
   <div class="app-container">
     <div class="search-form">
-      <el-form ref="searchForm" :model="queryParams"  :rules="checkTimeRules"  inline :label-width="'100px'">
-        <div>
-          <el-form-item label="机构" prop="sysOrgIdStr">
-            <!--<ti-select-tree-->
-              <!--v-model="queryParams.sysOrgIdStr"-->
-              <!--check-strictly-->
-              <!--url="api/v1/common/sysOrg/orgList"-->
-              <!--:props="{value:'id',label:'fullName',children:'children'}"-->
-              <!--@change="change"-->
-            <!--/>-->
-            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
-          </el-form-item>
-          <el-form-item label="车牌号码" prop="vehiclePlate">
-            <!--              oninput="value=value.replace(/[^\d]/g, '')"-->
-            <el-input v-model="queryParams.vehiclePlate" type="text" placeholder="车牌号码"
-                      maxlength="10" style="width: 199px"/>
-          </el-form-item>
-          <el-form-item label="操作时间" prop="checkTimeRange">
-            <ti-date-range v-model="queryParams.checkTimeRange" date-type="datetimerange"
-                           format="yyyy-MM-dd HH:mm:ss" begin-key="beginCheckTimeStr"
-                           end-key="endCheckTimeStr" :clearable="false"/>
-<!--            <ti-date-range date-style="width:490px" ref="dateRang" date-type="datetimerange"-->
-<!--                           format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"-->
-<!--                           date-rule="singleMonth"  v-model="queryParams.transDateRange" begin-key="beginDate"-->
-<!--                           end-key="endDate"/>            -->
-          </el-form-item>
+      <el-card>
+        <el-form ref="searchForm" :model="queryParams"  :rules="checkTimeRules"  inline :label-width="'100px'" size="small">
+          <div>
+            <el-form-item label="机构" prop="sysOrgIdStr">
+              <!--<ti-select-tree-->
+                <!--v-model="queryParams.sysOrgIdStr"-->
+                <!--check-strictly-->
+                <!--url="api/v1/common/sysOrg/orgList"-->
+                <!--:props="{value:'id',label:'fullName',children:'children'}"-->
+                <!--@change="change"-->
+              <!--/>-->
+              <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
+            </el-form-item>
+            <el-form-item label="车牌号码" prop="vehiclePlate">
+              <!--              oninput="value=value.replace(/[^\d]/g, '')"-->
+              <el-input v-model="queryParams.vehiclePlate" type="text" placeholder="车牌号码"
+                        maxlength="10" style="width: 199px"/>
+            </el-form-item>
+            <el-form-item label="操作时间" prop="checkTimeRange">
+              <ti-date-range v-model="queryParams.checkTimeRange" date-type="datetimerange"
+                            format="yyyy-MM-dd HH:mm:ss" begin-key="beginCheckTimeStr"
+                            end-key="endCheckTimeStr" :clearable="false"/>
+  <!--            <ti-date-range date-style="width:490px" ref="dateRang" date-type="datetimerange"-->
+  <!--                           format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"-->
+  <!--                           date-rule="singleMonth"  v-model="queryParams.transDateRange" begin-key="beginDate"-->
+  <!--                           end-key="endDate"/>            -->
+            </el-form-item>
 
-          <el-form-item label="超载率(%)" prop="overRate">
-            <el-input v-model="queryParams.startOverRate" type="text" maxlength="8" oninput="value=value.replace(/[^\d]/g, '')"
-                      style="width: 92px"/>
-            <span>至</span>
-            <el-input v-model="queryParams.endOverRate" type="text" maxlength="8" oninput="value=value.replace(/[^\d]/g, '')"
-                      style="width: 93px"/>
-          </el-form-item>
-          <el-form-item label="客货专类型" prop="vehFlagStr">
-            <ti-select v-model="queryParams.vehFlagStr" dict-type="tibms_com_vehFlag"
-                       :multiple="true"/>
-          </el-form-item>
+            <el-form-item label="超载率(%)" prop="overRate">
+              <el-input v-model="queryParams.startOverRate" type="text" maxlength="8" oninput="value=value.replace(/[^\d]/g, '')"
+                        style="width: 92px"/>
+              <span>至</span>
+              <el-input v-model="queryParams.endOverRate" type="text" maxlength="8" oninput="value=value.replace(/[^\d]/g, '')"
+                        style="width: 93px"/>
+            </el-form-item>
+            <el-form-item label="客货专类型" prop="vehFlagStr">
+              <ti-select v-model="queryParams.vehFlagStr" dict-type="tibms_com_vehFlag"
+                        :multiple="true"/>
+            </el-form-item>
 
-          <el-form-item class="searchItem" :label-width="'50px'">
-            <el-button type="primary" @click="submit">查询</el-button>
-            <el-button type="default" @click="handleReset">重置</el-button>
-          </el-form-item>
-        </div>
-      </el-form>
+            <el-form-item class="searchItem" :label-width="'50px'">
+              <el-button type="primary" @click="submit">查询</el-button>
+              <el-button type="default" @click="handleReset">重置</el-button>
+            </el-form-item>
+          </div>
+        </el-form>
+      </el-card>
     </div>
 
     <vxe-grid
       ref="vxe"
       highlight-hover-row
       border
+      stripe
+      round
+      size="small"
       resizable
       sync-resize
       max-height="450"

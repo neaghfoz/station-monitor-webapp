@@ -1,46 +1,48 @@
 <template>
   <div class="app-container">
     <div v-show="showSearch" class="search-form">
-      <el-form ref="searchForm"  :model="queryParams" inline :label-width="'100px'">
-        <el-form-item label="机构" prop="sysOrgIdStr" :rules="[{required:true,message:'机构必选', trigger:'change'}]">
-          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" :default-first-value="$route.query.sysOrgIdStr==undefined"/>
-        </el-form-item>
-<!--        <el-form-item label="车道号" prop="laneNo">-->
-<!--          <el-input v-model="queryParams.laneNo" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>-->
-<!--        </el-form-item>-->
+      <el-card>
+        <el-form ref="searchForm"  :model="queryParams" inline :label-width="'100px'" size="small">
+          <el-form-item label="机构" prop="sysOrgIdStr" :rules="[{required:true,message:'机构必选', trigger:'change'}]">
+            <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" :default-first-value="$route.query.sysOrgIdStr==undefined"/>
+          </el-form-item>
+  <!--        <el-form-item label="车道号" prop="laneNo">-->
+  <!--          <el-input v-model="queryParams.laneNo" maxlength="5" style="width: 199px" oninput="value=value.replace(/[^\d]/g, '')"/>-->
+  <!--        </el-form-item>-->
 
-        <el-form-item label="车道号" prop="laneNo" :rules="[ {required: true, message:'车道号必选', trigger:'change'} ]">
-          <ti-select
-            ref="laneId"
-            :clearable="false"
-            v-model="queryParams.laneNo"
-            url="/api/v1/common/lane/listWithUserAuth"
-            :props="{key:'laneId',value:'laneNo',label:'laneNo'}"
-            :watch-attr="queryParams.sysOrgIdStr"
-            :watch-attr-fn="watchAttrFn"
-          />
-        </el-form-item>
-        <el-form-item label="操作员" prop="operatorId">
-          <ti-select
-            v-model="queryParams.operatorId"
-            url="/api/v1/common/sysUser/list"
-            :props="{key:'id',value:'username',label:'fullName'}"
-          />
-        </el-form-item>
-        <el-form-item label="日志关键字" prop="keyword">
-          <el-input v-model="queryParams.keyword" maxlength="20" style="width: 199px"/>
-        </el-form-item>
-        <el-form-item label="操作时间" label-width="120px">
-          <el-form-item prop="beginOpTime" v-show="false"/>
-          <el-form-item prop="endOpTime" v-show="false"/>
-          <ti-date-range v-model="queryParams" date-type="datetimerange" format="yyyy-MM-dd HH:mm:ss"
-                         date-rule="singleDay" :clearable="false" begin-key="beginOpTime" end-key="endOpTime"/>
-        </el-form-item>
-        <el-button type="primary" @click="submit">查询</el-button>
-        <el-button type="default" @click="handleReset">重置</el-button>
-        <!--<el-button type="primary" @click="showSearch = !showSearch">{{showSearch?'隐藏':'展开'}}</el-button>-->
+          <el-form-item label="车道号" prop="laneNo" :rules="[ {required: true, message:'车道号必选', trigger:'change'} ]">
+            <ti-select
+              ref="laneId"
+              :clearable="false"
+              v-model="queryParams.laneNo"
+              url="/api/v1/common/lane/listWithUserAuth"
+              :props="{key:'laneId',value:'laneNo',label:'laneNo'}"
+              :watch-attr="queryParams.sysOrgIdStr"
+              :watch-attr-fn="watchAttrFn"
+            />
+          </el-form-item>
+          <el-form-item label="操作员" prop="operatorId">
+            <ti-select
+              v-model="queryParams.operatorId"
+              url="/api/v1/common/sysUser/list"
+              :props="{key:'id',value:'username',label:'fullName'}"
+            />
+          </el-form-item>
+          <el-form-item label="日志关键字" prop="keyword">
+            <el-input v-model="queryParams.keyword" maxlength="20" style="width: 199px"/>
+          </el-form-item>
+          <el-form-item label="操作时间" label-width="120px">
+            <el-form-item prop="beginOpTime" v-show="false"/>
+            <el-form-item prop="endOpTime" v-show="false"/>
+            <ti-date-range v-model="queryParams" date-type="datetimerange" format="yyyy-MM-dd HH:mm:ss"
+                          date-rule="singleDay" :clearable="false" begin-key="beginOpTime" end-key="endOpTime"/>
+          </el-form-item>
+          <el-button type="primary" @click="submit">查询</el-button>
+          <el-button type="default" @click="handleReset">重置</el-button>
+          <!--<el-button type="primary" @click="showSearch = !showSearch">{{showSearch?'隐藏':'展开'}}</el-button>-->
 
-      </el-form>
+        </el-form>
+      </el-card>
     </div>
 
     <vxe-grid

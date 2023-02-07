@@ -1,55 +1,57 @@
 <template>
   <div class="app-container">
-    <el-form v-if="showSearchForm" ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-      <el-row  >
-        <el-form-item label="出入口类型" prop="entryExitType" >
-          <ti-select v-model="queryParams.entryExitType" dict-type="tibms_com_inOutType" />
-        </el-form-item>
-
-        <el-form-item label="工班日期">
-          <el-form-item prop="beginSquadDateStr" v-show="false"/>
-          <el-form-item prop="endSquadDateStr" v-show="false"/>
-          <ti-date-range v-model="queryParams" date-type="daterange" begin-key="beginSquadDateStr" end-key="endSquadDateStr"/>
-        </el-form-item>
-
-        <el-form-item label="车道号" prop="laneNoStr">
-          <ti-sys-lane clearable :show-all="true" v-model="queryParams.laneNoStr"  :cache="true" :station-id="''" multiple/>
-        </el-form-item>
-
-        <el-form-item label="工班" prop="shift">
-          <ti-select v-model="queryParams.shift" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" />
-        </el-form-item>
-
-        <el-form-item label="收费员" prop="laneOperatorStr">
-          <ti-select v-model="queryParams.laneOperatorStr" url="/api/v1/common/sysUser/list" :props="{key:'id',value:'username',label:'fullName'}" multiple/>
-        </el-form-item>
-
-        <el-form-item label="收费特情类型" prop="spEventNoStr" v-show="false">
-          <ti-select v-model="queryParams.spEventNoStr" dict-type="toll_laneMonitor_spEvent" multiple/>
-        </el-form-item>
-
-        <el-form-item label="授权类型" prop="opResultStatus" >
-          <ti-select v-model="queryParams.opResultStatus" dict-type="toll_laneMonitor_opresultstatues" />
-        </el-form-item>
-
-        <el-form-item label="特殊事件" prop="spEvent">
-          <el-input v-model="queryParams.spEvent" />
-        </el-form-item>
-
-        <el-form-item label="备注" prop="mark">
-          <el-input v-model="queryParams.mark" />
-        </el-form-item>
-
-
-          <el-form-item class="searchItem"  style="float: right;padding-right:20px">
-            <el-button type="primary" @click="submit">查询</el-button>
-            <el-button type="default" @click="handleReset">重置</el-button>
+    <el-card>
+      <el-form v-if="showSearchForm" ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+        <el-row  >
+          <el-form-item label="出入口类型" prop="entryExitType" >
+            <ti-select v-model="queryParams.entryExitType" dict-type="tibms_com_inOutType" />
           </el-form-item>
-      </el-row>
+
+          <el-form-item label="工班日期">
+            <el-form-item prop="beginSquadDateStr" v-show="false"/>
+            <el-form-item prop="endSquadDateStr" v-show="false"/>
+            <ti-date-range v-model="queryParams" date-type="daterange" begin-key="beginSquadDateStr" end-key="endSquadDateStr"/>
+          </el-form-item>
+
+          <el-form-item label="车道号" prop="laneNoStr">
+            <ti-sys-lane clearable :show-all="true" v-model="queryParams.laneNoStr"  :cache="true" :station-id="''" multiple/>
+          </el-form-item>
+
+          <el-form-item label="工班" prop="shift">
+            <ti-select v-model="queryParams.shift" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}" />
+          </el-form-item>
+
+          <el-form-item label="收费员" prop="laneOperatorStr">
+            <ti-select v-model="queryParams.laneOperatorStr" url="/api/v1/common/sysUser/list" :props="{key:'id',value:'username',label:'fullName'}" multiple/>
+          </el-form-item>
+
+          <el-form-item label="收费特情类型" prop="spEventNoStr" v-show="false">
+            <ti-select v-model="queryParams.spEventNoStr" dict-type="toll_laneMonitor_spEvent" multiple/>
+          </el-form-item>
+
+          <el-form-item label="授权类型" prop="opResultStatus" >
+            <ti-select v-model="queryParams.opResultStatus" dict-type="toll_laneMonitor_opresultstatues" />
+          </el-form-item>
+
+          <el-form-item label="特殊事件" prop="spEvent">
+            <el-input v-model="queryParams.spEvent" />
+          </el-form-item>
+
+          <el-form-item label="备注" prop="mark">
+            <el-input v-model="queryParams.mark" />
+          </el-form-item>
+
+
+            <el-form-item class="searchItem"  style="float: right;padding-right:20px">
+              <el-button type="primary" @click="submit">查询</el-button>
+              <el-button type="default" @click="handleReset">重置</el-button>
+            </el-form-item>
+        </el-row>
 
 
 
-    </el-form>
+      </el-form>
+    </el-card>
     <el-card shadow="never" :max-height="this.tableHeight">
 
       <div class="box">

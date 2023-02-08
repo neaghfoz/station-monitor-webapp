@@ -20,7 +20,7 @@
   "dependencies": {
     "@ecip/ecip-bpm": "^0.4.55",
     "@ecip/ecip-components": "^0.5.0",
-    "@ecip/ecip-web": "^0.6.0",
+    "@ecip/ecip-web": "git+ssh://git@e.coding.net/neaghfoz/sxgsgljzjkpt/ecip-web.git",
     "@ecip/roadnet": "^1.0.6",
     "axios": "0.18.1",
     "clipboard": "2.0.4",

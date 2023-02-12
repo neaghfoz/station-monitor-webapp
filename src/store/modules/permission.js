@@ -97,29 +97,24 @@ const actions = {
           console.log(res.data,'89');
 
 
-          const whiteList = ['综合查询',
-            '日志查询','车道操作日志查询',
-            '入口治超流水查询',
-            '出口治超查询',
-            '入口流水查询',
-            '出口流水查询',
-            '工班流水查询',
-            '移动支付失败流水查询',
-            '入口特殊按键查询',
-            '出口特殊按键查询',
-            '传输监视', '车道监控', '节点连通性监视', '数据上传完整性监视', '参数版本监控', '车道监视', '特情登记查询', '监控机构', '监控机构配置', '系统管理', '用户管理', '组织机构', '角色管理']
+          const backList = [
+            '收费业务',
+            '内部稽查',
+            '参数管理',
+            '运维管理',
+            '监控中心']
           let route = res.data
 
           let menu = res.data.filter(item => {
             let children = []
             if (item.children && item.children.length !== 0) {
               children = item.children.filter(c => {
-                if (whiteList.includes(c.meta.title)) return c
+                if (!backList.includes(c.meta.title)) return c
               })
             }
             item.children = children
             console.log("ITEMCHILDREN: " + JSON.stringify(children))
-            if (whiteList.includes(item.meta.title)) return item
+            if (!backList.includes(item.meta.title)) return item
           })
           console.log("MENU: " + JSON.stringify(menu))
           // console.log(men,'menu');

@@ -1,68 +1,70 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm"  :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}">
-      <el-form-item ref ="elRowAll" style="margin-bottom:0">
-        <el-row>
-          <el-form-item label="机构" prop="sysOrgIdStr">
-            <ti-sys-org style="width:180px" ref="sysOrg" v-model="queryParams.sysOrgIdStr"
-                        url="api/v1/common/sysOrg/roadAndStationTree" default-first-value/>
-          </el-form-item>
-          <el-form-item label="统计类型" prop="statType">
-            <ti-select style="width:180px" :clearable="false" v-model="queryParams.statType" dict-type="tibms_rpt_statType"/>
-          </el-form-item>
-        </el-row>
-        <el-row>
-          <el-form-item label="日期" prop="dates">
-            <el-col :span="30">
-              <el-form-item v-show="queryParams.dateStatisticType==='day'">
-                <el-form-item prop="startDay" v-show="false"/>
-                <el-form-item prop="endDay" v-show="false"/>
-                <ti-date-range date-style="width:470px" ref="dayRang" :editable="false" v-model="queryParams" date-type="daterange"
-                               format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
-                               end-key="endDay"/>
-              </el-form-item>
-              <el-form-item v-show="queryParams.dateStatisticType==='month'">
-                <el-form-item prop="startMonth" v-show="false"/>
-                <el-form-item prop="endMonth" v-show="false"/>
-                <ti-date-range date-style="width:470px" ref="monthRang" :editable="false" v-model="queryParams" date-type="monthrange"
-                               format="yyyy-MM" value-format="yyyy-MM" begin-key="startMonth"
-                               end-key="endMonth"/>
-              </el-form-item>
-              <!--              <el-form-item v-show="queryParams.dateStatisticType==='year'">-->
-              <!--                <el-form-item prop="startYear" v-show="false"/>-->
-              <!--                <el-form-item prop="endYear" v-show="false"/>-->
-              <!--                <ti-date-range ref="yearRang" :editable="false"-->
-              <!--                               v-model="queryParams"-->
-              <!--                               date-type="yearRang"-->
-              <!--                               format="yyyy" value-format="yyyy" begin-key="startYear"-->
-              <!--                               end-key="endYear"/>-->
-              <!--              </el-form-item>-->
-              <el-form-item v-show="queryParams.dateStatisticType==='year'">
-                <el-form-item prop="startYear" v-show="false"/>
-                <el-form-item prop="endYear" v-show="false"/>
-                <ti-date-range-divide date-style="width:200px" ref="year" :editable="false" v-model="queryParams"
-                                      date-type="year"
-                                      format="yyyy" value-format="yyyy" begin-key="startYear"
-                                      end-key="endYear"/>
-              </el-form-item>
-            </el-col>
-          </el-form-item>
-          <el-form-item prop="dateStatisticType">
-            <ti-select style="width:180px" :clearable="false" v-model="queryParams.dateStatisticType"
-                       dict-type="tibms_rpt_dateStatisticType"/>
-          </el-form-item>
-          <el-form-item prop="dateType">
-            <ti-select style="width:180px" :clearable="false" v-model="queryParams.collectType" dict-type="tibms_rpt_collectType"/>
-          </el-form-item>
-          <el-form-item class="searchItem" :label-width="'50px'">
-            <el-button type="primary" @click="getData">查询</el-button>
-          </el-form-item>
-        </el-row>
-      </el-form-item>
+    <el-card>
+      <el-form ref="searchForm"  :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}" size="small">
+        <el-form-item ref ="elRowAll" style="margin-bottom:0">
+          <el-row>
+            <el-form-item label="机构" prop="sysOrgIdStr">
+              <ti-sys-org style="width:180px" ref="sysOrg" v-model="queryParams.sysOrgIdStr"
+                          url="api/v1/common/sysOrg/roadAndStationTree" default-first-value/>
+            </el-form-item>
+            <el-form-item label="统计类型" prop="statType">
+              <ti-select style="width:180px" :clearable="false" v-model="queryParams.statType" dict-type="tibms_rpt_statType"/>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="日期" prop="dates">
+              <el-col :span="30">
+                <el-form-item v-show="queryParams.dateStatisticType==='day'">
+                  <el-form-item prop="startDay" v-show="false"/>
+                  <el-form-item prop="endDay" v-show="false"/>
+                  <ti-date-range date-style="width:470px" ref="dayRang" :editable="false" v-model="queryParams" date-type="daterange"
+                                format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
+                                end-key="endDay"/>
+                </el-form-item>
+                <el-form-item v-show="queryParams.dateStatisticType==='month'">
+                  <el-form-item prop="startMonth" v-show="false"/>
+                  <el-form-item prop="endMonth" v-show="false"/>
+                  <ti-date-range date-style="width:470px" ref="monthRang" :editable="false" v-model="queryParams" date-type="monthrange"
+                                format="yyyy-MM" value-format="yyyy-MM" begin-key="startMonth"
+                                end-key="endMonth"/>
+                </el-form-item>
+                <!--              <el-form-item v-show="queryParams.dateStatisticType==='year'">-->
+                <!--                <el-form-item prop="startYear" v-show="false"/>-->
+                <!--                <el-form-item prop="endYear" v-show="false"/>-->
+                <!--                <ti-date-range ref="yearRang" :editable="false"-->
+                <!--                               v-model="queryParams"-->
+                <!--                               date-type="yearRang"-->
+                <!--                               format="yyyy" value-format="yyyy" begin-key="startYear"-->
+                <!--                               end-key="endYear"/>-->
+                <!--              </el-form-item>-->
+                <el-form-item v-show="queryParams.dateStatisticType==='year'">
+                  <el-form-item prop="startYear" v-show="false"/>
+                  <el-form-item prop="endYear" v-show="false"/>
+                  <ti-date-range-divide date-style="width:200px" ref="year" :editable="false" v-model="queryParams"
+                                        date-type="year"
+                                        format="yyyy" value-format="yyyy" begin-key="startYear"
+                                        end-key="endYear"/>
+                </el-form-item>
+              </el-col>
+            </el-form-item>
+            <el-form-item prop="dateStatisticType">
+              <ti-select style="width:180px" :clearable="false" v-model="queryParams.dateStatisticType"
+                        dict-type="tibms_rpt_dateStatisticType"/>
+            </el-form-item>
+            <el-form-item prop="dateType">
+              <ti-select style="width:180px" :clearable="false" v-model="queryParams.collectType" dict-type="tibms_rpt_collectType"/>
+            </el-form-item>
+            <el-form-item class="searchItem" :label-width="'50px'">
+              <el-button type="primary" @click="getData">查询</el-button>
+            </el-form-item>
+          </el-row>
+        </el-form-item>
 
-      <iframe v-bind:src="reportUrl" frameborder=0 border="0"
-              style="overflow:auto;width: 100%;" v-bind:style="{height: iframeHeight}"></iframe>
-    </el-form>
+        <iframe v-bind:src="reportUrl" frameborder=0 border="0"
+                style="overflow:auto;width: 100%;" v-bind:style="{height: iframeHeight}"></iframe>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

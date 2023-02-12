@@ -1,36 +1,38 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-      <el-form-item label="机构" prop="sysOrgIdStr">
-        <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
-      </el-form-item>
-      <el-form-item label="工班日期" prop="dates">
-        <ti-date v-model="queryParams.dayStr"
-                 dateType="date" :clearable="false"
-                 format="yyyy-MM-dd" value-format="yyyy-MM-dd"/>
-      </el-form-item>
-      <el-form-item label="工班" prop="shiftID" :label-width="'50px'">
-        <ti-select ref="shift" v-model="queryParams.shiftID" :clearable="false" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}"/>
-      </el-form-item>
-      <el-form-item label="车道号" prop="laneId" :rules="[ {required: true, message:'车道号必选', trigger:'change'} ]">
-        <ti-select
-          ref="laneId"
-          :clearable="false"
-          v-model="queryParams.laneId"
-          url="/api/v1/common/lane/listWithUserAuth"
-          :props="{key:'laneNo',value:'laneNo',label:'laneNo'}"
-          :watch-attr="queryParams.sysOrgIdStr"
-          :watch-attr-fn="watchAttrFn"/>
-      </el-form-item>
-      <el-form-item label="授权类型" prop="opResultStatus" label-width="'50px'">
-        <ti-select :clearable="true" v-model="queryParams.opResultStatus" dict-type="toll_laneMonitor_opresultstatues"/>
-      </el-form-item>
-      <el-form-item class="searchItem" :label-width="'50px'">
-        <el-button type="primary" @click="getData">查询</el-button>
-      </el-form-item>
+    <el-card>
+      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+        <el-form-item label="机构" prop="sysOrgIdStr">
+          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
+        </el-form-item>
+        <el-form-item label="工班日期" prop="dates">
+          <ti-date v-model="queryParams.dayStr"
+                  dateType="date" :clearable="false"
+                  format="yyyy-MM-dd" value-format="yyyy-MM-dd"/>
+        </el-form-item>
+        <el-form-item label="工班" prop="shiftID" :label-width="'50px'">
+          <ti-select ref="shift" v-model="queryParams.shiftID" :clearable="false" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}"/>
+        </el-form-item>
+        <el-form-item label="车道号" prop="laneId" :rules="[ {required: true, message:'车道号必选', trigger:'change'} ]">
+          <ti-select
+            ref="laneId"
+            :clearable="false"
+            v-model="queryParams.laneId"
+            url="/api/v1/common/lane/listWithUserAuth"
+            :props="{key:'laneNo',value:'laneNo',label:'laneNo'}"
+            :watch-attr="queryParams.sysOrgIdStr"
+            :watch-attr-fn="watchAttrFn"/>
+        </el-form-item>
+        <el-form-item label="授权类型" prop="opResultStatus" label-width="'50px'">
+          <ti-select :clearable="true" v-model="queryParams.opResultStatus" dict-type="toll_laneMonitor_opresultstatues"/>
+        </el-form-item>
+        <el-form-item class="searchItem" :label-width="'50px'">
+          <el-button type="primary" @click="getData">查询</el-button>
+        </el-form-item>
 
-      <iframe v-bind:src="reportUrl" frameborder=0 border="0" style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
-    </el-form>
+        <iframe v-bind:src="reportUrl" frameborder=0 border="0" style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

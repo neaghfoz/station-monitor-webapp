@@ -1,46 +1,48 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-      <el-form-item label="机构" prop="sysOrgIdStr">
-        <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
-      </el-form-item>
-      <el-form-item label="统计类型" prop="dateStatisticType">
-        <ti-select :clearable="false" v-model="queryParams.dateStatisticType"
-                   dict-type="sx_tibms_rpt_dateStatisticType"/>
-      </el-form-item>
-      <el-form-item label="统计时间" prop="dates">
-          <el-form-item v-show="queryParams.dateStatisticType==='day'">
-            <el-form-item prop="startDay" v-show="false"/>
-            <el-form-item prop="endDay" v-show="false"/>
-            <ti-date-range ref="dayRang" :editable="false" v-model="queryParams"
-                           date-type="daterange"
-                           format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
-                           end-key="endDay"/>
+    <el-card>
+      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+        <el-form-item label="机构" prop="sysOrgIdStr">
+          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
+        </el-form-item>
+        <el-form-item label="统计类型" prop="dateStatisticType">
+          <ti-select :clearable="false" v-model="queryParams.dateStatisticType"
+                    dict-type="sx_tibms_rpt_dateStatisticType"/>
+        </el-form-item>
+        <el-form-item label="统计时间" prop="dates">
+            <el-form-item v-show="queryParams.dateStatisticType==='day'">
+              <el-form-item prop="startDay" v-show="false"/>
+              <el-form-item prop="endDay" v-show="false"/>
+              <ti-date-range ref="dayRang" :editable="false" v-model="queryParams"
+                            date-type="daterange"
+                            format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
+                            end-key="endDay"/>
+            </el-form-item>
+          <el-form-item v-show="queryParams.dateStatisticType==='month'">
+            <ti-date v-model="queryParams.startMonth"
+                    dateType="month"
+                    format="yyyy-MM" value-format="yyyy-MM"/>
           </el-form-item>
-        <el-form-item v-show="queryParams.dateStatisticType==='month'">
-          <ti-date v-model="queryParams.startMonth"
-                   dateType="month"
-                   format="yyyy-MM" value-format="yyyy-MM"/>
+          <el-form-item v-show="queryParams.dateStatisticType==='year'">
+            <el-form-item prop="startYear" v-show="false"/>
+            <el-form-item prop="endYear" v-show="false"/>
+            <ti-date-range-divide ref="year" :editable="false" v-model="queryParams"
+                                  date-type="year"
+                                  format="yyyy" value-format="yyyy" begin-key="startYear"
+                                  end-key="endYear"/>
+          </el-form-item>
         </el-form-item>
-        <el-form-item v-show="queryParams.dateStatisticType==='year'">
-          <el-form-item prop="startYear" v-show="false"/>
-          <el-form-item prop="endYear" v-show="false"/>
-          <ti-date-range-divide ref="year" :editable="false" v-model="queryParams"
-                                date-type="year"
-                                format="yyyy" value-format="yyyy" begin-key="startYear"
-                                end-key="endYear"/>
+        <el-form-item label="工班" prop="shiftID" :label-width="'50px'">
+          <ti-select ref="shift" v-model="queryParams.shiftID" :clearable="true" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}"/>
         </el-form-item>
-      </el-form-item>
-      <el-form-item label="工班" prop="shiftID" :label-width="'50px'">
-        <ti-select ref="shift" v-model="queryParams.shiftID" :clearable="true" url="api/v1/common/squad/list" :props="{key:'squadNo',value:'squadNo',label:'squadNameText'}"/>
-      </el-form-item>
-        <el-form-item class="searchItem" :label-width="'50px'">
-          <el-button type="primary" @click="getData">查询</el-button>
-        </el-form-item>
+          <el-form-item class="searchItem" :label-width="'50px'">
+            <el-button type="primary" @click="getData">查询</el-button>
+          </el-form-item>
 
-      <iframe v-bind:src="reportUrl" frameborder=0 border="0"
-              style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
-    </el-form>
+        <iframe v-bind:src="reportUrl" frameborder=0 border="0"
+                style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

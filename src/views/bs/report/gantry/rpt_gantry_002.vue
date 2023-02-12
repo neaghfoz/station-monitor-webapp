@@ -1,73 +1,75 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}">
-      <el-form-item ref="elRowAll" style="margin-bottom:0">
-        <el-row>
-          <el-form-item label="门架名称" label-width="120px">
-            <ti-select style="width:180px" :clearable="true" url="api/v1/common/gantry/findListByAuth" :props="{key:'gantryId',value:'gantryId',label:'gantryText'}" :multiple="true" v-model="queryParams.gantryIds"/>
-          </el-form-item>
-          <el-form-item label="门架类型" label-width="80px" prop="virGantryFlag">
-            <ti-select style="width:180px" v-model="queryParams.virGantryFlag" dict-type="tibms_bs_report_virGantryFlag"/>
-          </el-form-item>
-          <el-form-item label="承载门架类型" label-width="120px" prop="enExFlag">
-            <ti-select style="width:180px" v-model="queryParams.enExFlag" dict-type="tibms_bs_report_enExFlag"/>
-          </el-form-item>
-          <el-form-item label="通行介质" label-width="80px" prop="mediaType">
-            <ti-select style="width:180px" v-model="queryParams.mediaType" dict-type="tibms_bs_report_mediaType"/>
-          </el-form-item>
-        </el-row>
-        <el-row>
-          <el-form-item label="客货专类型" label-width="120px" prop="vehFlag">
-            <ti-select style="width:180px" v-model="queryParams.vehFlag" dict-type="tibms_bs_report_vehFlag"/>
-          </el-form-item>
-          <el-form-item label="车型" label-width="80px" prop="vehicleType">
-            <ti-select style="width:180px" v-model="queryParams.vehicleType" dict-type="tibms_bs_report_vehicleType"/>
-          </el-form-item>
-          <el-form-item label="统计日期" prop="tansDates" label-width="120px">
-            <el-col :span="25">
-              <el-form-item v-show="queryParams.dateStatisticType==='day'">
-                <el-form-item prop="startDay" v-show="false"/>
-                <el-form-item prop="endDay" v-show="false"/>
-                <ti-date-range date-style="width:470px" ref="dayRang" :editable="false" v-model="queryParams" date-type="daterange"
-                               format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
-                               end-key="endDay"/>
-              </el-form-item>
-              <el-form-item v-show="queryParams.dateStatisticType==='month'">
-                <el-form-item prop="startMonth" v-show="false"/>
-                <el-form-item prop="endMonth" v-show="false"/>
-                <ti-date-range date-style="width:470px" ref="monthRang" :editable="false" v-model="queryParams" date-type="monthrange"
-                               format="yyyy-MM" value-format="yyyy-MM" begin-key="startMonth"
-                               end-key="endMonth"/>
-              </el-form-item>
-              <el-form-item v-show="queryParams.dateStatisticType==='year'">
-                <el-form-item prop="startYear" v-show="false"/>
-                <el-form-item prop="endYear" v-show="false"/>
-                <ti-date-range-divide date-style="width:200px" ref="year" :editable="false" v-model="queryParams"
-                                      date-type="year"
-                                      format="yyyy" value-format="yyyy" begin-key="startYear"
-                                      end-key="endYear"/>
-              </el-form-item>
-            </el-col>
-          </el-form-item>
-          <el-form-item prop="dateStatisticType">
-            <ti-select style="width:100px" :clearable="false" v-model="queryParams.dateStatisticType" dict-type="tibms_bs_report_dateStatisticType"/>
-          </el-form-item>
-        </el-row>
-        <el-row>
-          <el-form-item label="打印样式" label-width="80px" prop="statType">
-            <ti-select style="width:180px" :clearable="false" v-model="queryParams.statType" dict-type="tibms_bs_report_statType"/>
-          </el-form-item>
-          <el-form-item label="交易结果" label-width="80px" prop="tradeResult">
-            <ti-select style="width:180px" v-model="queryParams.tradeResult" dict-type="tibms_bs_report_tradeResult"/>
-          </el-form-item>
-          <el-form-item class="searchItem" :label-width="'50px'">
-            <el-button type="primary" @click="getData">查询</el-button>
-          </el-form-item>
-        </el-row>
-      </el-form-item>
+    <el-card>
+      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}" size="small">
+        <el-form-item ref="elRowAll" style="margin-bottom:0">
+          <el-row>
+            <el-form-item label="门架名称" label-width="120px">
+              <ti-select style="width:180px" :clearable="true" url="api/v1/common/gantry/findListByAuth" :props="{key:'gantryId',value:'gantryId',label:'gantryText'}" :multiple="true" v-model="queryParams.gantryIds"/>
+            </el-form-item>
+            <el-form-item label="门架类型" label-width="80px" prop="virGantryFlag">
+              <ti-select style="width:180px" v-model="queryParams.virGantryFlag" dict-type="tibms_bs_report_virGantryFlag"/>
+            </el-form-item>
+            <el-form-item label="承载门架类型" label-width="120px" prop="enExFlag">
+              <ti-select style="width:180px" v-model="queryParams.enExFlag" dict-type="tibms_bs_report_enExFlag"/>
+            </el-form-item>
+            <el-form-item label="通行介质" label-width="80px" prop="mediaType">
+              <ti-select style="width:180px" v-model="queryParams.mediaType" dict-type="tibms_bs_report_mediaType"/>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="客货专类型" label-width="120px" prop="vehFlag">
+              <ti-select style="width:180px" v-model="queryParams.vehFlag" dict-type="tibms_bs_report_vehFlag"/>
+            </el-form-item>
+            <el-form-item label="车型" label-width="80px" prop="vehicleType">
+              <ti-select style="width:180px" v-model="queryParams.vehicleType" dict-type="tibms_bs_report_vehicleType"/>
+            </el-form-item>
+            <el-form-item label="统计日期" prop="tansDates" label-width="120px">
+              <el-col :span="25">
+                <el-form-item v-show="queryParams.dateStatisticType==='day'">
+                  <el-form-item prop="startDay" v-show="false"/>
+                  <el-form-item prop="endDay" v-show="false"/>
+                  <ti-date-range date-style="width:470px" ref="dayRang" :editable="false" v-model="queryParams" date-type="daterange"
+                                format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
+                                end-key="endDay"/>
+                </el-form-item>
+                <el-form-item v-show="queryParams.dateStatisticType==='month'">
+                  <el-form-item prop="startMonth" v-show="false"/>
+                  <el-form-item prop="endMonth" v-show="false"/>
+                  <ti-date-range date-style="width:470px" ref="monthRang" :editable="false" v-model="queryParams" date-type="monthrange"
+                                format="yyyy-MM" value-format="yyyy-MM" begin-key="startMonth"
+                                end-key="endMonth"/>
+                </el-form-item>
+                <el-form-item v-show="queryParams.dateStatisticType==='year'">
+                  <el-form-item prop="startYear" v-show="false"/>
+                  <el-form-item prop="endYear" v-show="false"/>
+                  <ti-date-range-divide date-style="width:200px" ref="year" :editable="false" v-model="queryParams"
+                                        date-type="year"
+                                        format="yyyy" value-format="yyyy" begin-key="startYear"
+                                        end-key="endYear"/>
+                </el-form-item>
+              </el-col>
+            </el-form-item>
+            <el-form-item prop="dateStatisticType">
+              <ti-select style="width:100px" :clearable="false" v-model="queryParams.dateStatisticType" dict-type="tibms_bs_report_dateStatisticType"/>
+            </el-form-item>
+          </el-row>
+          <el-row>
+            <el-form-item label="打印样式" label-width="80px" prop="statType">
+              <ti-select style="width:180px" :clearable="false" v-model="queryParams.statType" dict-type="tibms_bs_report_statType"/>
+            </el-form-item>
+            <el-form-item label="交易结果" label-width="80px" prop="tradeResult">
+              <ti-select style="width:180px" v-model="queryParams.tradeResult" dict-type="tibms_bs_report_tradeResult"/>
+            </el-form-item>
+            <el-form-item class="searchItem" :label-width="'50px'">
+              <el-button type="primary" @click="getData">查询</el-button>
+            </el-form-item>
+          </el-row>
+        </el-form-item>
 
-      <iframe v-bind:src="reportUrl" frameborder=0 border="0" style="overflow:auto;width: 100%;" v-bind:style="{height: iframeHeight}"></iframe>
-    </el-form>
+        <iframe v-bind:src="reportUrl" frameborder=0 border="0" style="overflow:auto;width: 100%;" v-bind:style="{height: iframeHeight}"></iframe>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

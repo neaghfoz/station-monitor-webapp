@@ -1,31 +1,33 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-      <el-form-item label="机构" prop="sysOrgIdStr">
-        <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
-      </el-form-item>
-        <el-form-item label="工班日期" prop="dates">
-            <el-form-item v-show="queryParams.dateStatisticType==='day'">
-              <el-form-item prop="startDay" v-show="false"/>
-              <el-form-item prop="endDay" v-show="false"/>
-              <ti-date-range ref="dayRang" :editable="false" v-model="queryParams"
-                             date-type="daterange"
-                             format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
-                             end-key="endDay"/>
-            </el-form-item>
+    <el-card>
+      <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" size="small">
+        <el-form-item label="机构" prop="sysOrgIdStr">
+          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value />
         </el-form-item>
-      <el-form-item label="统计类型" prop="collectType">
-        <ti-select :clearable="false" v-model="queryParams.collectType"
-                   :data-list="[{value:'0',name:'含ETC免费车'},{value:'1',name:'不含ETC免费车'}]"
-                   :props="{key:'value',value:'value',label:'name'}"/>
-      </el-form-item>
-        <el-form-item class="searchItem" :label-width="'50px'">
-          <el-button type="primary" @click="getData">查询</el-button>
+          <el-form-item label="工班日期" prop="dates">
+              <el-form-item v-show="queryParams.dateStatisticType==='day'">
+                <el-form-item prop="startDay" v-show="false"/>
+                <el-form-item prop="endDay" v-show="false"/>
+                <ti-date-range ref="dayRang" :editable="false" v-model="queryParams"
+                              date-type="daterange"
+                              format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
+                              end-key="endDay"/>
+              </el-form-item>
+          </el-form-item>
+        <el-form-item label="统计类型" prop="collectType">
+          <ti-select :clearable="false" v-model="queryParams.collectType"
+                    :data-list="[{value:'0',name:'含ETC免费车'},{value:'1',name:'不含ETC免费车'}]"
+                    :props="{key:'value',value:'value',label:'name'}"/>
         </el-form-item>
+          <el-form-item class="searchItem" :label-width="'50px'">
+            <el-button type="primary" @click="getData">查询</el-button>
+          </el-form-item>
 
-      <iframe v-bind:src="reportUrl" frameborder=0 border="0"
-              style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
-    </el-form>
+        <iframe v-bind:src="reportUrl" frameborder=0 border="0"
+                style="overflow:auto;width: 100%;height:100%;min-height: 850px"></iframe>
+      </el-form>
+    </el-card>
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 <template>
   <div class="app-container" style="height: 100%">
-    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}">
+    <el-card>
+    <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'" v-bind:style="{height: searchFormHeight}" size="small">
       <el-form-item ref="elRowAll" style="margin-bottom:0">
         <el-row>
           <el-form-item label="门架名称" label-width="120px">
@@ -65,6 +66,7 @@
 
       <iframe v-bind:src="reportUrl" frameborder=0 border="0" style="overflow:auto;width: 100%;" v-bind:style="{height: iframeHeight}"></iframe>
     </el-form>
+  </el-card>
   </div>
 </template>
 

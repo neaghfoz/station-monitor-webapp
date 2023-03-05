@@ -98,11 +98,12 @@ const actions = {
 
 
           const backList = [
-            '收费业务',
-            '内部稽查',
-            '参数管理',
-            '运维管理',
-            '监控中心']
+            // '收费业务',
+            // '内部稽查',
+            // '参数管理',
+            // '运维管理',
+            // '监控中心'
+          ]
           let route = res.data
 
           let menu = res.data.filter(item => {

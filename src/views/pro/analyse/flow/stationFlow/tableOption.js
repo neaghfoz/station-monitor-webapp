@@ -18,11 +18,17 @@ export default {
           minWidth: 120
         },
         {
-          field: "transTypeName",
-          title: "交易类型",
+          field: "naturalDate",
+          title: "日期",
           align: 'center',
           minWidth: 100
         },
+      {
+        field: "flowType",
+        title: "出入口类型",
+        align: 'center',
+        minWidth: 100
+      },
         {
           title: "车型",
           align: 'center',

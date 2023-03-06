@@ -170,7 +170,7 @@ export default {
               minWidth: 80
             }]
         },
-        {
+/*        {
           title: "车种",
           align: 'center',
           headerAlign: 'center',
@@ -288,7 +288,8 @@ export default {
           headerAlign: 'center',
           field: "passCnt",
           minWidth: 100
-        }],
+        }*/
+        ],
 
       otherColumns:[
         {

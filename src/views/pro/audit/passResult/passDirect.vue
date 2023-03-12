@@ -3,17 +3,17 @@
     <!-- 搜索条件 -->
     <el-form :model="appForm" ref="appForm" :rules="rules" :show-message="false" label-width="90px" label-position="right" :inline="true">
       <el-row>
-        <el-form-item  label="通行介质" prop="mediaType">
+        <!-- <el-form-item  label="通行介质" prop="mediaType">
           <ti-select style="width: 177px"
                      v-model="appForm.mediaType"
                      :data-list="[{value:'1',name:'OBU'},{value:'2',name:'CPC'}]"
                      :props="{key:'value',value:'value',label:'name'}"/>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="车牌号" prop="vehiclePlate">
           <el-input style="width: 177px" v-model="appForm.vehiclePlate" type="text" placeholder="车牌号"
                     maxlength="16"/>
         </el-form-item>
-        <el-form-item label="车牌颜色" prop="vehicleColor">
+        <!-- <el-form-item label="车牌颜色" prop="vehicleColor">
           <ti-select style="width: 177px"
            v-model="appForm.vehicleColor"
            dict-type="tibms_com_vehicleColor"/>
@@ -29,7 +29,7 @@
         <el-form-item label="通行标识" prop="passId">
           <el-input style="width: 177px" v-model="appForm.passId" type="text" placeholder="通行标识"
                     maxlength="64"/>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="入口时间" prop="dataRange">
           <ti-date-range date-style="width:260px" v-model="appForm.dataRange" date-type="daterange"
                          format="yyyy-MM-dd" value-format="yyyy-MM-dd" date-rule="singleMonth"
@@ -38,8 +38,8 @@
         </el-form-item>
         <el-form-item class="searchItem" :label-width="'50px'">
           <el-button type="primary" @click="submit">查询</el-button>
-          <el-button type="default" @click="reset">重置</el-button>
-          <el-button type="success" @click="exportExcel.dialog = true">导出</el-button>
+          <!-- <el-button type="default" @click="reset">重置</el-button>
+          <el-button type="success" @click="exportExcel.dialog = true">导出</el-button> -->
         </el-form-item>
       </el-row>
     </el-form>
@@ -149,70 +149,47 @@
             perfect: true
           },
           datas: [],
-          columns: [{
-              field: "passId",
-              title: "通行标识",
-              minWidth: 180,
-              showOverflow: true
-            },
+          columns: [
             {
-              field: "vehiclePlateStr",
+              field: "enVehiclePlate",
               title: "车牌号码",
               minWidth: 150,
               showOverflow: true
             },
             {
-              field: "pathFirsnName",
+              field: "enVehiclePlateColor",
+              title: "车牌颜色",
+              minWidth: 150,
+              showOverflow: true
+            },
+            {
+              field: "enStationName",
               title: "入口站",
               minWidth: 150,
               showOverflow: true
             },
             {
-              field: "enTollTime",
-              title: "入口交易时间",
+              field: "enTime",
+              title: "入口时间",
               minWidth: 180,
               showOverflow: true
             },
             {
-              field: "pathLastnName",
+              field: "splitProvinceText",
+              title: "收费单元列表",
+              minWidth: 180,
+              showOverflow: true
+            },
+            {
+              field: "exStationName",
               title: "出口站",
               minWidth: 150,
               showOverflow: true
             },
             {
-              field: "pathLastnTime",
-              title: "出口交易时间",
+              field: "exTime",
+              title: "出口时间",
               minWidth: 180,
-              showOverflow: true
-            },
-            {
-              field: "mediaTypeStr",
-              title: "通行介质",
-              minWidth: 80,
-              showOverflow: true
-            },
-            {
-              field: "obuId",
-              title: "OBU编号",
-              minWidth: 100,
-              showOverflow: true
-            },
-            {
-              field: "cardId",
-              title: "卡号",
-              minWidth: 100,
-              showOverflow: true
-            },
-            {
-              field: "vehicleTypeStr",
-              title: "计费车型",
-              minWidth: 150,
-              showOverflow: true
-            },
-            {
-              field: "vehicleClassStr",
-              title: "计费车种",
-              minWidth: 150,
               showOverflow: true
             }]
         }

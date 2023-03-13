@@ -1,17 +1,17 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
-      <el-tab-pane label="路段" name="road"></el-tab-pane>
+<!--      <el-tab-pane label="路段" name="road"></el-tab-pane>-->
       <el-tab-pane label="收费站" name="station"></el-tab-pane>
-      <el-tab-pane label="特情类型" name="special"></el-tab-pane>
-      <el-tab-pane label="时间" name="time"></el-tab-pane>
+<!--      <el-tab-pane label="特情类型" name="special"></el-tab-pane>-->
+<!--      <el-tab-pane label="时间" name="time"></el-tab-pane>-->
     </el-tabs>
     <div class="search-form">
       <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
-        <el-form-item label="是否复核" label-width="100px" prop="recheck" v-show = "tabSelObj.roadFlag || tabSelObj.stationFlag || tabSelObj.timeFlag ">
-          <ti-select :clearable="false" style="width: 177px" v-model="queryParams.recheck"
-                     dict-type="tibms_audit_recheck"/>
-        </el-form-item>
+<!--        <el-form-item label="是否复核" label-width="100px" prop="recheck" v-show = "tabSelObj.roadFlag || tabSelObj.stationFlag || tabSelObj.timeFlag ">-->
+<!--          <ti-select :clearable="false" style="width: 177px" v-model="queryParams.recheck"-->
+<!--                     dict-type="tibms_audit_recheck"/>-->
+<!--        </el-form-item>-->
         <el-form-item label="特情类型" prop="specialTypeSelect" v-show = "tabSelObj.roadFlag || tabSelObj.stationFlag || tabSelObj.timeFlag">
           <ti-select style="width: 177px" v-model="queryParams.specialTypeSelect"
                      url="/api/v1/common/dict/dictList/tibms_audit_exSpecialType"
@@ -30,13 +30,13 @@
         <el-form-item label="出入口类型" prop="inOutType"  >
           <ti-select v-model="queryParams.inOutType" dict-type="tibms_com_inOutType" :clearable="false"/>
         </el-form-item>
-        <el-form-item label="时间范围" prop="dateStatisticType">
-          <ti-select v-model="queryParams.dateStatisticType"
-                     :clearable = "false"
-                     dict-type="tibms_rpt_dateStatisticType"/>
+<!--        <el-form-item label="时间范围" prop="dateStatisticType">-->
+<!--          <ti-select v-model="queryParams.dateStatisticType"-->
+<!--                     :clearable = "false"-->
+<!--                     dict-type="tibms_rpt_dateStatisticType"/>-->
 
-        </el-form-item>
-        <el-form-item prop="dates">
+<!--        </el-form-item>-->
+        <el-form-item prop="dates" label="时间范围">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">
               <el-form-item prop="startDay" v-show="false"/>
@@ -70,22 +70,22 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="统计类型" prop="specialAnalyseType" v-show="this.queryParams.showDefault == 'chart' || tabSelObj.roadFlag == true || tabSelObj.stationFlag == true" >
-          <ti-select v-model="queryParams.specialAnalyseType"  dict-type="tibms_analyse_specialAnalyseType"   :clearable="false"   />
-        </el-form-item>
+<!--        <el-form-item label="统计类型" prop="specialAnalyseType" v-show="this.queryParams.showDefault == 'chart' || tabSelObj.roadFlag == true || tabSelObj.stationFlag == true" >-->
+<!--          <ti-select v-model="queryParams.specialAnalyseType"  dict-type="tibms_analyse_specialAnalyseType"   :clearable="false"   />-->
+<!--        </el-form-item>-->
         <el-form-item class="searchItem" :label-width="'50px'">
           <el-button type="primary" @click="submit">查询</el-button>
           <el-button type="default" @click="reset">重置</el-button>
         </el-form-item>
 
-        <el-row>
-          <el-form-item label="图表方式">
-            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
-              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
-              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-row>
+<!--        <el-row>-->
+<!--          <el-form-item label="图表方式">-->
+<!--            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">-->
+<!--              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>-->
+<!--              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
+<!--        </el-row>-->
       </el-form>
 
       <!-- 数据表格 -->
@@ -104,7 +104,7 @@
                 :toolbar="tableToolbar"
                 @toolbar-button-click="toolbarEvent"
                 :loading="table.loading"
-                :columns="table.columns"
+                :columns="columns"
                 :data="table.datas"
       >
       </vxe-grid>
@@ -163,7 +163,7 @@
         inOutType: '',
         queryParams:{
           showDefault: 'table', // table chart
-          activeName: 'road',
+          activeName: 'station',
           sysOrgIdStr: '',
           dateStatisticType: 'day',
           startDay: dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
@@ -215,8 +215,7 @@
     },
     computed:{
       // columns(){
-      //
-      //   return tableOption.getColums(this.queryParams.activeName, this.table.specialColumns);
+      //   return tableOption.getColums(this.queryParams.activeName, this.table.tableColumns);
       // }
     },
     mounted(){
@@ -309,9 +308,10 @@
           // 替换数据源
 
           //this.table.datas = tableOption.getTableDatas(this.table.datas);
-          this.table.columns = this.dataSource.columns;
-          this.table.columns = tableOption.getColums(this.queryParams.activeName, this.queryParams.specialAnalyseType, this.table.columns );
-          this.table.datas = this.dataSource.datas
+          // this.table.columns = this.dataSource.columns;
+          // this.table.columns = tableOption.getColums(this.queryParams.activeName, this.queryParams.specialAnalyseType, this.table.columns );
+          this.columns = tableOption.tableColumns;  // 固定列
+          this.table.datas = this.dataSource
 
         }else{
           //console.log("datas",this.dataSource.datas);

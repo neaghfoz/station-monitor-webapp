@@ -13,12 +13,12 @@
           <el-input style="width: 177px" v-model="appForm.vehiclePlate" type="text" placeholder="车牌号"
                     maxlength="16"/>
         </el-form-item>
-        <!-- <el-form-item label="车牌颜色" prop="vehicleColor">
+        <el-form-item label="车牌颜色" prop="vehicleColor">
           <ti-select style="width: 177px"
            v-model="appForm.vehicleColor"
            dict-type="tibms_com_vehicleColor"/>
         </el-form-item>
-        <el-form-item label="OBU编号" prop="obuId">
+        <!-- <el-form-item label="OBU编号" prop="obuId">
           <el-input style="width: 177px" v-model="appForm.obuId" type="text" placeholder="OBU编号"
                     maxlength="30"/>
         </el-form-item>
@@ -68,14 +68,14 @@
     <!--导出-->
     <ti-export-excel :exportExcel="exportExcel" :page="table.page"></ti-export-excel>
 
-    <div style="margin-top:20px;"  v-show="table.datas.length>0">
+    <!-- <div style="margin-top:20px;"  v-show="table.datas.length>0">
       <ti-road-net ref="roadNet" :path-info-list="pathList" :image-show="true" :check-show="false">
         <template slot="operation">
           <el-button type="primary" icon="el-icon-arrow-left"  @click="lastOne">上一条</el-button>
           <el-button type="primary" icon="el-icon-arrow-right" @click="nextOne">下一条</el-button>
         </template>
       </ti-road-net>
-    </div>
+    </div> -->
 
     </div>
 </template>
@@ -224,19 +224,58 @@
       }
     },
     methods: {
-
+      // 更改颜色
+      changeColor(data) {
+        var _data = data
+        for (let i = 0; i < _data.length; i++) {
+          const item = _data[i];
+          item.enVehiclePlateColor = this.getVehicleColor(item.enVehiclePlateColor)
+        }
+        return _data
+      },
+      // 获取车牌颜色
+      getVehicleColor(color) {
+        switch(color) {
+          case "0":
+            return '蓝色';
+          case "1":
+            return '黄色';
+          case "2":
+            return '黑色';
+          case "3":
+            return '白色';
+          case "4":
+            return '渐变绿色';
+          case "5":
+            return '黄绿双拼色';
+          case "6":
+            return '蓝白渐变色';
+          case "7":
+            return '黄绿双拼色';
+          case "8":
+            return '黄绿双拼色';
+          case "9":
+            return '未确认';
+          case "10":
+            return '黄绿双拼色';
+          case "11":
+            return '绿色';
+          case "12":
+            return '红色';
+        }
+      },
       // 获取路径明细列表
       async getPathDetail({ passId,enTime }){
         const params = {
           passId: passId,
           enTime: enTime
         }
-        const { data } = await getPathList({},params);
+        //const { data } = await getPathList({},params);
         this.pathList = data.pathInfos;
       },
       currentChangeEvent({ row }) {
         this.selectRowIndex = this.$refs.appTable.getRowIndex(row);
-        this.getPathDetail(this.$refs.appTable.getCurrentRecord());
+        //this.getPathDetail(this.$refs.appTable.getCurrentRecord());
       },
       lastOne(){
         if( this.selectRowIndex === 0){
@@ -245,7 +284,7 @@
         }
         this.selectRowIndex = this.selectRowIndex - 1;
         this.$refs.appTable.setCurrentRow(this.$refs.appTable.data[this.selectRowIndex]);
-        this.getPathDetail(this.$refs.appTable.data[this.selectRowIndex]);
+        //this.getPathDetail(this.$refs.appTable.data[this.selectRowIndex]);
       },
       nextOne(){
         if( this.selectRowIndex === this.table.datas.length - 1){
@@ -254,21 +293,21 @@
         }
         this.selectRowIndex = this.selectRowIndex + 1;
         this.$refs.appTable.setCurrentRow(this.$refs.appTable.data[this.selectRowIndex]);
-        this.getPathDetail(this.$refs.appTable.data[this.selectRowIndex]);
+        //this.getPathDetail(this.$refs.appTable.data[this.selectRowIndex]);
       },
 
       async reload(isCache){
         this.table.loading = true
         const res = await getData({ current: this.table.page.currentPage,size : this.table.page.pageSize },this.appForm);
         if(res.code==200){
-          this.table.datas = res.data.records
+          // this.table.datas = res.data.records
+          this.table.datas = this.changeColor(res.data.records);
           this.table.page.total = res.data.total
-
           //默认第一行高亮
           if ( this.table.datas.length > 0) {
             this.$nextTick(() => {
               this.$refs.appTable.setCurrentRow(this.$refs.appTable.data[0]);
-              this.getPathDetail(this.$refs.appTable.data[0]);
+              //this.getPathDetail(this.$refs.appTable.data[0]);
             })
           }
         }

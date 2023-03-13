@@ -3,9 +3,9 @@
     <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
       <el-tab-pane label="路段" name="road"></el-tab-pane>
       <el-tab-pane label="收费站" name="station"></el-tab-pane>
-      <el-tab-pane label="车型" name="vehicleType"></el-tab-pane>
-      <el-tab-pane label="车种" name="vehicleClass"></el-tab-pane>
-      <el-tab-pane label="时间" name="time"></el-tab-pane>
+<!--      <el-tab-pane label="车型" name="vehicleType"></el-tab-pane>-->
+<!--      <el-tab-pane label="车种" name="vehicleClass"></el-tab-pane>-->
+<!--      <el-tab-pane label="时间" name="time"></el-tab-pane>-->
     </el-tabs>
     <div class="search-form">
       <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
@@ -18,12 +18,12 @@
         <el-form-item label="机构" prop="sysOrgIdStr_road" v-show="roadSysOrgFlag">
           <ti-sys-org ref="roadSysOrg" v-model="queryParams.sysOrgIdStr_road" default-first-value show-level="2"/>
         </el-form-item>
-        <el-form-item label="时间范围" prop="dateStatisticType">
-          <ti-select v-model="queryParams.dateStatisticType"
-                     :clearable = "false"
-                     dict-type="tibms_rpt_dateStatisticType"/>
+<!--        <el-form-item label="时间范围" prop="dateStatisticType">-->
+<!--          <ti-select v-model="queryParams.dateStatisticType"-->
+<!--                     :clearable = "false"-->
+<!--                     dict-type="tibms_rpt_dateStatisticType"/>-->
 
-        </el-form-item>
+<!--        </el-form-item>-->
         <el-form-item prop="dates">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">
@@ -79,14 +79,14 @@
           <el-button type="primary" @click="submit">查询</el-button>
           <el-button type="default" @click="reset">重置</el-button>
         </el-form-item>
-        <el-row>
-          <el-form-item label="图表方式">
-            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
-              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
-              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-row>
+<!--        <el-row>-->
+<!--          <el-form-item label="图表方式">-->
+<!--            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">-->
+<!--              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>-->
+<!--              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
+<!--        </el-row>-->
       </el-form>
 
       <!-- 数据表格 -->
@@ -278,7 +278,7 @@
         }
         if(this.queryParams.showDefault=='table'){
           // 替换数据源
-          this.table.datas = this.dataSource.table
+          this.table.datas = this.dataSource.records
         }else{
           let datas = this.dataSource.chart
           this.$nextTick(() => {

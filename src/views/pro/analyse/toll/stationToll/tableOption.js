@@ -17,11 +17,17 @@ export default {
       minWidth: 120
     },
     {
-      field: "transTypeName",
-      title: "交易类型",
+      field: "naturalDate",
+      title: "日期",
       align: 'center',
-      minWidth: 100
+      minWidth: 120
     },
+    // {
+    //   field: "transType",
+    //   title: "交易类型",
+    //   align: 'center',
+    //   minWidth: 100
+    // },
     {
       title: "车型",
       align: 'center',
@@ -163,123 +169,124 @@ export default {
           minWidth: 80
         }]
     },
-    {
-      title: "车种",
-      align: 'center',
-      headerAlign: 'center',
-      children: [
-        {
-          field: "tollFeeClass0",
-          title: "普通车",
-          align: 'right',
-
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass8",
-          title: "军警",
-          headerAlign: 'center',
-          align: 'right',
-
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass10",
-          title: "紧急",
-          headerAlign: 'center',
-
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass14",
-          title: "车队",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass21",
-          title: "绿通车",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass22",
-          title: "联合收割机",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass23",
-          title: "抢险救灾",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass24",
-          title: "J1类集装箱车",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass25",
-          title: "大件运输",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass26",
-          title: "应急保障车",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass27",
-          title: "货车列车或半挂汽车列车",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass28",
-          title: "J2类型集装箱",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        },
-        {
-          field: "tollFeeClass99",
-          title: "其他车种",
-
-          headerAlign: 'center',
-          align: 'right',
-          minWidth: 80
-        }
-      ]
-    },
-    {
-      title: "合计",
-      align: 'right',
-      headerAlign: 'center',
-      field: "totalFee",
-      minWidth: 80
-    }],
+    // {
+    //   title: "车种",
+    //   align: 'center',
+    //   headerAlign: 'center',
+    //   children: [
+    //     {
+    //       field: "tollFeeClass0",
+    //       title: "普通车",
+    //       align: 'right',
+    //
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass8",
+    //       title: "军警",
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass10",
+    //       title: "紧急",
+    //       headerAlign: 'center',
+    //
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass14",
+    //       title: "车队",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass21",
+    //       title: "绿通车",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass22",
+    //       title: "联合收割机",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass23",
+    //       title: "抢险救灾",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass24",
+    //       title: "J1类集装箱车",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass25",
+    //       title: "大件运输",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass26",
+    //       title: "应急保障车",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass27",
+    //       title: "货车列车或半挂汽车列车",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass28",
+    //       title: "J2类型集装箱",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     },
+    //     {
+    //       field: "tollFeeClass99",
+    //       title: "其他车种",
+    //
+    //       headerAlign: 'center',
+    //       align: 'right',
+    //       minWidth: 80
+    //     }
+    //   ]
+    // },
+    // {
+    //   title: "合计",
+    //   align: 'right',
+    //   headerAlign: 'center',
+    //   field: "totalFee",
+    //   minWidth: 80
+    // }
+    ],
   otherColumns: [
     {
       title: "序号",

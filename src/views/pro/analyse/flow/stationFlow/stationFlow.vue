@@ -4,9 +4,9 @@
       <el-tabs v-model="queryParams.activeName" type="card" @tab-click="handleClick">
         <el-tab-pane label="路段" name="road"/>
         <el-tab-pane label="收费站" name="station"/>
-        <el-tab-pane label="车型" name="vehicleType"/>
-        <el-tab-pane label="车种" name="vehicleClass"/>
-        <el-tab-pane label="时间" name="collectDate"/>
+<!--        <el-tab-pane label="车型" name="vehicleType"/>-->
+<!--        <el-tab-pane label="车种" name="vehicleClass"/>-->
+<!--        <el-tab-pane label="时间" name="collectDate"/>-->
       </el-tabs>
       <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
         <el-form-item label="机构" prop="sysOrgIdStr_station" v-show="stationSysOrgFlag">
@@ -15,12 +15,12 @@
         <el-form-item label="机构" prop="sysOrgIdStr_road" v-show="roadSysOrgFlag">
           <ti-sys-org ref="roadSysOrg" v-model="queryParams.sysOrgIdStr_road" default-first-value show-level="2"/>
         </el-form-item>
-        <el-form-item label="时间范围" prop="dateStatisticType">
-          <ti-select v-model="queryParams.dateStatisticType"
-                     :clearable="false"
-                     dict-type="tibms_rpt_dateStatisticType"/>
+<!--        <el-form-item label="时间范围" prop="dateStatisticType">-->
+<!--          <ti-select v-model="queryParams.dateStatisticType"-->
+<!--                     :clearable="false"-->
+<!--                     dict-type="tibms_rpt_dateStatisticType"/>-->
 
-        </el-form-item>
+<!--        </el-form-item>-->
         <el-form-item prop="dates">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">
@@ -54,7 +54,7 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="统计值(纵轴)" v-show="valueXFlag" prop="valueX">
+<!--        <el-form-item label="统计值(纵轴)" v-show="valueXFlag" prop="valueX">-->
           <!--          <el-select v-model="queryParams.valueX" placeholder="全部">-->
           <!--            <el-option value="en" label="入口车流量"/>-->
           <!--            <el-option value="ex" label="出口车流量"/>-->
@@ -88,14 +88,14 @@
           <el-button type="primary" @click="getData">查询</el-button>
           <el-button type="default" @click="handleReset">重置</el-button>
         </el-form-item>
-        <el-row>
-          <el-form-item label="图表方式">
-            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
-              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
-              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>
-            </el-radio-group>
-          </el-form-item>
-        </el-row>
+<!--        <el-row>-->
+<!--          <el-form-item label="图表方式">-->
+<!--            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">-->
+<!--              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>-->
+<!--              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
+<!--        </el-row>-->
       </el-form>
 
     </div>
@@ -257,8 +257,8 @@
         await tableOption.getData(type,
           {},
           params);
-        if (this.queryParams.showDefault === 'table' && tableOption.returnData.data.tableData) {
-          this.table.datas = tableOption.returnData.data.tableData;
+        if (this.queryParams.showDefault === 'table' && tableOption.returnData.data.records) {
+          this.table.datas = tableOption.returnData.data.records;
           this.table.loading = false;
         }
         if (this.queryParams.showDefault === 'chart' && tableOption.returnData.data.viewData) {

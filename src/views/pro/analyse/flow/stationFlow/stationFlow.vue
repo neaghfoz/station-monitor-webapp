@@ -312,7 +312,7 @@
                 if(key == 'naturalDate') {
                   compareData[key] = '对比'
                 }
-                if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName'){
+                if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName' &&key!='flowType' &&key!='datePointText'){
                   if(yesterdayData[key] == 0){
                     compareData[key] = '0%'
                     continue
@@ -329,7 +329,7 @@
             }
             this.table.datas = xdata
           }
-          this.table.datas = tableOption.returnData.data.records;
+          // this.table.datas = tableOption.returnData.data.records;
           this.table.loading = false;
         }
         if (this.queryParams.showDefault === 'chart' && tableOption.returnData.data.viewData) {

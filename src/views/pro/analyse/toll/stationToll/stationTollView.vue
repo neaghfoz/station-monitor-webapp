@@ -312,7 +312,6 @@
         }
         if(this.queryParams.showDefault=='table'){
           if(this.dataSource.activeName == "vehicleType") {
-            var vehicleTypeData = []
             for(let i=0;i<this.dataSource.records.length;i++){
               this.checkVehicleType(this.dataSource.records[i])
             }

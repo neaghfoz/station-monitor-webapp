@@ -129,6 +129,7 @@
   import moment from "moment"
   import chartOption from "@/views/pro/analyse/toll/stationToll/chartOption"
   import tiSysOrg from "@/views/pro/common/tiElement/tiSysOrg/tiSysOrg";
+// import { forEach } from 'mock/user';
 
   export default {
     name: "analyse.toll.stationToll.stationTollView",
@@ -292,10 +293,10 @@
           }
           if(this.queryParams.activeName =='vehicleClassTrend' || this.queryParams.activeName =='vehicleTypeTrend'){
             param.trend='true';
-            param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
-            param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
-            // this.queryParams.startDate = "2022-09-01";
-            // this.queryParams.endDate = "2022-09-02";
+            // param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
+            // param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
+            this.queryParams.startDate = "2022-09-01";
+            this.queryParams.endDate = "2022-09-02";
           }else {
             param.trend ='false';
           }
@@ -303,13 +304,61 @@
           console.log("param:",param)
           const res = await getData (param);
           if(res.code==200){
+            
             this.dataSource = res.data
+
           }
           this.table.loading = false
         }
         if(this.queryParams.showDefault=='table'){
+          if(this.dataSource.records.activeName == "vehicleType") {
+            this.dataSource.records = this.checkVehicleType(this.dataSource.records)
+          }
+          if(this.dataSource.records.activeName == "vehicleClass") {
+            this.dataSource.records = this.checkVehicleClass(this.dataSource.records)
+          }
           // 替换数据源
           this.table.datas = this.dataSource.records
+          //判断车型/车种/车型趋势/车种趋势
+          if(this.dataSource.records.length > 0) {
+            if(this.dataSource.records[0].yesterdayData != null) {
+              var xdata = []
+              var todayData = this.dataSource.records[0]
+              var yesterdayData = this.dataSource.records[0].yesterdayData
+              var compareData = {}
+              if(this.dataSource.records.activeName == "vehicleClassTrend"){
+                this.checkVehicleClass(yesterdayData)
+                this.checkVehicleClass(todayData)
+                this.checkVehicleClass(compareData)
+              }else {
+                this.checkVehicleType(yesterdayData)
+                this.checkVehicleType(todayData)
+                this.checkVehicleType(compareData)
+              }
+              
+              Object.assign(compareData,yesterdayData);
+              // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
+              for(var key in yesterdayData){
+                if(key == 'naturalDate') {
+                  compareData[key] = '对比'
+                }
+                if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName'){
+                  if(yesterdayData[key] == 0){
+                    compareData[key] = '0%'
+                    continue
+                  }
+                  compareData[key] = (todayData[key] / yesterdayData[key] * 100).toFixed(2) + '%'
+                }
+              }
+              todayData['naturalDate'] = '今天'
+              yesterdayData['naturalDate'] = '昨天'
+              
+              xdata.push(yesterdayData)
+              xdata.push(todayData)
+              xdata.push(compareData)
+              this.table.datas = xdata
+            }
+          }
         }else{
           let datas = this.dataSource.chart
           this.$nextTick(() => {
@@ -327,6 +376,48 @@
           }
         })
       },
+      //检查是否没有该字段，没有则添加并设置为0
+      checkField(data,field){
+        if(!data.hasOwnProperty(field)){
+          data[field] = 0
+        }
+      },
+      //车型字段检查
+      checkVehicleType(data){
+        this.checkField(data,'tollFeeType1')
+        this.checkField(data,'tollFeeType2')
+        this.checkField(data,'tollFeeType3')
+        this.checkField(data,'tollFeeType4')
+        this.checkField(data,'tollFeeType11')
+        this.checkField(data,'tollFeeType12')
+        this.checkField(data,'tollFeeType13')
+        this.checkField(data,'tollFeeType14')
+        this.checkField(data,'tollFeeType15')
+        this.checkField(data,'tollFeeType16')
+        this.checkField(data,'tollFeeType21')
+        this.checkField(data,'tollFeeType22')
+        this.checkField(data,'tollFeeType23')
+        this.checkField(data,'tollFeeType24')
+        this.checkField(data,'tollFeeType25')
+        this.checkField(data,'tollFeeType26')
+        this.checkField(data,'tollFeeType99')
+      },
+      //车种字段检查
+      checkVehicleClass(data){
+        this.checkField(data,'tollFeeClass0')
+        this.checkField(data,'tollFeeClass8')
+        this.checkField(data,'tollFeeClass10')
+        this.checkField(data,'tollFeeClass14')
+        this.checkField(data,'tollFeeClass21')
+        this.checkField(data,'tollFeeClass22')
+        this.checkField(data,'tollFeeClass23')
+        this.checkField(data,'tollFeeClass24')
+        this.checkField(data,'tollFeeClass25')
+        this.checkField(data,'tollFeeClass26')
+        this.checkField(data,'tollFeeClass27')
+        this.checkField(data,'tollFeeClass28')
+      },
+
       toolbarEvent({code}) {
         switch (code) {
           case 'excelExport':

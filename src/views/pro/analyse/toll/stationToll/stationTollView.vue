@@ -311,53 +311,57 @@
           this.table.loading = false
         }
         if(this.queryParams.showDefault=='table'){
-          if(this.dataSource.records.activeName == "vehicleType") {
-            this.dataSource.records = this.checkVehicleType(this.dataSource.records)
+          if(this.dataSource.activeName == "vehicleType") {
+            var vehicleTypeData = []
+            for(let i=0;i<this.dataSource.records.length;i++){
+              this.checkVehicleType(this.dataSource.records[i])
+            }
+            this.table.datas = this.dataSource.records
           }
-          if(this.dataSource.records.activeName == "vehicleClass") {
-            this.dataSource.records = this.checkVehicleClass(this.dataSource.records)
+          if(this.dataSource.activeName == "vehicleClass") {
+            for(let i=0;i<this.dataSource.records.length;i++){
+              this.checkVehicleClass(this.dataSource.records[i])
+            }
+            this.table.datas = this.dataSource.records
           }
           // 替换数据源
-          this.table.datas = this.dataSource.records
           //判断车型/车种/车型趋势/车种趋势
-          if(this.dataSource.records.length > 0) {
-            if(this.dataSource.records[0].yesterdayData != null) {
-              var xdata = []
-              var todayData = this.dataSource.records[0]
-              var yesterdayData = this.dataSource.records[0].yesterdayData
-              var compareData = {}
-              if(this.dataSource.records.activeName == "vehicleClassTrend"){
-                this.checkVehicleClass(yesterdayData)
-                this.checkVehicleClass(todayData)
-                this.checkVehicleClass(compareData)
-              }else {
-                this.checkVehicleType(yesterdayData)
-                this.checkVehicleType(todayData)
-                this.checkVehicleType(compareData)
-              }
-              
-              Object.assign(compareData,yesterdayData);
-              // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
-              for(var key in yesterdayData){
-                if(key == 'naturalDate') {
-                  compareData[key] = '对比'
-                }
-                if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName'){
-                  if(yesterdayData[key] == 0){
-                    compareData[key] = '0%'
-                    continue
-                  }
-                  compareData[key] = (todayData[key] / yesterdayData[key] * 100).toFixed(2) + '%'
-                }
-              }
-              todayData['naturalDate'] = '今天'
-              yesterdayData['naturalDate'] = '昨天'
-              
-              xdata.push(yesterdayData)
-              xdata.push(todayData)
-              xdata.push(compareData)
-              this.table.datas = xdata
+          if(this.dataSource.activeName =='vehicleClassTrend' || this.dataSource.activeName =='vehicleTypeTrend') {
+            var xdata = []
+            var todayData = this.dataSource.records[0]
+            var yesterdayData = this.dataSource.records[0].yesterdayData
+            var compareData = {}
+            if(this.dataSource.activeName == "vehicleClassTrend"){
+              this.checkVehicleClass(yesterdayData)
+              this.checkVehicleClass(todayData)
+              this.checkVehicleClass(compareData)
+            }else {
+              this.checkVehicleType(yesterdayData)
+              this.checkVehicleType(todayData)
+              this.checkVehicleType(compareData)
             }
+            
+            Object.assign(compareData,yesterdayData);
+            // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
+            for(var key in yesterdayData){
+              if(key == 'naturalDate') {
+                compareData[key] = '对比'
+              }
+              if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName'){
+                if(yesterdayData[key] == 0){
+                  compareData[key] = '0%'
+                  continue
+                }
+                compareData[key] = (todayData[key] / yesterdayData[key] * 100).toFixed(2) + '%'
+              }
+            }
+            todayData['naturalDate'] = '今天'
+            yesterdayData['naturalDate'] = '昨天'
+            
+            xdata.push(yesterdayData)
+            xdata.push(todayData)
+            xdata.push(compareData)
+            this.table.datas = xdata
           }
         }else{
           let datas = this.dataSource.chart

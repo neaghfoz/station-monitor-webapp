@@ -11,32 +11,32 @@ export default {
       align: "center"
     },
     {
-      title: "路段名称",
-      align: 'center',
-      field: "roadName",
-      minWidth: 120 ,
-    },
-    {
       field: "stationName",
       title: "收费站名称",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      field: "transDate",
-      title: "统计日期",
+      title: "路段名称",
+      align: 'center',
+      field: "roadName",
+      minWidth: 120 ,
+    },
+    {
+      field: "startEndDateText",
+      title: "统计时间",
       align: 'center',
       minWidth: 100 ,
     },
     {
-      field: "enListRate",
-      title: "入口交易成功率",
+      title: "入口车流量",
       align: 'center',
-      minWidth: 100
+      field: "enCount",
+      minWidth: 120 ,
     },
     {
-      field: "exListRate",
-      title: "出口交易成功率",
+      field: "enListRate",
+      title: "入口交易成功率",
       align: 'center',
       minWidth: 100
     },
@@ -47,11 +47,36 @@ export default {
       minWidth: 100
     },
     {
+      field: "exCount",
+      title: "出口车流量",
+      align: 'center',
+      minWidth: 100
+    },
+    {
+      field: "exListRate",
+      title: "出口交易成功率",
+      align: 'center',
+      minWidth: 100
+    },
+    {
       field: "exPlateRate",
       title: "出口车牌识别准确率",
       align: 'center',
       minWidth: 100
-    }],
+    },
+    {
+      field: "avgMilliSecond",
+      title: "ETC平均交易耗时（毫秒）",
+      align: 'center',
+      minWidth: 100
+    },
+    {
+      field: "avgVehSpeed",
+      title: "ETC平均同行速度（公里/小时）",
+      align: 'center',
+      minWidth: 100
+    }
+  ],
   getColums: function (tableType){
     let columnsTemp=[];
 
@@ -63,7 +88,7 @@ export default {
         break;
       case "station":
         //columnsTemp = roadStationColumnsTemp;
-        columnsTemp.splice(3,1);
+        //columnsTemp.splice(3,1);
         break;
       case "time":
         columnsTemp.splice(1,2);

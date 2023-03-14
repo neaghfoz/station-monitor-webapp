@@ -1,9 +1,9 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
-      <el-tab-pane label="路段" name="road"></el-tab-pane>
+      <!-- <el-tab-pane label="路段" name="road"></el-tab-pane> -->
       <el-tab-pane label="收费站" name="station"></el-tab-pane>
-      <el-tab-pane label="时间" name="time"></el-tab-pane>
+      <!-- <el-tab-pane label="时间" name="time"></el-tab-pane> -->
     </el-tabs>
     <div class="search-form">
       <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
@@ -66,7 +66,7 @@
           <el-form-item label="图表方式">
             <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
               <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
-              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>
+              <!-- <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio> -->
             </el-radio-group>
           </el-form-item>
         </el-row>
@@ -171,7 +171,7 @@
     },
     created() {
       //默认显示
-      this.queryParams.activeName = 'road';
+      this.queryParams.activeName = 'station';
       this.queryParams.showDefault = 'table';
       this.queryParams.kpiType = '1';
       this.showChange();
@@ -243,14 +243,33 @@
             param.sysOrgIdStr='';
           }
           const res = await getData (param);
+          console.log(res)
           if(res.code==200){
             this.dataSource = res.data
           }
           this.table.loading = false
         }
         if(this.queryParams.showDefault=='table'){
+          for(var i=0;i<this.dataSource.records.length;i++){
+            var item = this.dataSource.records[i];
+            if(item.laneSign == 1){ //入口
+              item['enCount'] = item.vehCount;
+              item['enListRate'] = (item.successCount / item.vehCount * 100).toFixed(2) + "%";
+              item['enPlateRate'] = (item.vehPlateCount / item.vehCount * 100).toFixed(2) + "%";
+              item['exCount'] = 0;
+              item['exListRate'] = "0%";
+              item['exPlateRate'] = "0%";
+            } else {
+              item['exCount'] = item.vehCount;
+              item['exListRate'] = (item.successCount / item.vehCount * 100).toFixed(2) + "%";
+              item['exPlateRate'] = (item.vehPlateCount / item.vehCount * 100).toFixed(2) + "%";
+              item['enCount'] = 0;
+              item['enListRate'] = "0%";
+              item['enPlateRate'] = "0%";
+            }
+          }
           // 替换数据源
-          this.table.datas = this.dataSource.table
+          this.table.datas = this.dataSource.records
         }else{
           let datas = this.dataSource.chart
           let kpiTypeList = dictUtils.getDictList("tibms_analyse_station_kpiType");

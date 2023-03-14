@@ -1,10 +1,13 @@
 <template>
   <div class="app-container">
     <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
-      <el-tab-pane label="路段" name="road"></el-tab-pane>
-      <el-tab-pane label="收费站" name="station"></el-tab-pane>
-<!--      <el-tab-pane label="车型" name="vehicleType"></el-tab-pane>-->
-<!--      <el-tab-pane label="车种" name="vehicleClass"></el-tab-pane>-->
+      <el-tab-pane label="车型" name="vehicleType"></el-tab-pane>
+      <el-tab-pane label="车种" name="vehicleClass"></el-tab-pane>
+      <el-tab-pane label="车型趋势" name="vehicleTypeTrend"></el-tab-pane>
+      <el-tab-pane label="车种趋势" name="vehicleClassTrend"></el-tab-pane>
+      <!-- <el-tab-pane label="路段" name="road"></el-tab-pane>
+      <el-tab-pane label="收费站" name="station"></el-tab-pane> -->
+
 <!--      <el-tab-pane label="时间" name="time"></el-tab-pane>-->
     </el-tabs>
     <div class="search-form">
@@ -182,7 +185,7 @@
       }
     },
     created() {
-      this.queryParams.activeName = 'road';
+      this.queryParams.activeName = 'vehicleType';
       this.queryParams.showDefault = 'table';
       this.showChange();
     },
@@ -230,6 +233,18 @@
           this.transTypeFlag = showDefault == 'table' ? false : true;
           this.vehicleFlag = true;
           this.queryParams.vehicleFlagStr = this.vehicleFlagTmp;
+        } else if (activeName === 'vehicleClassTrend') {
+          this.stationSysOrgFlag = true;
+          this.roadSysOrgFlag = false;
+          this.transTypeFlag = showDefault == 'table' ? false : true;
+          this.vehicleFlag = true;
+          this.queryParams.vehicleFlagStr = this.vehicleFlagTmp;
+        } else if (activeName === 'vehicleTypeTrend') {
+          this.stationSysOrgFlag = true;
+          this.roadSysOrgFlag = false;
+          this.transTypeFlag = showDefault == 'table' ? false : true;
+          this.vehicleFlag = true;
+          this.queryParams.vehicleFlagStr = this.vehicleFlagTmp;
         }
         this.reload();
       },
@@ -269,6 +284,22 @@
           if(param.vehicleFlagStr !='vehicleClass'){
             param.vehicleClassStr='';
           }
+          if(this.queryParams.activeName =='vehicleClass' || this.queryParams.activeName =='vehicleClassTrend'){
+            param.vehStatisticType='vehClass';
+          }
+          if(this.queryParams.activeName =='vehicleType' || this.queryParams.activeName =='vehicleTypeTrend'){
+            param.vehStatisticType='vehType';
+          }
+          if(this.queryParams.activeName =='vehicleClassTrend' || this.queryParams.activeName =='vehicleTypeTrend'){
+            param.trend='true';
+            param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
+            param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
+            // this.queryParams.startDate = "2022-09-01";
+            // this.queryParams.endDate = "2022-09-02";
+          }else {
+            param.trend ='false';
+          }
+          
           console.log("param:",param)
           const res = await getData (param);
           if(res.code==200){

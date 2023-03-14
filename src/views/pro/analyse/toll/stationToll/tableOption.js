@@ -330,6 +330,594 @@ export default {
       minWidth: 80
     }
   ],
+  vehicleTypeColumns:[
+    {
+      title: "路段名称",
+      align: 'center',
+      field: "roadName",
+      minWidth: 120
+    },
+    {
+      field: "stationName",
+      title: "收费站名称",
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      field: "naturalDate",
+      title: "日期",
+      align: 'center',
+      minWidth: 120
+    },
+    // {
+    //   field: "transType",
+    //   title: "交易类型",
+    //   align: 'center',
+    //   minWidth: 100
+    // },
+    {
+      title: "车型",
+      align: 'center',
+      headerAlign: 'center',
+      children: [
+        {
+          field: "tollFeeType1",
+          title: "客一",
+          align: 'right',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType2",
+          title: "客二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType3",
+          title: "客三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType4",
+          title: "客四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType11",
+          title: "货一",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType12",
+          title: "货二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType13",
+          title: "货三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType14",
+          title: "货四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType15",
+          title: "货五",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType16",
+          title: "货六",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType21",
+          title: "专一",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType22",
+          title: "专二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType23",
+          title: "专三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType24",
+          title: "专四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType25",
+          title: "专五",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType26",
+          title: "专六",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType99",
+          title: "其他车型",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        }]
+    }
+    ],
+  vehicleClassColumns:[
+    {
+      title: "路段名称",
+      align: 'center',
+      field: "roadName",
+      minWidth: 120
+    },
+    {
+      field: "stationName",
+      title: "收费站名称",
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      field: "naturalDate",
+      title: "日期",
+      align: 'center',
+      minWidth: 120
+    },
+    // {
+    //   field: "transType",
+    //   title: "交易类型",
+    //   align: 'center',
+    //   minWidth: 100
+    // },
+    {
+      title: "车种",
+      align: 'center',
+      headerAlign: 'center',
+      children: [
+        {
+          field: "tollFeeClass0",
+          title: "普通",
+          align: 'right',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass8",
+          title: "军警",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass10",
+          title: "紧急",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass14",
+          title: "车队",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass21",
+          title: "绿通车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass22",
+          title: "联合收割机",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass23",
+          title: "抢险救灾",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass24",
+          title: "J1类型集装箱",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass25",
+          title: "大件运输",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass26",
+          title: "应急车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass27",
+          title: "货车列车或半挂汽车列车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass28",
+          title: "J2类型集装箱",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        }]
+    }
+    ],
+  vehicleTypeTrendColumns:[
+    {
+      title: "路段名称",
+      align: 'center',
+      field: "roadName",
+      minWidth: 120
+    },
+    {
+      field: "stationName",
+      title: "收费站名称",
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      field: "naturalDate",
+      title: "日期",
+      align: 'center',
+      minWidth: 120
+    },
+    // {
+    //   field: "transType",
+    //   title: "交易类型",
+    //   align: 'center',
+    //   minWidth: 100
+    // },
+    {
+      title: "车型趋势",
+      align: 'center',
+      headerAlign: 'center',
+      children: [
+        {
+          field: "tollFeeType1",
+          title: "客一",
+          align: 'right',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType2",
+          title: "客二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType3",
+          title: "客三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType4",
+          title: "客四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType11",
+          title: "货一",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType12",
+          title: "货二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType13",
+          title: "货三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType14",
+          title: "货四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType15",
+          title: "货五",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType16",
+          title: "货六",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType21",
+          title: "专一",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType22",
+          title: "专二",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType23",
+          title: "专三",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType24",
+          title: "专四",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType25",
+          title: "专五",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType26",
+          title: "专六",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeType99",
+          title: "其他车型",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        }]
+    }
+    ],
+  vehicleClassTrendColumns:[
+    {
+      title: "路段名称",
+      align: 'center',
+      field: "roadName",
+      minWidth: 120
+    },
+    {
+      field: "stationName",
+      title: "收费站名称",
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      field: "naturalDate",
+      title: "日期",
+      align: 'center',
+      minWidth: 120
+    },
+    // {
+    //   field: "transType",
+    //   title: "交易类型",
+    //   align: 'center',
+    //   minWidth: 100
+    // },
+    {
+      title: "车种趋势",
+      align: 'center',
+      headerAlign: 'center',
+      children: [
+        {
+          field: "tollFeeClass0",
+          title: "普通",
+          align: 'right',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass8",
+          title: "军警",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass10",
+          title: "紧急",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass14",
+          title: "车队",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass21",
+          title: "绿通车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass22",
+          title: "联合收割机",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass23",
+          title: "抢险救灾",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass24",
+          title: "J1类型集装箱",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass25",
+          title: "大件运输",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass26",
+          title: "应急车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass27",
+          title: "货车列车或半挂汽车列车",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        },
+        {
+          field: "tollFeeClass28",
+          title: "J2类型集装箱",
+          align: 'right',
+          headerAlign: 'center',
+
+          minWidth: 80
+        }]
+    }
+    ],
   getColums: function (tableType){
     let columnsTemp=[];
     let roadStationColumnsTemp=[];
@@ -346,18 +934,32 @@ export default {
         columnsTemp = roadStationColumnsTemp;
         break;
       case "vehicleType":
-        columnsTemp = otherColumnsTemp;
+        // roadStationColumnsTemp.splice(1,1);
+        columnsTemp = this.vehicleTypeColumns;
         break;
+        // columnsTemp = otherColumnsTemp;
+        // break;
       case "vehicleClass":
-        let vehClassTemp = {
-          title: "车种",
-          align: 'center',
-          field: "vehClassName",
-          minWidth: 120
-        };
-        //车型改为车种
-        otherColumnsTemp.splice(1,1,vehClassTemp);
-        columnsTemp = otherColumnsTemp;
+        // roadStationColumnsTemp.splice(1,1);
+        columnsTemp = this.vehicleClassColumns;
+        break;
+        // let vehClassTemp = {
+        //   title: "车种",
+        //   align: 'center',
+        //   field: "vehClassName",
+        //   minWidth: 120
+        // };
+        // //车型改为车种
+        // otherColumnsTemp.splice(1,1,vehClassTemp);
+        // columnsTemp = otherColumnsTemp;
+        // break;
+      case "vehicleTypeTrend":
+        // roadStationColumnsTemp.splice(1,1);
+        columnsTemp = this.vehicleTypeTrendColumns;
+        break;
+      case "vehicleClassTrend":
+        // roadStationColumnsTemp.splice(1,1);
+        columnsTemp = this.vehicleClassTrendColumns;
         break;
       case "time":
         let timeTemp = {

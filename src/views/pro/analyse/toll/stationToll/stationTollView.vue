@@ -60,7 +60,7 @@
             </el-form-item>
           </el-col>
         </el-form-item>
-        <el-form-item label="车型/车种" prop="vehicleFlag" v-show="vehicleFlag" >
+        <!-- <el-form-item label="车型/车种" prop="vehicleFlag" v-show="vehicleFlag" >
           <el-select v-model="queryParams.vehicleFlagStr">
             <el-option value="vehicleType" label="车型"/>
             <el-option value="vehicleClass" label="车种"/>
@@ -73,7 +73,7 @@
             <ti-select v-model="queryParams.vehicleClassStr" dict-type="tibms_com_vehicleClass"
                        placeholder="全部"/>
           </el-form-item>
-        </el-form-item>
+        </el-form-item> -->
 
         <el-form-item label="交易类型" prop="transType" v-show="transTypeFlag" >
           <ti-select v-model="queryParams.transType" dict-type="tibms_analyse_transType" placeholder="全部" />

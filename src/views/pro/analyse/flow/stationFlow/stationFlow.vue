@@ -2,10 +2,13 @@
   <div class="app-container" style="height: 100%">
     <div class="container-fluid">
       <el-tabs v-model="queryParams.activeName" type="card" @tab-click="handleClick">
-        <el-tab-pane label="路段" name="road"/>
-        <el-tab-pane label="收费站" name="station"/>
-<!--        <el-tab-pane label="车型" name="vehicleType"/>-->
-<!--        <el-tab-pane label="车种" name="vehicleClass"/>-->
+        <!-- <el-tab-pane label="路段" name="road"/>
+        <el-tab-pane label="收费站" name="station"/> -->
+
+       <el-tab-pane label="车型" name="vehicleType"/>
+       <el-tab-pane label="车种" name="vehicleClass"/>
+        <el-tab-pane label="车型趋势" name="vehicleTypeTrend"></el-tab-pane>
+        <el-tab-pane label="车种趋势" name="vehicleClassTrend"></el-tab-pane>
 <!--        <el-tab-pane label="时间" name="collectDate"/>-->
       </el-tabs>
       <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">
@@ -198,7 +201,7 @@
       }
     },
     created() {
-      this.queryParams.activeName = 'road';
+      this.queryParams.activeName = 'vehicleType';
       this.queryParams.showDefault = 'table';
       this.showChange();
       // this.columns = tableOption.getColumn(this.queryParams.activeName);
@@ -253,11 +256,79 @@
         }else if(this.queryParams.vehicleFlagStr == 'vehicleClass'){
           params.vehicleTypeStr = '';
         }
+        if(this.queryParams.activeName =='vehicleClass' || this.queryParams.activeName =='vehicleClassTrend'){
+          params.vehStatisticType='vehClass';
+        }
+        if(this.queryParams.activeName =='vehicleType' || this.queryParams.activeName =='vehicleTypeTrend'){
+          params.vehStatisticType='vehType';
+        }
+        if(this.queryParams.activeName =='vehicleClassTrend' || this.queryParams.activeName =='vehicleTypeTrend'){
+          params.trend='true';
+        }else{
+          params.trend='false';
+        }
+        // param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
+        // param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
+        params.startDate = "2022-09-01";
+        params.endDate = "2022-09-02";
 
         await tableOption.getData(type,
           {},
           params);
         if (this.queryParams.showDefault === 'table' && tableOption.returnData.data.records) {
+          if(tableOption.returnData.data.activeName == "vehicleType") {
+            for(let i=0;i<tableOption.returnData.data.records.length;i++){
+              this.checkVehicleType(tableOption.returnData.data.records[i])
+            }
+            this.table.datas = tableOption.returnData.data.records
+          }
+          if(tableOption.returnData.data.activeName == "vehicleClass") {
+            for(let i=0;i<tableOption.returnData.data.records.length;i++){
+              this.checkVehicleClass(tableOption.returnData.data.records[i])
+            }
+            this.table.datas = tableOption.returnData.data.records
+          }
+          // 替换数据源
+          //判断车型/车种/车型趋势/车种趋势
+          if(tableOption.returnData.data.activeName =='vehicleClassTrend' || tableOption.returnData.data.activeName =='vehicleTypeTrend') {
+            var xdata = []
+            for(let i=0;i<tableOption.returnData.data.records.length;i++){
+              var todayData = tableOption.returnData.data.records[i]
+              var yesterdayData = tableOption.returnData.data.records[i].yesterdayData
+              var compareData = {}
+              if(tableOption.returnData.data.activeName == "vehicleClassTrend"){
+                this.checkVehicleClass(yesterdayData)
+                this.checkVehicleClass(todayData)
+                this.checkVehicleClass(compareData)
+              }else {
+                this.checkVehicleType(yesterdayData)
+                this.checkVehicleType(todayData)
+                this.checkVehicleType(compareData)
+              }
+              
+              Object.assign(compareData,yesterdayData);
+              // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
+              for(var key in yesterdayData){
+                if(key == 'naturalDate') {
+                  compareData[key] = '对比'
+                }
+                if(key != 'delFlag' && key != 'authRoadCol' && key != 'authStationCol' && key != 'naturalDate' && key != 'roadNo' && key != 'roadName' && key != 'stationName'){
+                  if(yesterdayData[key] == 0){
+                    compareData[key] = '0%'
+                    continue
+                  }
+                  compareData[key] = (todayData[key] / yesterdayData[key] * 100).toFixed(2) + '%'
+                }
+              }
+              todayData['naturalDate'] = '今天'
+              yesterdayData['naturalDate'] = '昨天'
+              
+              xdata.push(yesterdayData)
+              xdata.push(todayData)
+              xdata.push(compareData)
+            }
+            this.table.datas = xdata
+          }
           this.table.datas = tableOption.returnData.data.records;
           this.table.loading = false;
         }
@@ -276,6 +347,47 @@
       handleClick(tab, event) {
         this.showChange();
         // this.getData();
+      },
+      //检查是否没有该字段，没有则添加并设置为0
+      checkField(data,field){
+        if(!data.hasOwnProperty(field)){
+          data[field] = 0
+        }
+      },
+      //车型字段检查
+      checkVehicleType(data){
+        this.checkField(data,'tollFeeType1')
+        this.checkField(data,'tollFeeType2')
+        this.checkField(data,'tollFeeType3')
+        this.checkField(data,'tollFeeType4')
+        this.checkField(data,'tollFeeType11')
+        this.checkField(data,'tollFeeType12')
+        this.checkField(data,'tollFeeType13')
+        this.checkField(data,'tollFeeType14')
+        this.checkField(data,'tollFeeType15')
+        this.checkField(data,'tollFeeType16')
+        this.checkField(data,'tollFeeType21')
+        this.checkField(data,'tollFeeType22')
+        this.checkField(data,'tollFeeType23')
+        this.checkField(data,'tollFeeType24')
+        this.checkField(data,'tollFeeType25')
+        this.checkField(data,'tollFeeType26')
+        this.checkField(data,'tollFeeType99')
+      },
+      //车种字段检查
+      checkVehicleClass(data){
+        this.checkField(data,'tollFeeClass0')
+        this.checkField(data,'tollFeeClass8')
+        this.checkField(data,'tollFeeClass10')
+        this.checkField(data,'tollFeeClass14')
+        this.checkField(data,'tollFeeClass21')
+        this.checkField(data,'tollFeeClass22')
+        this.checkField(data,'tollFeeClass23')
+        this.checkField(data,'tollFeeClass24')
+        this.checkField(data,'tollFeeClass25')
+        this.checkField(data,'tollFeeClass26')
+        this.checkField(data,'tollFeeClass27')
+        this.checkField(data,'tollFeeClass28')
       },
       // 通用行合并函数（将相同多列数据合并为一行）
       mergeRowMethod({row, rowIndex, column, data}) {

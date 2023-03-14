@@ -25,7 +25,7 @@ export default {
     {
       title: "起止日期",
       align: 'center',
-      field: "transDate",
+      field: "startEndDateText",
       minWidth: 120,
     }, {
       title: "收费特情名称",
@@ -40,7 +40,7 @@ export default {
     }, {
       title: "收费特情占比",
       align: 'center',
-      field: "specialRate",
+      field: "specialRateText",
       minWidth: 120,
     }],
   tableSpecialTimeColumns: [

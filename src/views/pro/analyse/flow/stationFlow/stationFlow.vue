@@ -298,10 +298,10 @@
               var yesterdayData = tableOption.returnData.data.records[i].yesterdayData
               console.log('i:' + i + '   ' +tableOption.returnData.data.records[i])
               var compareData = {}
-              if(!yesterdayData){
-                yesterdayData = {}
-                 Object.assign(yesterdayData, todayData)
-              }
+              // if(!yesterdayData){
+              //   yesterdayData = {}
+              //    Object.assign(yesterdayData, todayData)
+              // }
               yesterdayData['datePointText'] = todayData['datePointText']
               if(tableOption.returnData.data.activeName == "vehicleClassTrend"){
                 this.checkVehicleClass(yesterdayData)
@@ -360,38 +360,38 @@
       },
       //车型字段检查
       checkVehicleType(data){
-        this.checkField(data,'tollFeeType1')
-        this.checkField(data,'tollFeeType2')
-        this.checkField(data,'tollFeeType3')
-        this.checkField(data,'tollFeeType4')
-        this.checkField(data,'tollFeeType11')
-        this.checkField(data,'tollFeeType12')
-        this.checkField(data,'tollFeeType13')
-        this.checkField(data,'tollFeeType14')
-        this.checkField(data,'tollFeeType15')
-        this.checkField(data,'tollFeeType16')
-        this.checkField(data,'tollFeeType21')
-        this.checkField(data,'tollFeeType22')
-        this.checkField(data,'tollFeeType23')
-        this.checkField(data,'tollFeeType24')
-        this.checkField(data,'tollFeeType25')
-        this.checkField(data,'tollFeeType26')
-        this.checkField(data,'tollFeeType99')
+        this.checkField(data,'vehType1')
+        this.checkField(data,'vehType2')
+        this.checkField(data,'vehType3')
+        this.checkField(data,'vehType4')
+        this.checkField(data,'vehType11')
+        this.checkField(data,'vehType12')
+        this.checkField(data,'vehType13')
+        this.checkField(data,'vehType14')
+        this.checkField(data,'vehType15')
+        this.checkField(data,'vehType16')
+        this.checkField(data,'vehType21')
+        this.checkField(data,'vehType22')
+        this.checkField(data,'vehType23')
+        this.checkField(data,'vehType24')
+        this.checkField(data,'vehType25')
+        this.checkField(data,'vehType26')
+        this.checkField(data,'vehType99')
       },
       //车种字段检查
       checkVehicleClass(data){
-        this.checkField(data,'tollFeeClass0')
-        this.checkField(data,'tollFeeClass8')
-        this.checkField(data,'tollFeeClass10')
-        this.checkField(data,'tollFeeClass14')
-        this.checkField(data,'tollFeeClass21')
-        this.checkField(data,'tollFeeClass22')
-        this.checkField(data,'tollFeeClass23')
-        this.checkField(data,'tollFeeClass24')
-        this.checkField(data,'tollFeeClass25')
-        this.checkField(data,'tollFeeClass26')
-        this.checkField(data,'tollFeeClass27')
-        this.checkField(data,'tollFeeClass28')
+        this.checkField(data,'vehClass0')
+        this.checkField(data,'vehClass8')
+        this.checkField(data,'vehClass10')
+        this.checkField(data,'vehClass14')
+        this.checkField(data,'vehClass21')
+        this.checkField(data,'vehClass22')
+        this.checkField(data,'vehClass23')
+        this.checkField(data,'vehClass24')
+        this.checkField(data,'vehClass25')
+        this.checkField(data,'vehClass26')
+        this.checkField(data,'vehClass27')
+        this.checkField(data,'vehClass28')
       },
       // 通用行合并函数（将相同多列数据合并为一行）
       mergeRowMethod({row, rowIndex, column, data}) {

@@ -437,14 +437,14 @@ export default {
           headerAlign: 'center',
           children: [
             {
-              field: "tollFeeType1",
+              field: "vehType1",
               title: "客一",
               align: 'right',
     
               minWidth: 80
             },
             {
-              field: "tollFeeType2",
+              field: "vehType2",
               title: "客二",
               align: 'right',
               headerAlign: 'center',
@@ -452,7 +452,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType3",
+              field: "vehType3",
               title: "客三",
               align: 'right',
               headerAlign: 'center',
@@ -460,7 +460,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType4",
+              field: "vehType4",
               title: "客四",
               align: 'right',
               headerAlign: 'center',
@@ -468,7 +468,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType11",
+              field: "vehType11",
               title: "货一",
               align: 'right',
               headerAlign: 'center',
@@ -476,7 +476,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType12",
+              field: "vehType12",
               title: "货二",
               align: 'right',
               headerAlign: 'center',
@@ -484,7 +484,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType13",
+              field: "vehType13",
               title: "货三",
               align: 'right',
               headerAlign: 'center',
@@ -492,7 +492,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType14",
+              field: "vehType14",
               title: "货四",
               align: 'right',
               headerAlign: 'center',
@@ -500,7 +500,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType15",
+              field: "vehType15",
               title: "货五",
               align: 'right',
               headerAlign: 'center',
@@ -508,7 +508,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType16",
+              field: "vehType16",
               title: "货六",
               align: 'right',
               headerAlign: 'center',
@@ -516,7 +516,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType21",
+              field: "vehType21",
               title: "专一",
               align: 'right',
               headerAlign: 'center',
@@ -524,7 +524,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType22",
+              field: "vehType22",
               title: "专二",
               align: 'right',
               headerAlign: 'center',
@@ -532,7 +532,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType23",
+              field: "vehType23",
               title: "专三",
               align: 'right',
               headerAlign: 'center',
@@ -540,7 +540,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType24",
+              field: "vehType24",
               title: "专四",
               align: 'right',
               headerAlign: 'center',
@@ -548,7 +548,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType25",
+              field: "vehType25",
               title: "专五",
               align: 'right',
               headerAlign: 'center',
@@ -556,7 +556,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType26",
+              field: "vehType26",
               title: "专六",
               align: 'right',
               headerAlign: 'center',
@@ -564,7 +564,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType99",
+              field: "vehType99",
               title: "其他车型",
               align: 'right',
               headerAlign: 'center',
@@ -610,14 +610,14 @@ export default {
           headerAlign: 'center',
           children: [
             {
-              field: "tollFeeClass0",
+              field: "vehClass0",
               title: "普通",
               align: 'right',
     
               minWidth: 80
             },
             {
-              field: "tollFeeClass8",
+              field: "vehClass8",
               title: "军警",
               align: 'right',
               headerAlign: 'center',
@@ -625,7 +625,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass10",
+              field: "vehClass10",
               title: "紧急",
               align: 'right',
               headerAlign: 'center',
@@ -633,7 +633,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass14",
+              field: "vehClass14",
               title: "车队",
               align: 'right',
               headerAlign: 'center',
@@ -641,7 +641,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass21",
+              field: "vehClass21",
               title: "绿通车",
               align: 'right',
               headerAlign: 'center',
@@ -649,7 +649,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass22",
+              field: "vehClass22",
               title: "联合收割机",
               align: 'right',
               headerAlign: 'center',
@@ -657,7 +657,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass23",
+              field: "vehClass23",
               title: "抢险救灾",
               align: 'right',
               headerAlign: 'center',
@@ -665,7 +665,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass24",
+              field: "vehClass24",
               title: "J1类型集装箱",
               align: 'right',
               headerAlign: 'center',
@@ -673,7 +673,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass25",
+              field: "vehClass25",
               title: "大件运输",
               align: 'right',
               headerAlign: 'center',
@@ -681,7 +681,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass26",
+              field: "vehClass26",
               title: "应急车",
               align: 'right',
               headerAlign: 'center',
@@ -689,7 +689,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass27",
+              field: "vehClass27",
               title: "货车列车或半挂汽车列车",
               align: 'right',
               headerAlign: 'center',
@@ -697,7 +697,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass28",
+              field: "vehClass28",
               title: "J2类型集装箱",
               align: 'right',
               headerAlign: 'center',
@@ -749,14 +749,14 @@ export default {
           headerAlign: 'center',
           children: [
             {
-              field: "tollFeeType1",
+              field: "vehType1",
               title: "客一",
               align: 'right',
     
               minWidth: 80
             },
             {
-              field: "tollFeeType2",
+              field: "vehType2",
               title: "客二",
               align: 'right',
               headerAlign: 'center',
@@ -764,7 +764,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType3",
+              field: "vehType3",
               title: "客三",
               align: 'right',
               headerAlign: 'center',
@@ -772,7 +772,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType4",
+              field: "vehType4",
               title: "客四",
               align: 'right',
               headerAlign: 'center',
@@ -780,7 +780,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType11",
+              field: "vehType11",
               title: "货一",
               align: 'right',
               headerAlign: 'center',
@@ -788,7 +788,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType12",
+              field: "vehType12",
               title: "货二",
               align: 'right',
               headerAlign: 'center',
@@ -796,7 +796,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType13",
+              field: "vehType13",
               title: "货三",
               align: 'right',
               headerAlign: 'center',
@@ -804,7 +804,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType14",
+              field: "vehType14",
               title: "货四",
               align: 'right',
               headerAlign: 'center',
@@ -812,7 +812,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType15",
+              field: "vehType15",
               title: "货五",
               align: 'right',
               headerAlign: 'center',
@@ -820,7 +820,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType16",
+              field: "vehType16",
               title: "货六",
               align: 'right',
               headerAlign: 'center',
@@ -828,7 +828,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType21",
+              field: "vehType21",
               title: "专一",
               align: 'right',
               headerAlign: 'center',
@@ -836,7 +836,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType22",
+              field: "vehType22",
               title: "专二",
               align: 'right',
               headerAlign: 'center',
@@ -844,7 +844,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType23",
+              field: "vehType23",
               title: "专三",
               align: 'right',
               headerAlign: 'center',
@@ -852,7 +852,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType24",
+              field: "vehType24",
               title: "专四",
               align: 'right',
               headerAlign: 'center',
@@ -860,7 +860,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType25",
+              field: "vehType25",
               title: "专五",
               align: 'right',
               headerAlign: 'center',
@@ -868,7 +868,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType26",
+              field: "vehType26",
               title: "专六",
               align: 'right',
               headerAlign: 'center',
@@ -876,7 +876,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeType99",
+              field: "vehType99",
               title: "其他车型",
               align: 'right',
               headerAlign: 'center',
@@ -928,13 +928,13 @@ export default {
           headerAlign: 'center',
           children: [
             {
-              field: "tollFeeClass0",
+              field: "vehClass0",
               title: "普通",
               align: 'center',
               minWidth: 80
             },
             {
-              field: "tollFeeClass8",
+              field: "vehClass8",
               title: "军警",
               align: 'right',
               headerAlign: 'center',
@@ -942,7 +942,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass10",
+              field: "vehClass10",
               title: "紧急",
               align: 'right',
               headerAlign: 'center',
@@ -950,7 +950,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass14",
+              field: "vehClass14",
               title: "车队",
               align: 'right',
               headerAlign: 'center',
@@ -958,7 +958,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass21",
+              field: "vehClass21",
               title: "绿通车",
               align: 'right',
               headerAlign: 'center',
@@ -966,7 +966,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass22",
+              field: "vehClass22",
               title: "联合收割机",
               align: 'right',
               headerAlign: 'center',
@@ -974,7 +974,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass23",
+              field: "vehClass23",
               title: "抢险救灾",
               align: 'right',
               headerAlign: 'center',
@@ -982,7 +982,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass24",
+              field: "vehClass24",
               title: "J1类型集装箱",
               align: 'right',
               headerAlign: 'center',
@@ -990,7 +990,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass25",
+              field: "vehClass25",
               title: "大件运输",
               align: 'right',
               headerAlign: 'center',
@@ -998,7 +998,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass26",
+              field: "vehClass26",
               title: "应急车",
               align: 'right',
               headerAlign: 'center',
@@ -1006,7 +1006,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass27",
+              field: "vehClass27",
               title: "货车列车或半挂汽车列车",
               align: 'right',
               headerAlign: 'center',
@@ -1014,7 +1014,7 @@ export default {
               minWidth: 80
             },
             {
-              field: "tollFeeClass28",
+              field: "vehClass28",
               title: "J2类型集装箱",
               align: 'right',
               headerAlign: 'center',

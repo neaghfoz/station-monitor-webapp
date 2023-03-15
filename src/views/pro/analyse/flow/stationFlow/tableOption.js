@@ -930,8 +930,7 @@ export default {
             {
               field: "tollFeeClass0",
               title: "普通",
-              align: 'right',
-    
+              align: 'center',
               minWidth: 80
             },
             {
@@ -1073,11 +1072,11 @@ export default {
         return otherColumnsTemp;
       }else if(type === 'vehicleTypeTrend')
       {
-        otherColumnsTemp = this.vehicleClassTrendColumns;
+        otherColumnsTemp = this.vehicleTypeTrendColumns;
         return otherColumnsTemp
       }else if(type === 'vehicleClassTrend')
       {
-        otherColumnsTemp = this.vehicleClassColumns;
+        otherColumnsTemp = this.vehicleClassTrendColumns;
         return otherColumnsTemp
       }
     },

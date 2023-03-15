@@ -292,21 +292,25 @@
           //判断车型/车种/车型趋势/车种趋势
           if(tableOption.returnData.data.activeName =='vehicleClassTrend' || tableOption.returnData.data.activeName =='vehicleTypeTrend') {
             var xdata = []
+            console.log(tableOption.returnData.data.records.length)
             for(let i=0;i<tableOption.returnData.data.records.length;i++){
               var todayData = tableOption.returnData.data.records[i]
               var yesterdayData = tableOption.returnData.data.records[i].yesterdayData
+              console.log('i:' + i + '   ' +tableOption.returnData.data.records[i])
               var compareData = {}
+              if(!yesterdayData){
+                yesterdayData = {}
+                 Object.assign(yesterdayData, todayData)
+              }
+              yesterdayData['datePointText'] = todayData['datePointText']
               if(tableOption.returnData.data.activeName == "vehicleClassTrend"){
                 this.checkVehicleClass(yesterdayData)
                 this.checkVehicleClass(todayData)
-                this.checkVehicleClass(compareData)
               }else {
                 this.checkVehicleType(yesterdayData)
                 this.checkVehicleType(todayData)
-                this.checkVehicleType(compareData)
               }
-              
-              Object.assign(compareData,yesterdayData);
+              Object.assign(compareData, yesterdayData)
               // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
               for(var key in yesterdayData){
                 if(key == 'naturalDate') {
@@ -322,11 +326,11 @@
               }
               todayData['naturalDate'] = '今天'
               yesterdayData['naturalDate'] = '昨天'
-              
-              xdata.push(yesterdayData)
+              if(yesterdayData) xdata.push(yesterdayData)
               xdata.push(todayData)
               xdata.push(compareData)
             }
+            console.log(xdata)
             this.table.datas = xdata
           }
           // this.table.datas = tableOption.returnData.data.records;

@@ -132,7 +132,7 @@
 // import { forEach } from 'mock/user';
 
   export default {
-    name: "systemRunningMonitor.dataquery.tollGantryView.vue",
+    name: "systemRunningMonitor.alarmmanage.tollGantryView.vue",
     mixins: [...mixin],
     components: {TiSelect,TiDateRange,TiSelectTree,tiSysOrg},
     data() {

@@ -77,14 +77,14 @@ export default {
       case "road":
         //移除收费站列
         roadStationColumnsTemp.splice(1,1);
-        columnsTemp = roadStationColumnsTemp;
+        columnsTemp = roadStationColumns;
         break;
       case "station":
         columnsTemp = roadStationColumnsTemp;
         break;
-      case "vehicleType":
+      case "gantry":
         // roadStationColumnsTemp.splice(1,1);
-        columnsTemp = this.vehicleTypeColumns;
+        columnsTemp = this.gantryColumns;
         break;
         // columnsTemp = otherColumnsTemp;
         // break;

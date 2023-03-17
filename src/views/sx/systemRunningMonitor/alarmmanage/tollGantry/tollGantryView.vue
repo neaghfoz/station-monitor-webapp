@@ -186,7 +186,7 @@
       }
     },
     created() {
-      this.queryParams.activeName = 'vehicleType';
+      this.queryParams.activeName = 'station';
       this.queryParams.showDefault = 'table';
       this.showChange();
     },
@@ -302,6 +302,7 @@
           }
           
           console.log("param:",param)
+          return;
           const res = await getData (param);
           if(res.code==200){
             

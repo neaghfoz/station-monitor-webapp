@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <h3>收费站监测</h3>
-    <el-row :gutter="32">
+    <el-row :gutter="8">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <el-card class="box-card">
@@ -52,7 +52,7 @@
 
     
     <h3>门架监测</h3>
-    <el-row :gutter="32">
+    <el-row :gutter="8">
       <el-col :xs="24" :sm="24" :lg="8">
         <div class="chart-wrapper">
           <el-card class="box-card">

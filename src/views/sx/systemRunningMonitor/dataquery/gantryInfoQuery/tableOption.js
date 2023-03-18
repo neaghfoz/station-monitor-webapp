@@ -6,25 +6,25 @@ export default {
   tableColumns: [
     {
       title: "门架编号",
-      type: "seq",
-      width: 50,
+      field: "id",
+      width: 250,
       align: "center"
     },
     {
-      title: "门架方向",
-      field: "stationName",
+      title: "门架名称",
+      field: "name",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "顺序号",
-      field: "stationName",
+      title: "门架类型",
+      field: "type",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "控制器序号",
-      field: "stationName",
+      title: "前端工控机型号",
+      field: "controllerModel",
       align: 'center',
       minWidth: 120 ,
     },

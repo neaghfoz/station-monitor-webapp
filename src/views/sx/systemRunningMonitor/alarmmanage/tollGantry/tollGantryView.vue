@@ -302,6 +302,7 @@
           }
           
           console.log("param:",param)
+          this.table.loading = false
           return;
           const res = await getData (param);
           if(res.code==200){

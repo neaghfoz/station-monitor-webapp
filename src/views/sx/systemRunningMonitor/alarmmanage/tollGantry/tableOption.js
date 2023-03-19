@@ -17,19 +17,19 @@ export default {
       minWidth: 120
     },
     {
-      field: "stationName",
+      field: "alarmType",
       title: "报警类型",
       align: 'center',
       minWidth: 120
     },
     {
-      field: "stationName",
+      field: "alarmTime",
       title: "报警时间",
       align: 'center',
       minWidth: 120
     },
     {
-      field: "stationName",
+      field: "alarmMsg",
       title: "详细信息",
       align: 'center',
       minWidth: 120

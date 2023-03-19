@@ -9,13 +9,13 @@
               <span>基本信息</span>
             </div>
             <div class="text item">
-              在线车道数：{{dataSource.onlineLaneNum}}
+              在线车道数：{{dataSource.onlineLanesCount}}
             </div>
             <div class="text item">
-              离线车道数：{{dataSource.offlineLaneNum}}
+              离线车道数：{{dataSource.offlineLanesCount}}
             </div>
             <div class="text item">
-              车道总数：{{dataSource.laneNum}}
+              车道总数：{{dataSource.lanesCount}}
             </div>
           </el-card>
         </div>
@@ -27,10 +27,13 @@
               <span>当日数据</span>
             </div>
             <div class="text item">
-              入口流水数：{{dataSource.offlineLaneNum}}
+              入口流水数：{{dataSource.enLaneListCount}}
             </div>
             <div class="text item">
-              出口流水数：{{dataSource.offlineLaneNum}}
+              出口流水数：{{dataSource.exLaneListCount}}
+            </div>
+            <div class="text item">
+              滞留流水数：{{dataSource.strandedLaneListCount}}
             </div>
           </el-card>
         </div>
@@ -42,68 +45,68 @@
               <span>报警信息</span>
             </div>
             <div class="text item">
-              当日报警：{{dataSource.offlineLaneNum}}
+              当日报警：{{dataSource.alarmCount}}
             </div>
           </el-card>
         </div>
       </el-col>
     </el-row>
-    
 
-    
-    <h3>门架监测</h3>
-    <el-row :gutter="8">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>基本信息</span>
-            </div>
-            <div class="text item">
-              在线门架数：{{dataSource.offlineLaneNum}}
-            </div>
-            <div class="text item">
-              离线门架数：{{dataSource.offlineLaneNum}}
-            </div>
-            <div class="text item">
-              门架总数：{{dataSource.offlineLaneNum}}
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>当日数据</span>
-            </div>
-            <div class="text item">
-              计费流水数：{{dataSource.offlineLaneNum}}
-            </div>
-            <div class="text item">
-              牌识流水数：{{dataSource.offlineLaneNum}}
-            </div>
-            <div class="text item">
-              滞留流水数：{{dataSource.offlineLaneNum}}
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>报警信息</span>
-            </div>
-            <div class="text item">
-              当日报警： {{dataSource.offlineLaneNum}}
-            </div>
-            <div class="text item">
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
+
+
+<!--    <h3>门架监测</h3>-->
+<!--    <el-row :gutter="8">-->
+<!--      <el-col :xs="24" :sm="24" :lg="8">-->
+<!--        <div class="chart-wrapper">-->
+<!--          <el-card class="box-card">-->
+<!--            <div slot="header" class="clearfix">-->
+<!--              <span>基本信息</span>-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              在线门架数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              离线门架数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              门架总数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--          </el-card>-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--      <el-col :xs="24" :sm="24" :lg="8">-->
+<!--        <div class="chart-wrapper">-->
+<!--          <el-card class="box-card">-->
+<!--            <div slot="header" class="clearfix">-->
+<!--              <span>当日数据</span>-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              计费流水数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              牌识流水数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              滞留流水数：{{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--          </el-card>-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--      <el-col :xs="24" :sm="24" :lg="8">-->
+<!--        <div class="chart-wrapper">-->
+<!--          <el-card class="box-card">-->
+<!--            <div slot="header" class="clearfix">-->
+<!--              <span>报警信息</span>-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--              当日报警： {{dataSource.offlineLaneNum}}-->
+<!--            </div>-->
+<!--            <div class="text item">-->
+<!--            </div>-->
+<!--          </el-card>-->
+<!--        </div>-->
+<!--      </el-col>-->
+<!--    </el-row>-->
 
 
 

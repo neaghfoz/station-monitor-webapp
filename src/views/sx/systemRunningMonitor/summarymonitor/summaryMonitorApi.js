@@ -2,7 +2,7 @@ import request from 'ecip-web/utils/request'
 
 export const getData = (data) => {
   return request({
-    url: '/api/v1/analyse/list/stationKpi/findStationKpiStat',
+    url: '/api/v1/metrics/list/synthesisList',
     method: 'post',
     data: data
   })

@@ -2,7 +2,7 @@ import request from 'ecip-web/utils/request'
 
 export const getData = (data) => {
   return request({
-    url: '/api/v1/analyse/list/analyseExList/getAnalyseTollData',
+    url: '/api/v1/metrics/list/alarmList',
     method: 'post',
     data: data
   })

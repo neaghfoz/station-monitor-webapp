@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
       <el-tab-pane label="收费站报警信息" name="station"></el-tab-pane>
-      <el-tab-pane label="门架报警信息" name="gantry"></el-tab-pane>
+<!--      <el-tab-pane label="门架报警信息" name="gantry"></el-tab-pane>-->
       <!-- <el-tab-pane label="车型趋势" name="vehicleTypeTrend"></el-tab-pane>
       <el-tab-pane label="车种趋势" name="vehicleClassTrend"></el-tab-pane> -->
       <!-- <el-tab-pane label="路段" name="road"></el-tab-pane>
@@ -317,13 +317,13 @@
           }else {
             param.trend ='false';
           }
-          
+
           console.log("param:",param)
           this.table.loading = false
           return;
           const res = await getData (param);
           if(res.code==200){
-            
+
             this.dataSource = res.data
 
           }
@@ -359,7 +359,7 @@
                 this.checkVehicleType(todayData)
                 this.checkVehicleType(compareData)
               }
-              
+
               Object.assign(compareData,yesterdayData);
               // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
               for(var key in yesterdayData){
@@ -376,7 +376,7 @@
               }
               todayData['naturalDate'] = '今天'
               yesterdayData['naturalDate'] = '昨天'
-              
+
               xdata.push(yesterdayData)
               xdata.push(todayData)
               xdata.push(compareData)

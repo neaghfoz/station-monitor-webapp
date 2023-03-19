@@ -111,6 +111,9 @@
                 :columns="columns"
                 :data="table.datas"
                 :span-method="mergeRowMethod"
+                @page-change="handlePageChange"
+                :start-index="(table.page.currentPage - 1) * table.page.pageSize"
+                :pager-config="table.page"
       >
       </vxe-grid>
       <div ref="myChart" style="height:500px;" v-show="queryParams.showDefault=='chart'"></div>
@@ -125,7 +128,7 @@
   import TiDateRange from "@/views/pro/common/tiElement/tiDate/tiDateRange"
   import dateUtil from "@/views/pro/common/util/dateUtil";
   import tableOption from "@/views/sx/systemRunningMonitor/alarmmanage/tollGantry/tableOption"
-  import {getData} from "./tollGantryApi"
+  import {getData, findPage} from "./tollGantryApi"
   import moment from "moment"
   import chartOption from "@/views/sx/systemRunningMonitor/alarmmanage/tollGantry/chartOption"
   import tiSysOrg from "@/views/pro/common/tiElement/tiSysOrg/tiSysOrg";
@@ -203,6 +206,20 @@
     methods: {
       handleClick(tab, event) {
         this.showChange();
+      },
+      handlePageChange({currentPage, pageSize}) {
+        this.table.page.currentPage = currentPage
+        this.table.page.pageSize = pageSize
+        this.queryParams.current = currentPage
+        this.queryParams.size = pageSize
+        this.getPageData()
+      },
+      async getPageData(){
+        this.table.loading = true
+        const {data} = await findPage(Object.assign({}, {size: this.table.page.pageSize, current: this.table.page.currentPage}), this.queryParams)
+        this.table.datas= data.records
+        this.table.total = data.total
+        this.table.loading = false
       },
       showChange(){
         let showDefault = this.queryParams.showDefault;

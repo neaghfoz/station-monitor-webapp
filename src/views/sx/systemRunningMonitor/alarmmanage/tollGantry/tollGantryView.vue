@@ -200,7 +200,7 @@
     },
     mounted(){
       // 初始化图表
-      chartOption.init(this.$refs['myChart'])
+      // chartOption.init(this.$refs['myChart'])
       this.submit()
     },
     methods: {
@@ -318,17 +318,16 @@
             param.trend ='false';
           }
 
-          console.log("param:",param)
+          console.log("param1:",param)
           this.table.loading = false
-          return;
-          const res = await getData (param);
+          const res = await getData(param);
           if(res.code==200){
-
             this.dataSource = res.data
-
           }
           this.table.loading = false
         }
+        this.table.datas = this.dataSource.records
+
         if(this.queryParams.showDefault=='table'){
           if(this.dataSource.activeName == "vehicleType") {
             for(let i=0;i<this.dataSource.records.length;i++){

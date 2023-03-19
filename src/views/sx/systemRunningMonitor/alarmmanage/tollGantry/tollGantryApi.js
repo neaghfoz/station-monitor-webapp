@@ -1,6 +1,7 @@
 import request from 'ecip-web/utils/request'
 
 export const getData = (data) => {
+  console.log("GET DATA....")
   return request({
     url: '/api/v1/metrics/list/alarmList',
     method: 'post',
@@ -10,7 +11,7 @@ export const getData = (data) => {
 
 export const findPage = (params, data) => {
   return request({
-    url: '/api/v1/analyse/list/analyseExList/getAnalyseTollData',
+    url: '/api/v1/metrics/list/alarmList',
     method: 'post',
     params: params,
     data: data

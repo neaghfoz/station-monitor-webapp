@@ -62,14 +62,14 @@
           <el-button type="default" @click="reset">重置</el-button>
         </el-form-item>
 
-        <el-row>
-          <el-form-item label="图表方式">
-            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
-              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
-              <!-- <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio> -->
-            </el-radio-group>
-          </el-form-item>
-        </el-row>
+<!--        <el-row>-->
+<!--          <el-form-item label="图表方式">-->
+<!--            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">-->
+<!--              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>-->
+<!--              &lt;!&ndash; <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio> &ndash;&gt;-->
+<!--            </el-radio-group>-->
+<!--          </el-form-item>-->
+<!--        </el-row>-->
       </el-form>
 
       <!-- 数据表格 -->

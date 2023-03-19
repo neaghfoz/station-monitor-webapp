@@ -4,18 +4,18 @@ import {dataGroup, exportExcel, mapToArray} from "@/views/pro/common/util/dataUt
 export default {
 
   tableColumns: [
-    {
-      title: "序号",
-      type: "seq",
-      width: 50,
-      align: "center"
-    },
-    {
-      title: "路段名称",
-      align: 'center',
-      field: "roadName",
-      minWidth: 120,
-    },
+    // {
+    //   title: "序号",
+    //   type: "seq",
+    //   width: 50,
+    //   align: "center"
+    // },
+    // {
+    //   title: "路段名称",
+    //   align: 'center',
+    //   field: "roadName",
+    //   minWidth: 120,
+    // },
     {
       title: "收费站名称",
       align: 'center',

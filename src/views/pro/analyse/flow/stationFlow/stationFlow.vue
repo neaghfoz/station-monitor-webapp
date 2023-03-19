@@ -24,7 +24,7 @@
 <!--                     dict-type="tibms_rpt_dateStatisticType"/>-->
 
 <!--        </el-form-item>-->
-        <el-form-item prop="dates">
+        <el-form-item prop="dates" v-show="this.queryParams.activeName == 'vehicleType'||this.queryParams.activeName=='vehicleClass'">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">
               <el-form-item prop="startDay" v-show="false"/>
@@ -64,9 +64,9 @@
           <!--            <el-option value="all" label="总车流量"/>-->
           <!--          </el-select>-->
 
-          <ti-select placeholder="全部" v-model="queryParams.valueX" :data-list="[{value:'en',name:'入口车流量'},{value:'ex',name:'出口车流量'},
+          <!-- <ti-select placeholder="全部" v-model="queryParams.valueX" :data-list="[{value:'en',name:'入口车流量'},{value:'ex',name:'出口车流量'},
                   {value:'all',name:'总车流量'}]" :props="{key:'value',value:'value',label:'name'}"/>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="交易类型" v-show="transTypeFlag" prop="transType">
           <ti-select v-model="queryParams.transType" placeholder="全部"
                      dict-type="tibms_analyse_transType"/>

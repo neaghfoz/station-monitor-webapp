@@ -27,7 +27,7 @@
 <!--                     dict-type="tibms_rpt_dateStatisticType"/>-->
 
 <!--        </el-form-item>-->
-        <el-form-item prop="dates">
+        <el-form-item prop="dates" v-show="this.queryParams.activeName == 'vehicleType'||this.queryParams.activeName=='vehicleClass'">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">
               <el-form-item prop="startDay" v-show="false"/>

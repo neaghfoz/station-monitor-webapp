@@ -14,12 +14,12 @@
           <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value show-level="4"/>
         </el-form-item>
 
-        <el-form-item label="时间范围" prop="dateStatisticType">
+        <!-- <el-form-item label="时间范围" prop="dateStatisticType">
           <ti-select v-model="queryParams.dateStatisticType"
                      :clearable = "false"
                      dict-type="tibms_rpt_dateStatisticType"/>
 
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item prop="dates">
           <el-col :span="30">
             <el-form-item v-show="queryParams.dateStatisticType==='day'">

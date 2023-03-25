@@ -5,76 +5,84 @@ export default {
 
   tableColumns: [
     {
-      title: "收费单元编号",
-      type: "seq",
-      width: 50,
+      title: "收费站",
+      field: "stationName",
+      width: 120,
       align: "center"
     },
     {
-      title: "收费单元名称",
-      field: "stationName",
+      title: "在线车道数",
+      field: "onlineLanesCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "路段性质",
-      field: "stationName",
+      title: "离线车道数",
+      field: "offlineLanesCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "上下行",
-      field: "stationName",
+      title: "车道总数",
+      field: "lanesCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "起止里程",
-      field: "stationName",
+      title: "入口流水数",
+      field: "enLaneListCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "起始计费位置桩号",
-      field: "stationName",
+      title: "出口流水数",
+      field: "exLaneListCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "终止计费位置桩号",
-      field: "stationName",
+      title: "滞留流水数",
+      field: "strandedLaneListCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "重合收费公路编号",
-      field: "stationName",
+      title: "报警数",
+      field: "alarmCount",
       align: 'center',
       minWidth: 120 ,
     },
     {
-      title: "收费单元类型",
-      field: "stationName",
+      title: "车牌识别率",
+      field: "plateRecognitionRate",
       align: 'center',
       minWidth: 120 ,
     },
+    // {
+    //   title: "ETC交易成功率",
+    //   field: "etcSuccessRate",
+    //   align: 'center',
+    //   minWidth: 120 ,
+    // },
+    // {
+    //   title: "ETC交易耗时",
+    //   field: "etcTimeConsuming",
+    //   align: 'center',
+    //   minWidth: 120 ,
+    // },
+    // {
+    //   title: "ETC通行速度",
+    //   field: "etcSpeed",
+    //   align: 'center',
+    //   minWidth: 120 ,
+    // }
+    // ,
     {
-      title: "开始收费时间",
-      field: "stationName",
+      title: "操作",
+      slots: { default: 'operation' },
       align: 'center',
       minWidth: 120 ,
-    },
-    {
-      title: "停止收费时间",
-      field: "stationName",
-      align: 'center',
-      minWidth: 120 ,
-    },
-    {
-      title: "省界标识",
-      field: "stationName",
-      align: 'center',
-      minWidth: 120 ,
+      fixed: 'right'
     }
   ],
   getColums: function (tableType){

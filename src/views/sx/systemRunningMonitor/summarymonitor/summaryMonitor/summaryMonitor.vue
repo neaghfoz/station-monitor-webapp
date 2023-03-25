@@ -1,56 +1,66 @@
 <template>
   <div class="app-container">
-    <h3>收费站监测</h3>
-    <el-row :gutter="8">
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>基本信息</span>
-            </div>
-            <div class="text item">
-              在线车道数：{{dataSource.onlineLanesCount}}
-            </div>
-            <div class="text item">
-              离线车道数：{{dataSource.offlineLanesCount}}
-            </div>
-            <div class="text item">
-              车道总数：{{dataSource.lanesCount}}
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>当日数据</span>
-            </div>
-            <div class="text item">
-              入口流水数：{{dataSource.enLaneListCount}}
-            </div>
-            <div class="text item">
-              出口流水数：{{dataSource.exLaneListCount}}
-            </div>
-            <div class="text item">
-              滞留流水数：{{dataSource.strandedLaneListCount}}
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="24" :lg="8">
-        <div class="chart-wrapper">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>报警信息</span>
-            </div>
-            <div class="text item">
-              当日报警：{{dataSource.alarmCount}}
-            </div>
-          </el-card>
-        </div>
-      </el-col>
-    </el-row>
+    <div v-show="isShowDetail">
+      <h3>收费站监测</h3>
+      <el-button @click="handleCloseDetail">关闭</el-button>
+      <el-row :gutter="8">
+        <el-col :xs="24" :sm="24" :lg="8">
+          <div class="chart-wrapper">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>基本信息</span>
+              </div>
+              <div class="text item">
+                在线车道数：{{selectRow.onlineLanesCount}}
+              </div>
+              <div class="text item">
+                <router-link to="/1635950433061044224/nodeConnectMonitor">
+                  离线车道数：<u class="count">{{selectRow.offlineLanesCount}}</u>
+                </router-link>
+              </div>
+              <div class="text item">
+                车道总数：{{selectRow.lanesCount}}
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="24" :lg="8">
+          <div class="chart-wrapper">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>当日数据</span>
+              </div>
+              <div class="text item">
+                <router-link to="/search/list/laneEnList/detail/:timestamp">
+                  入口流水数：<u class="count">{{selectRow.enLaneListCount}}</u>
+                </router-link>
+              </div>
+              <div class="text item">
+                <router-link to="/1306205770966106120">
+                  出口流水数：<u class="count">{{selectRow.exLaneListCount}}</u>
+                </router-link>
+              </div>
+              <div class="text item">
+                滞留流水数：{{selectRow.strandedLaneListCount}}
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+        <el-col :xs="24" :sm="24" :lg="8">
+          <div class="chart-wrapper">
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>报警信息</span>
+              </div>
+              <div class="text item">
+                <router-link to="/1635951093588426752">
+                  当日报警：<u class="count">{{selectRow.alarmCount}}</u>
+                </router-link>
+              </div>
+            </el-card>
+          </div>
+        </el-col>
+      </el-row>
 
 
 
@@ -108,8 +118,110 @@
 <!--      </el-col>-->
 <!--    </el-row>-->
 
+    </div>
+    <div v-show="isList">
+      <el-tabs v-model="queryParams.activeName" type="card"  @tab-click="handleClick">
+      <!-- <el-tab-pane label="路段" name="road"></el-tab-pane> -->
+      <el-tab-pane label="收费站" name="station"></el-tab-pane>
+      <el-tab-pane label="门架" name="gantry"></el-tab-pane>
+    </el-tabs>
+    <div class="search-form">
+      <!-- <el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'"> -->
+        <!-- <el-form-item label="机构" prop="sysOrgIdStr" v-show="stationFlag" >
+          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value show-level="2"/>
+        </el-form-item>
+        <el-form-item label="机构" prop="sysOrgIdStr" v-show="timeFlag" >
+          <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value show-level="4"/>
+        </el-form-item> -->
 
+        <!-- <el-form-item label="时间范围" prop="dateStatisticType">
+          <ti-select v-model="queryParams.dateStatisticType"
+                     :clearable = "false"
+                     dict-type="tibms_rpt_dateStatisticType"/>
 
+        </el-form-item> -->
+        <!-- <el-form-item prop="dates">
+          <el-col :span="30">
+            <el-form-item v-show="queryParams.dateStatisticType==='day'">
+              <el-form-item prop="startDay" v-show="false"/>
+              <el-form-item prop="endDay" v-show="false"/>
+              <ti-date-range date-style="width:293px" ref="dayRang" :editable="false"
+                             dateRule="oneMonth"
+                             v-model="queryParams"
+                             date-type="daterange"
+                             format="yyyy-MM-dd" value-format="yyyy-MM-dd" begin-key="startDay"
+                             end-key="endDay"/>
+            </el-form-item>
+            <el-form-item v-show="queryParams.dateStatisticType==='month'">
+              <el-form-item prop="startMonth" v-show="false"/>
+              <el-form-item prop="endMonth" v-show="false"/>
+              <ti-date-range ref="monthRang" date-style="width:293px" :editable="false"
+                             dateRule="oneYear"
+                             v-model="queryParams"
+                             date-type="monthrange"
+                             format="yyyy-MM" value-format="yyyy-MM" begin-key="startMonth"
+                             end-key="endMonth"/>
+            </el-form-item>
+            <el-form-item v-show="queryParams.dateStatisticType==='year'">
+              <el-form-item prop="startYear" v-show="false"/>
+              <el-form-item prop="endYear" v-show="false"/>
+              <ti-date-range ref="yearRang" date-style="width:293px" :editable="false"
+                             v-model="queryParams"
+                             date-type="yearRang"
+                             format="yyyy" value-format="yyyy" begin-key="startYear"
+                             end-key="endYear"/>
+            </el-form-item>
+          </el-col>
+        </el-form-item> -->
+
+        <!-- <el-form-item label="统计类型" prop="kpiType" v-show="kpiTypeFlag" >
+          <ti-select v-model="queryParams.kpiType"  dict-type="tibms_analyse_station_kpiType" placeholder="全部"  :clearable="false"   />
+        </el-form-item> -->
+        <!-- <el-form-item class="searchItem" :label-width="'50px'">
+          <el-button type="primary" @click="submit">查询</el-button>
+          <el-button type="default" @click="reset">重置</el-button>
+        </el-form-item> -->
+
+        <!-- <el-row>
+          <el-form-item label="图表方式">
+            <el-radio-group v-model="queryParams.showDefault" size="mini" @change="showChange">
+              <el-radio label="table" border style="margin-right:10px;line-height:0px!important">表格</el-radio>
+              <el-radio label="chart" border style="margin-right:10px;line-height:0px!important">图表</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-row> -->
+      <!-- </el-form> -->
+
+      <!-- 数据表格 -->
+      <vxe-grid v-show="queryParams.showDefault=='table'"
+                ref="appTable"
+                highlight-hover-row
+                border
+                resizable
+                sync-resize
+                auto-resize
+                keep-source
+                highlight-current-row
+                max-height="500"
+                class="vxe-table-element"
+                :export-config="{}"
+                :toolbar="tableToolbar"
+                @toolbar-button-click="toolbarEvent"
+                @page-change="handlePageChange"
+                :start-index="(table.page.currentPage - 1) * table.page.pageSize"
+                :pager-config="table.page"
+                :loading="table.loading"
+                :columns="columns"
+                :data="table.datas"
+                :span-method="mergeRowMethod"
+      >
+      <template v-slot:operation="{ row }">
+          <el-button type="primary" @click="handleShowDetail(row)">详情</el-button>
+        </template>
+      </vxe-grid>
+      <div ref="myChart" style="height:500px;" v-show="queryParams.showDefault=='chart'"></div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -119,10 +231,10 @@
   import TiSelect from "@/views/pro/common/tiElement/tiSelect/tiSelect"
   import TiDateRange from "@/views/pro/common/tiElement/tiDate/tiDateRange"
   import dateUtil from "@/views/pro/common/util/dateUtil";
-  import tableOption from "@/views/sx/systemRunningMonitor/summarymonitor/tableOption"
+  import tableOption from "@/views/sx/systemRunningMonitor/summarymonitor/summaryMonitor/tableOption"
   import {getData} from "./summaryMonitorApi"
   import moment from "moment"
-  import chartOption from "@/views/sx/systemRunningMonitor/summarymonitor/chartOption"
+  import chartOption from "@/views/sx/systemRunningMonitor/summarymonitor/summaryMonitor/chartOption"
   import tiSysOrg from "@/views/pro/common/tiElement/tiSysOrg/tiSysOrg";
   import dictUtils from 'ecip-web/utils/dictUtils';
 
@@ -137,6 +249,9 @@
             { code: 'excelExport', icon: 'fa fa-download'}
           ]
         },
+        selectRow: {},
+        isList: true,
+        isShowDetail: false,
         vehicleFlag: false,
         transTypeFlag: false,
         sysOrgFlag: false,
@@ -204,6 +319,15 @@
     methods: {
       handleClick(tab, event) {
         this.showChange();
+      },
+      handleCloseDetail() {
+        this.isList = true
+        this.isShowDetail = false
+      },
+      handleShowDetail(row) {
+        Object.assign(this.selectRow, row);
+        this.isList = false
+        this.isShowDetail = true
       },
       showChange(){
         let showDefault = this.queryParams.showDefault;
@@ -371,6 +495,9 @@
 
   .item {
     margin-bottom: 18px;
+  }
+  .count {
+    color: red;
   }
 
   /* .box-card {

@@ -432,7 +432,7 @@ export default {
         //   minWidth: 100
         // },
         {
-          title: "车型",
+          title: "车型（单位：辆）",
           align: 'center',
           headerAlign: 'center',
           children: [
@@ -440,7 +440,7 @@ export default {
               field: "vehType1",
               title: "客一",
               align: 'right',
-    
+
               minWidth: 80
             },
             {
@@ -448,7 +448,7 @@ export default {
               title: "客二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -456,7 +456,7 @@ export default {
               title: "客三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -464,7 +464,7 @@ export default {
               title: "客四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -472,7 +472,7 @@ export default {
               title: "货一",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -480,7 +480,7 @@ export default {
               title: "货二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -488,7 +488,7 @@ export default {
               title: "货三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -496,7 +496,7 @@ export default {
               title: "货四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -504,7 +504,7 @@ export default {
               title: "货五",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -512,7 +512,7 @@ export default {
               title: "货六",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -520,7 +520,7 @@ export default {
               title: "专一",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -528,7 +528,7 @@ export default {
               title: "专二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -536,7 +536,7 @@ export default {
               title: "专三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -544,7 +544,7 @@ export default {
               title: "专四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -552,7 +552,7 @@ export default {
               title: "专五",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -560,7 +560,7 @@ export default {
               title: "专六",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -568,7 +568,7 @@ export default {
               title: "其他车型",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             }]
         }
@@ -605,7 +605,7 @@ export default {
         //   minWidth: 100
         // },
         {
-          title: "车种",
+          title: "车种（单位：辆）",
           align: 'center',
           headerAlign: 'center',
           children: [
@@ -613,7 +613,7 @@ export default {
               field: "vehClass0",
               title: "普通",
               align: 'right',
-    
+
               minWidth: 80
             },
             {
@@ -621,7 +621,7 @@ export default {
               title: "军警",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -629,7 +629,7 @@ export default {
               title: "紧急",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -637,7 +637,7 @@ export default {
               title: "车队",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -645,7 +645,7 @@ export default {
               title: "绿通车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -653,7 +653,7 @@ export default {
               title: "联合收割机",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -661,7 +661,7 @@ export default {
               title: "抢险救灾",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -669,7 +669,7 @@ export default {
               title: "J1类型集装箱",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -677,7 +677,7 @@ export default {
               title: "大件运输",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -685,7 +685,7 @@ export default {
               title: "应急车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -693,7 +693,7 @@ export default {
               title: "货车列车或半挂汽车列车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -701,7 +701,7 @@ export default {
               title: "J2类型集装箱",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             }]
         }
@@ -744,7 +744,7 @@ export default {
         //   minWidth: 100
         // },
         {
-          title: "车型趋势",
+          title: "车型趋势（单位：辆）",
           align: 'center',
           headerAlign: 'center',
           children: [
@@ -752,7 +752,7 @@ export default {
               field: "vehType1",
               title: "客一",
               align: 'right',
-    
+
               minWidth: 80
             },
             {
@@ -760,7 +760,7 @@ export default {
               title: "客二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -768,7 +768,7 @@ export default {
               title: "客三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -776,7 +776,7 @@ export default {
               title: "客四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -784,7 +784,7 @@ export default {
               title: "货一",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -792,7 +792,7 @@ export default {
               title: "货二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -800,7 +800,7 @@ export default {
               title: "货三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -808,7 +808,7 @@ export default {
               title: "货四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -816,7 +816,7 @@ export default {
               title: "货五",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -824,7 +824,7 @@ export default {
               title: "货六",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -832,7 +832,7 @@ export default {
               title: "专一",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -840,7 +840,7 @@ export default {
               title: "专二",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -848,7 +848,7 @@ export default {
               title: "专三",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -856,7 +856,7 @@ export default {
               title: "专四",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -864,7 +864,7 @@ export default {
               title: "专五",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -872,7 +872,7 @@ export default {
               title: "专六",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -880,7 +880,7 @@ export default {
               title: "其他车型",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             }]
         }
@@ -923,7 +923,7 @@ export default {
         //   minWidth: 100
         // },
         {
-          title: "车种趋势",
+          title: "车种趋势（单位：辆）",
           align: 'center',
           headerAlign: 'center',
           children: [
@@ -938,7 +938,7 @@ export default {
               title: "军警",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -946,7 +946,7 @@ export default {
               title: "紧急",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -954,7 +954,7 @@ export default {
               title: "车队",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -962,7 +962,7 @@ export default {
               title: "绿通车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -970,7 +970,7 @@ export default {
               title: "联合收割机",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -978,7 +978,7 @@ export default {
               title: "抢险救灾",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -986,7 +986,7 @@ export default {
               title: "J1类型集装箱",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -994,7 +994,7 @@ export default {
               title: "大件运输",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -1002,7 +1002,7 @@ export default {
               title: "应急车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -1010,7 +1010,7 @@ export default {
               title: "货车列车或半挂汽车列车",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             },
             {
@@ -1018,7 +1018,7 @@ export default {
               title: "J2类型集装箱",
               align: 'right',
               headerAlign: 'center',
-    
+
               minWidth: 80
             }]
         }
@@ -1043,7 +1043,7 @@ export default {
       // }else if(type === 'station')
       // {
       //  return roadStationColumnsTemp;
-      // }else 
+      // }else
       if(type === 'vehicleType')
       {
         otherColumnsTemp = this.vehicleTypeColumns;

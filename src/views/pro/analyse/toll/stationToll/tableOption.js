@@ -356,7 +356,7 @@ export default {
     //   minWidth: 100
     // },
     {
-      title: "车型",
+      title: "车型(单位:元)",
       align: 'center',
       headerAlign: 'center',
       children: [
@@ -523,7 +523,7 @@ export default {
     //   minWidth: 100
     // },
     {
-      title: "车种",
+      title: "车种(单位:元)",
       align: 'center',
       headerAlign: 'center',
       children: [
@@ -650,7 +650,7 @@ export default {
     //   minWidth: 100
     // },
     {
-      title: "车型趋势",
+      title: "车型趋势(单位:元)",
       align: 'center',
       headerAlign: 'center',
       children: [
@@ -817,7 +817,7 @@ export default {
     //   minWidth: 100
     // },
     {
-      title: "车种趋势",
+      title: "车种趋势(单位:元)",
       align: 'center',
       headerAlign: 'center',
       children: [

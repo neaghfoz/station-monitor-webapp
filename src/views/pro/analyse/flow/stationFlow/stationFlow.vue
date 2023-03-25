@@ -269,8 +269,8 @@
         }
         // param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
         // param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
-        params.startDate = "2022-09-01";
-        params.endDate = "2022-09-02";
+        // params.startDate = "2022-09-01";
+        // params.endDate = "2022-09-02";
 
         await tableOption.getData(type,
           {},

@@ -295,16 +295,16 @@
             param.trend='true';
             // param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
             // param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
-            this.queryParams.startDate = "2022-09-01";
-            this.queryParams.endDate = "2022-09-02";
+            // this.queryParams.startDate = "2022-09-01";
+            // this.queryParams.endDate = "2022-09-02";
           }else {
             param.trend ='false';
           }
-          
+
           console.log("param:",param)
           const res = await getData (param);
           if(res.code==200){
-            
+
             this.dataSource = res.data
 
           }
@@ -340,7 +340,7 @@
                 this.checkVehicleType(todayData)
                 this.checkVehicleType(compareData)
               }
-              
+
               Object.assign(compareData,yesterdayData);
               // 创建一个新的对象，里面的字段和yesterdayData一样，值是todayData的值除以yesterdayData的值的百分比
               for(var key in yesterdayData){
@@ -357,7 +357,7 @@
               }
               todayData['naturalDate'] = '今天'
               yesterdayData['naturalDate'] = '昨天'
-              
+
               xdata.push(yesterdayData)
               xdata.push(todayData)
               xdata.push(compareData)

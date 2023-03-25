@@ -312,8 +312,8 @@
             param.trend='true';
             // param.startDate = dateUtil.getNextDate(new Date(), 'days', 1, 'YYYY-MM-DD'),
             // param.endDate = dateUtil.getNextDate(new Date(), 'days', 0, 'YYYY-MM-DD')
-            this.queryParams.startDate = "2022-09-01";
-            this.queryParams.endDate = "2022-09-02";
+            // this.queryParams.startDate = "2022-09-01";
+            // this.queryParams.endDate = "2022-09-02";
           }else {
             param.trend ='false';
           }

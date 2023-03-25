@@ -323,6 +323,7 @@
           const res = await getData(param);
           if(res.code==200){
             this.dataSource = res.data
+            this.table.page.total = res.data.total
           }
           this.table.loading = false
         }

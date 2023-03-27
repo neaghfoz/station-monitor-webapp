@@ -1323,9 +1323,9 @@ console.log(this.queryParams)
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
         console.log('连接发生关闭！11111')
-        // setTimeout(function() {
-        //   window.reConnect(index)
-        // }, 2000)
+        setTimeout(function() {
+          window.reConnect(index)
+        }, 120000)
       }
       // 接收到消息的回调方法
       websocket.onmessage = function(event) {
@@ -1403,9 +1403,9 @@ console.log(this.queryParams)
           imgParaRh.src = 'lane/monitor/webClose.bmp'
         }
         console.log('连接发生关闭！22222')
-        // setTimeout(function() {
-        //   window.reConnect(index)
-        // }, 2000)
+        setTimeout(function() {
+          window.reConnect(index)
+        }, 120000)
       }
       // 接收到消息的回调方法
       websocket.onmessage = function(event) {

@@ -1,6 +1,6 @@
 <template style="'background-color': '#e7e7e8'">
   <div id="laneMonitor" class="app-container" >
-    <!--<div id = 'devDiv' ></div>-->
+    <div id = 'devDiv' ></div>
     <!--<div class="search-form">-->
 
       <!--<el-form ref="searchForm" :model="queryParams" inline :label-width="'100px'">-->
@@ -2292,8 +2292,8 @@ console.log(this.queryParams)
     openDevDialog(obj) {
       // 移除前一个弹窗
       if (window.DevDialogVue) {
-        window.DevDialogVue.$el.parentNode.removeChild(window.DevDialogVue.$el)
         window.DevDialogVue.$destroy(true)
+        if(window.DevDialogVue.$el.parentNode) window.DevDialogVue.$el.parentNode.removeChild(window.DevDialogVue.$el)
         window.DevDialogVue = null
         return
       }

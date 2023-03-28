@@ -1190,7 +1190,7 @@ console.log(this.queryParams)
     devOperWindow(index) {
       // 判断车道连接状态
       const connetInfo = connetIPMap[index]
-      console.log("devOperWindow")
+      console.log("devOperWindow" + connetInfo)
 //需要删除开始 20220623
 //        const DevDialogVue = this.openDevDialog(connetInfo)
 //           if (DevDialogVue) {
@@ -2292,8 +2292,8 @@ console.log(this.queryParams)
     openDevDialog(obj) {
       // 移除前一个弹窗
       if (window.DevDialogVue) {
-        window.DevDialogVue.$destroy(true)
         window.DevDialogVue.$el.parentNode.removeChild(window.DevDialogVue.$el)
+        window.DevDialogVue.$destroy(true)
         window.DevDialogVue = null
         return
       }

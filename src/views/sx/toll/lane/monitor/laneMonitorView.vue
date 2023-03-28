@@ -2293,7 +2293,7 @@ console.log(this.queryParams)
       // 移除前一个弹窗
       if (window.DevDialogVue) {
         window.DevDialogVue.$destroy(true)
-        if(window.DevDialogVue.$el.parentNode) window.DevDialogVue.$el.parentNode.removeChild(window.DevDialogVue.$el)
+        window.DevDialogVue.$el.parentNode.removeChild(window.DevDialogVue.$el)
         window.DevDialogVue = null
         return
       }

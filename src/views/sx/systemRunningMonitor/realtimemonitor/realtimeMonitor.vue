@@ -94,9 +94,11 @@
                 :columns="columns"
                 :data="table.datas"
                 :span-method="mergeRowMethod"
+                @checkbox-all="({ selection }) => { selections = selection }"
+                @checkbox-change="({ selection }) => { selections = selection }"
       >
       </vxe-grid>
-      <div ref="myChart" style="height:500px;" v-show="queryParams.showDefault=='chart'"></div>
+<!--      <div ref="myChart" style="height:500px;" v-show="queryParams.showDefault=='chart'"></div>-->
     </div>
   </div>
 </template>
@@ -121,9 +123,15 @@
     data() {
       return {
         tableToolbar: {
-          buttons: [
-            { code: 'excelExport', icon: 'fa fa-download'}
-          ]
+          zoom: true, // 最大化按钮
+          // 列宽操作记录
+          resizable: {
+            storage: true
+          },
+          // 列操作记录
+          setting: {
+            storage: true
+          }
         },
         vehicleFlag: false,
         transTypeFlag: false,
@@ -165,11 +173,7 @@
           },
           datas: []
         },
-        tableToolbar: {
-          buttons: [
-            {code: 'excelExport', icon: 'fa fa-download'}
-          ]
-        },
+        selections: []
       }
     },
     created() {

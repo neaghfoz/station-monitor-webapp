@@ -6,7 +6,7 @@
           <ti-sys-org ref="sysOrg" v-model="queryParams.sysOrgIdStr" default-first-value/>
         </el-form-item>
         <el-form-item label="工班日期" prop="dates">
-          <ti-date v-model="queryParams.dayStr"
+          <ti-date v-model="queryParams.collectDate"
                    dateType="date" :clearable="false"
                    format="yyyy-MM-dd" value-format="yyyy-MM-dd"/>
         </el-form-item>
@@ -138,10 +138,13 @@ export default {
         //用户level
         let userAuth = await reportUtil.getUserAuth(sysOrg);
         this.queryParams.roadIdStr = userAuth.roadIdStr;
+        // this.queryParams.roadNo = '53';
+        // this.queryParams.stationNo = '7';
+        // this.queryParams.collectDate = '2022-08-01';
         this.queryParams.level = userAuth.level;
         this.queryParams.stationIdStr = userAuth.stationIdStr;
         this.reportUrl = fineReportUtil.getUrl(
-          '/ReportServer?reportlet=report/kpi/rpt_kpi_001_01_收费站运行质量报表.cpt&__filename__=出口车道结账表' + XEUtils.toDateString(new Date(), 'yyyyMMddmmddss'),
+          '/ReportServer?reportlet=report/kpi/rpt_kpi_001_01_收费站运行质量报表.cpt&__filename__=收费站运行质量表' + XEUtils.toDateString(new Date(), 'yyyyMMddmmddss'),
           this.queryParams);
 
         //更新查询统计次数

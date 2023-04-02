@@ -2,7 +2,7 @@ import request from 'ecip-web/utils/request'
 
 export const getData = (data) => {
   return request({
-    url: '/api/v1/analyse/list/stationKpi/findStationKpiStat',
+    url: '/api/v1/metrics/list/realtimeList',
     method: 'post',
     data: data
   })
@@ -10,7 +10,7 @@ export const getData = (data) => {
 
 export const findPage = (params, data) => {
   return request({
-    url: '/api/v1/metrics/list/stationKpi/findStationKpiStat',
+    url: '/api/v1/metrics/list/realtimeList',
     method: 'post',
     params: params,
     data: data
